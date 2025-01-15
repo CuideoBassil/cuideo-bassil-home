@@ -12,7 +12,7 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <Wrapper>
-      <HeaderTwo style_2={true} />
+      {/* <HeaderTwo style_2={true} /> */}
       <ContactBreadcrumb />
       <ContactArea/>
       <ContactMap/>

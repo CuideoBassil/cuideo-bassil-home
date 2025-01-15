@@ -1,5 +1,4 @@
 import BannerArea from "@/components/banner/banner-area";
-import BlogArea from "@/components/blog/electronic/blog-area";
 import ElectronicCategory from "@/components/categories/electronic-category";
 import CtaArea from "@/components/cta/cta-area";
 import FeatureArea from "@/components/features/feature-area";
@@ -12,28 +11,26 @@ import ProductBanner from "@/components/products/electronics/product-banner";
 import ProductGadgetArea from "@/components/products/electronics/product-gadget-area";
 import ProductSmArea from "@/components/products/electronics/product-sm-area";
 import Footer from "@/layout/footers/footer";
-import Header from "@/layout/headers/header";
 import Wrapper from "@/layout/wrapper";
-
 
 export default function HomePage() {
   return (
     <Wrapper>
-      <Header/>
-      <HomeHeroSlider/>
-      <ElectronicCategory/>
-      <FeatureArea/>
-      <ProductArea/>
-      <BannerArea/>
-      <OfferProducts/>
-      <ProductGadgetArea/>
-      <ProductBanner/>
-       <NewArrivals/>
-      <ProductSmArea/>
-      <BlogArea/>
-      <InstagramArea/>
-      <CtaArea/>
-      <Footer/>
+      {/* <Header/> */}
+      <HomeHeroSlider />
+      <ElectronicCategory />
+      <FeatureArea />
+      <ProductArea />
+      <BannerArea />
+      <OfferProducts />
+      <ProductGadgetArea />
+      <ProductBanner />
+      <NewArrivals />
+      <ProductSmArea />
+      {/* <BlogArea/> */}
+      <InstagramArea />
+      {/* <CtaArea /> */}
+      {/* <Footer /> */}
     </Wrapper>
-  )
+  );
 }

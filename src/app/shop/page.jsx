@@ -11,7 +11,7 @@ export const metadata = {
 export default function ShopPage() {
   return (
     <Wrapper>
-      <HeaderTwo style_2={true} />
+      {/* <HeaderTwo style_2={true} /> */}
       <ShopBreadcrumb title="Shop Grid" subtitle="Shop Grid" />
       <ShopArea/>
       <Footer primary_style={true} />

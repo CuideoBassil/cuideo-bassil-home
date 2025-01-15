@@ -1,13 +1,13 @@
-'use client';
-import React, { useState, useEffect } from "react";
-import DetailsThumbWrapper from "./details-thumb-wrapper";
-import DetailsWrapper from "./details-wrapper";
+"use client";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import DetailsTabNav from "./details-tab-nav";
+import DetailsThumbWrapper from "./details-thumb-wrapper";
+import DetailsWrapper from "./details-wrapper";
 import RelatedProducts from "./related-products";
 
 const ProductDetailsContent = ({ productItem }) => {
-  const { _id, img, imageURLs, videoId,status } = productItem || {};
+  const { _id, img, imageURLs, videoId, status } = productItem || {};
   const [activeImg, setActiveImg] = useState(img);
   const dispatch = useDispatch();
   // active image change when img change
@@ -68,7 +68,7 @@ const ProductDetailsContent = ({ productItem }) => {
         <div className="container">
           <div className="row">
             <div className="tp-section-title-wrapper-6 text-center mb-40">
-              <span className="tp-section-title-pre-6">Next day Products</span>
+              {/* <span className="tp-section-title-pre-6">Next day Products</span> */}
               <h3 className="tp-section-title-6">Related Products</h3>
             </div>
           </div>

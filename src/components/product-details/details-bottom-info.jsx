@@ -1,9 +1,9 @@
-'use client';
+"use client";
 import React from "react";
 import Image from "next/image";
-import payment_option_img from '@assets/img/product/icons/payment-option.png';
+import payment_option_img from "@assets/img/product/icons/payment-option.png";
 
-const DetailsBottomInfo = ({sku,category,tag}) => {
+const DetailsBottomInfo = ({ sku, category, tag }) => {
   return (
     <>
       {/* product-details-query */}
@@ -24,7 +24,7 @@ const DetailsBottomInfo = ({sku,category,tag}) => {
 
       {/*  product-details-social*/}
 
-      <div className="tp-product-details-social">
+      {/* <div className="tp-product-details-social">
         <span>Share: </span>
         <a href="#">
           <i className="fa-brands fa-facebook-f"></i>
@@ -38,23 +38,23 @@ const DetailsBottomInfo = ({sku,category,tag}) => {
         <a href="#">
           <i className="fa-brands fa-vimeo-v"></i>
         </a>
-      </div>
+      </div> */}
 
       {/* product-details-msg */}
 
-      <div className="tp-product-details-msg mb-15">
+      {/* <div className="tp-product-details-msg mb-15">
         <ul>
           <li>30 days easy returns</li>
           <li>Order yours before 2.30pm for same day dispatch</li>
         </ul>
-      </div>
+      </div> */}
       {/* product-details-payment */}
-      <div className="tp-product-details-payment d-flex align-items-center flex-wrap justify-content-between">
+      {/* <div className="tp-product-details-payment d-flex align-items-center flex-wrap justify-content-between">
         <p>
           Guaranteed safe <br /> & secure checkout
         </p>
         <Image src={payment_option_img} alt="payment_option_img" />
-      </div>
+      </div> */}
     </>
   );
 };

@@ -1,19 +1,19 @@
-'use client';
+"use client";
 // external
-import React, { useState } from "react";
-import { Navigation, Pagination, EffectFade } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { EffectFade, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 // internal
-import slider_img_1 from "@assets/img/slider/slider-img-1.png";
-import slider_img_2 from "@assets/img/slider/slider-img-2.png";
-import slider_img_3 from "@assets/img/slider/slider-img-3.png";
+import { ArrowRightLong, SliderNextBtn, SliderPrevBtn, TextShape } from "@/svg";
 import shape_1 from "@assets/img/slider/shape/slider-shape-1.png";
 import shape_2 from "@assets/img/slider/shape/slider-shape-2.png";
 import shape_3 from "@assets/img/slider/shape/slider-shape-3.png";
 import shape_4 from "@assets/img/slider/shape/slider-shape-4.png";
-import { ArrowRightLong, SliderNextBtn, SliderPrevBtn, TextShape } from "@/svg";
+import slider_img_1 from "@assets/img/slider/slider-img-1.png";
+import slider_img_2 from "@assets/img/slider/slider-img-2.png";
+import slider_img_3 from "@assets/img/slider/slider-img-3.png";
 
 // slider data
 const sliderData = [
@@ -57,29 +57,33 @@ const sliderData = [
 
 function Shape({ img, num }) {
   return (
-    <Image className={`tp-slider-shape-${num}`} src={img} alt="slider-shape" priority />
+    <Image
+      className={`tp-slider-shape-${num}`}
+      src={img}
+      alt="slider-shape"
+      priority
+    />
   );
 }
 
 const HomeHeroSlider = () => {
-  const [active,setActive] = useState(false);
+  const [active, setActive] = useState(false);
 
   // handleActiveIndex
   const handleActiveIndex = (index) => {
-    if(index === 2){
-      setActive(true)
+    if (index === 2) {
+      setActive(true);
+    } else {
+      setActive(false);
     }
-    else {
-      setActive(false)
-    }
-  }
+  };
   return (
     <>
       <section className="tp-slider-area p-relative z-index-1">
         <Swiper
           slidesPerView={1}
           spaceBetween={30}
-          loop={false}
+          loop={true}
           effect="fade"
           navigation={{
             nextEl: ".tp-slider-button-next",
@@ -128,9 +132,11 @@ const HomeHeroSlider = () => {
                       </p>
 
                       <div className="tp-slider-btn">
-                        <Link href="/shop" className="tp-btn tp-btn-2 tp-btn-white">
-                          Shop Now
-                          {" "} <ArrowRightLong />
+                        <Link
+                          href="/shop"
+                          className="tp-btn tp-btn-2 tp-btn-white"
+                        >
+                          Shop Now <ArrowRightLong />
                         </Link>
                       </div>
                     </div>

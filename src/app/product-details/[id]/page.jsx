@@ -10,9 +10,9 @@ export const metadata = {
 export default function ProductDetailsPage({ params }) {
   return (
     <Wrapper>
-      <HeaderTwo style_2={true} />
+      {/* <HeaderTwo style_2={true} /> */}
       <ProductDetailsArea id={params.id} />
-      <Footer primary_style={true} />
+      {/* <Footer primary_style={true} /> */}
     </Wrapper>
   );
 }

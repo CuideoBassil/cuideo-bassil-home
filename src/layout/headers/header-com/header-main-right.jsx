@@ -1,10 +1,9 @@
 'use client';
-import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 // internal
 import useCartInfo from "@/hooks/use-cart-info";
 import { openCartMini } from "@/redux/features/cartSlice";
-import { CartTwo, Compare, Menu } from "@/svg";
+import { CartTwo, Menu } from "@/svg";
 
 const HeaderMainRight = ({ setIsCanvasOpen }) => {
   const { user: userInfo } = useSelector((state) => state.auth);
@@ -52,11 +51,11 @@ const HeaderMainRight = ({ setIsCanvasOpen }) => {
         </div>
       </div>
       <div className="tp-header-action d-flex align-items-center ml-50">
-        <div className="tp-header-action-item d-none d-lg-block">
+        {/* <div className="tp-header-action-item d-none d-lg-block">
           <Link href="/compare" className="tp-header-action-btn">
             <Compare />
           </Link>
-        </div>
+        </div> */}
         {/* <div className="tp-header-action-item d-none d-lg-block">
           <Link href="/wishlist" className="tp-header-action-btn">
             <Wishlist />
