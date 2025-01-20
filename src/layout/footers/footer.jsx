@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 // internal
 import social_data from "@/data/social-data";
-import { Email, Location } from "@/svg";
+import { Location } from "@/svg";
 import logo from "@assets/img/logo/logo.png";
 
 const Footer = ({
@@ -48,8 +48,8 @@ const Footer = ({
                       </Link>
                     </div>
                     <p className="tp-footer-desc">
-                      We are a team of designers and developers that create high
-                      quality WordPress
+                      A home where international brands took hold, delighted by
+                      the best quality service in the area.
                     </p>
                     <div className="tp-footer-social">
                       {social_data.map((s) => (
@@ -122,11 +122,11 @@ const Footer = ({
                     <div className="tp-footer-talk mb-20">
                       <span>Got Questions? Call us</span>
                       <h4>
-                        <a href="tel:96181342284">96181342284</a>
+                        <a href="tel:96181342284">81-342284</a>
                       </h4>
                     </div>
                     <div className="tp-footer-contact">
-                      <div className="tp-footer-contact-item d-flex align-items-start">
+                      {/* <div className="tp-footer-contact-item d-flex align-items-start">
                         <div className="tp-footer-contact-icon">
                           <span>
                             <Email />
@@ -139,7 +139,7 @@ const Footer = ({
                             </a>
                           </p>
                         </div>
-                      </div>
+                      </div> */}
                       <div className="tp-footer-contact-item d-flex align-items-start">
                         <div className="tp-footer-contact-icon">
                           <span>
@@ -149,10 +149,10 @@ const Footer = ({
                         <div className="tp-footer-contact-content">
                           <p>
                             <a
-                              href="https://www.google.com/maps/place/Sleepy+Hollow+Rd,+Gouverneur,+NY+13642,+USA/@44.3304966,-75.4552367,17z/data=!3m1!4b1!4m6!3m5!1s0x4cccddac8972c5eb:0x56286024afff537a!8m2!3d44.3304928!4d-75.453048!16s%2Fg%2F1tdsjdj4"
+                              href="https://maps.app.goo.gl/4suRFSc5GmxwDPmW6"
                               target="_blank"
                             >
-                              79 Sleepy Hollow St. <br /> Jamaica, New York 1432
+                              Okaibe, sea side road <br /> Facing Byblos bank
                             </a>
                           </p>
                         </div>

@@ -1,17 +1,16 @@
-'use client';
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
-import NiceSelect from "@/ui/nice-select";
+"use client";
 import ErrorMsg from "@/components/common/error-msg";
 import SearchPrdLoader from "@/components/loader/search-prd-loader";
 import ProductItem from "@/components/products/fashion/product-item";
 import { useGetAllProductsQuery } from "@/redux/features/productApi";
-
+import NiceSelect from "@/ui/nice-select";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 export default function SearchArea() {
   const searchParams = useSearchParams();
-  const searchText = searchParams.get('searchText');
-  const productType = searchParams.get('productType');
+  const searchText = searchParams.get("searchText");
+  const productType = searchParams.get("productType");
   const { data: products, isError, isLoading } = useGetAllProductsQuery();
   const [shortValue, setShortValue] = useState("");
   const perView = 8;
@@ -46,37 +45,54 @@ export default function SearchArea() {
     let product_items = all_products;
 
     if (searchText && !productType) {
-      product_items = all_products.filter((prd) =>
-        prd.title.toLowerCase().includes(searchText.toLowerCase())
+      product_items = all_products.filter(
+        (prd) =>
+          prd.title.toLowerCase().includes(searchText.toLowerCase()) ||
+          prd.tags.some((tag) =>
+            tag.toLowerCase().includes(searchText.toLowerCase())
+          )
       );
     }
+
     if (searchText && productType) {
-      product_items = all_products.filter(
-        (prd) => prd.productType.toLowerCase() === productType.toLowerCase()
-      ).filter(p => p.title.toLowerCase().includes(searchText.toLowerCase()));
+      product_items = all_products
+        .filter(
+          (prd) => prd.productType.toLowerCase() === productType.toLowerCase()
+        )
+        .filter(
+          (prd) =>
+            prd.title.toLowerCase().includes(searchText.toLowerCase()) ||
+            prd.tags.some((tag) =>
+              tag.toLowerCase().includes(searchText.toLowerCase())
+            )
+        );
     }
-     // Price low to high
-     if (shortValue === "Price low to high") {
+
+    // Price low to high
+    if (shortValue === "Price low to high") {
       product_items = product_items
         .slice()
         .sort((a, b) => Number(a.price) - Number(b.price));
     }
+
     // Price high to low
     if (shortValue === "Price high to low") {
       product_items = product_items
         .slice()
         .sort((a, b) => Number(b.price) - Number(a.price));
     }
+
     if (product_items.length === 0) {
       content = (
         <div className="text-center pt-80 pb-80">
-          <h3>Sorry, nothing matched <span style={{color:'#0989FF'}}>{searchText}</span> search terms</h3>
+          <h3>
+            Sorry, nothing matched{" "}
+            <span style={{ color: "#0989FF" }}>{searchText}</span> search terms
+          </h3>
         </div>
       );
-    }
-
-    else {
-      content = ( 
+    } else {
+      content = (
         <>
           <section className="tp-shop-area pb-120">
             <div className="container">
@@ -86,22 +102,32 @@ export default function SearchArea() {
                     <div className="tp-shop-top mb-45">
                       <div className="row">
                         <div className="col-xl-6">
-
                           <div className="tp-shop-top-left d-flex align-items-center ">
                             <div className="tp-shop-top-result">
-                              <p>Showing 1–{product_items.length} of {all_products.length} results</p>
+                              <p>
+                                Showing 1–{product_items.length} of{" "}
+                                {all_products.length} results
+                              </p>
                             </div>
                           </div>
-
                         </div>
                         <div className="col-xl-6">
                           <div className="tp-shop-top-right d-sm-flex align-items-center justify-content-xl-end">
                             <div className="tp-shop-top-select">
                               <NiceSelect
                                 options={[
-                                  { value: "Short By Price", text: "Short By Price" },
-                                  { value: "Price low to high", text: "Price low to high" },
-                                  { value: "Price high to low", text: "Price high to low" },
+                                  {
+                                    value: "Short By Price",
+                                    text: "Short By Price",
+                                  },
+                                  {
+                                    value: "Price low to high",
+                                    text: "Price low to high",
+                                  },
+                                  {
+                                    value: "Price high to low",
+                                    text: "Price high to low",
+                                  },
                                 ]}
                                 defaultCurrent={0}
                                 onChange={shortHandler}
@@ -109,30 +135,30 @@ export default function SearchArea() {
                               />
                             </div>
                           </div>
-
                         </div>
                       </div>
                     </div>
-                    
-                      <div className="tp-shop-items-wrapper tp-shop-item-primary">
-                        <div className="row">
-                          {product_items
-                            .slice(0, next)
-                            ?.map((item) => (
-                              <div
-                                key={item._id}
-                                className="col-xl-3 col-lg-4 col-md-6 col-sm-6"
-                              >
-                                <ProductItem product={item} />
-                              </div>
-                            ))}
-                        </div>
+
+                    <div className="tp-shop-items-wrapper tp-shop-item-primary">
+                      <div className="row">
+                        {product_items.slice(0, next)?.map((item) => (
+                          <div
+                            key={item._id}
+                            className="col-xl-3 col-lg-4 col-md-6 col-sm-6"
+                          >
+                            <ProductItem product={item} />
+                          </div>
+                        ))}
                       </div>
+                    </div>
 
                     {/* load more btn start */}
                     {next < product_items?.length && (
                       <div className="load-more-btn text-center pt-50">
-                        <button onClick={handleLoadMore} className="tp-btn tp-btn-2 tp-btn-blue">
+                        <button
+                          onClick={handleLoadMore}
+                          className="tp-btn tp-btn-2 tp-btn-blue"
+                        >
                           Load More
                         </button>
                       </div>
@@ -147,9 +173,6 @@ export default function SearchArea() {
       );
     }
   }
-  return (
-    <>
-     {content}
-    </>
-  )
+
+  return <>{content}</>;
 }

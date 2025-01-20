@@ -1,9 +1,6 @@
 "use client";
-import React from "react";
-import Image from "next/image";
-import payment_option_img from "@assets/img/product/icons/payment-option.png";
 
-const DetailsBottomInfo = ({ sku, category, tag }) => {
+const DetailsBottomInfo = ({ sku, category, tags }) => {
   return (
     <>
       {/* product-details-query */}
@@ -16,9 +13,16 @@ const DetailsBottomInfo = ({ sku, category, tag }) => {
           <span>Category: </span>
           <p>{category}</p>
         </div>
-        <div className="tp-product-details-query-item d-flex align-items-center">
-          <span>Tag: </span>
-          <p>{tag}</p>
+        <div className="tp-product-details-query-item d-flex ">
+          <span>Tags: </span>
+          <p>
+            {tags.map((tag, index) => (
+              <span key={index}>
+                {tag}
+                {index < tags.length - 1 && ", "}
+              </span>
+            ))}
+          </p>
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import * as dayjs from "dayjs";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,10 @@ import useCartInfo from "./use-cart-info";
 import { set_shipping } from "@/redux/features/order/orderSlice";
 import { set_coupon } from "@/redux/features/coupon/couponSlice";
 import { notifyError, notifySuccess } from "@/utils/toast";
-import {useCreatePaymentIntentMutation,useSaveOrderMutation} from "@/redux/features/order/orderApi";
+import {
+  useCreatePaymentIntentMutation,
+  useSaveOrderMutation,
+} from "@/redux/features/order/orderApi";
 import { useGetOfferCouponsQuery } from "@/redux/features/coupon/couponApi";
 
 const useCheckoutSubmit = () => {
@@ -52,14 +55,19 @@ const useCheckoutSubmit = () => {
   // showCard
   const [showCard, setShowCard] = useState(false);
   // coupon apply message
-  const [couponApplyMsg,setCouponApplyMsg] = useState("");
+  const [couponApplyMsg, setCouponApplyMsg] = useState("");
 
   const dispatch = useDispatch();
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
 
-  const {register,handleSubmit,setValue,formState: { errors }} = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   let couponRef = useRef("");
 
@@ -119,7 +127,7 @@ const useCheckoutSubmit = () => {
           setClientSecret(data?.data?.clientSecret);
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     }
   }, [createPaymentIntent, cartTotal]);
@@ -161,14 +169,16 @@ const useCheckoutSubmit = () => {
       // notifySuccess(
       //   `Your Coupon ${result[0].title} is Applied on ${result[0].productType}!`
       // );
-      setCouponApplyMsg(`Your Coupon ${result[0].title} is Applied on ${result[0].productType} productType!`)
+      setCouponApplyMsg(
+        `Your Coupon ${result[0].title} is Applied on ${result[0].productType} productType!`
+      );
       setMinimumAmount(result[0]?.minimumAmount);
       setDiscountProductType(result[0].productType);
       setDiscountPercentage(result[0].discountPercentage);
       dispatch(set_coupon(result[0]));
       setTimeout(() => {
         couponRef.current.value = "";
-        setCouponApplyMsg("")
+        setCouponApplyMsg("");
       }, 5000);
     }
   };
@@ -212,10 +222,10 @@ const useCheckoutSubmit = () => {
       shippingCost: shippingCost,
       discount: discountAmount,
       totalAmount: cartTotal,
-      orderNote:data.orderNote,
+      orderNote: data.orderNote,
       user: `${user?._id}`,
     };
-    if (data.payment === 'Card') {
+    if (data.payment === "Card") {
       if (!stripe || !elements) {
         return;
       }
@@ -224,45 +234,43 @@ const useCheckoutSubmit = () => {
         return;
       }
       const { error, paymentMethod } = await stripe.createPaymentMethod({
-        type: 'card',
+        type: "card",
         card: card,
       });
       if (error && !paymentMethod) {
         setCardError(error.message);
         setIsCheckoutSubmit(false);
       } else {
-        setCardError('');
+        setCardError("");
         const orderData = {
           ...orderInfo,
           cardInfo: paymentMethod,
         };
 
-       return handlePaymentWithStripe(orderData);
+        return handlePaymentWithStripe(orderData);
       }
     }
-    if (data.payment === 'COD') {
+    if (data.payment === "COD") {
       saveOrder({
-        ...orderInfo
-      }).then(res => {
-        if(res?.error){
-        }
-        else {
-          localStorage.removeItem("cart_products")
+        ...orderInfo,
+      }).then((res) => {
+        if (res?.error) {
+        } else {
+          localStorage.removeItem("cart_products");
           localStorage.removeItem("couponInfo");
-          setIsCheckoutSubmit(false)
+          setIsCheckoutSubmit(false);
           notifySuccess("Your Order Confirmed!");
           router.push(`/order/${res.data?.order?._id}`);
         }
-      })
+      });
     }
   };
 
   // handlePaymentWithStripe
   const handlePaymentWithStripe = async (order) => {
     try {
-      const {paymentIntent, error:intentErr} = await stripe.confirmCardPayment(
-        clientSecret,
-        {
+      const { paymentIntent, error: intentErr } =
+        await stripe.confirmCardPayment(clientSecret, {
           payment_method: {
             card: elements.getElement(CardElement),
             billing_details: {
@@ -270,8 +278,7 @@ const useCheckoutSubmit = () => {
               email: user?.email,
             },
           },
-        },
-      );
+        });
       if (intentErr) {
         notifyError(intentErr.message);
       } else {
@@ -284,20 +291,17 @@ const useCheckoutSubmit = () => {
       };
 
       saveOrder({
-        ...orderData
-      })
-      .then((result) => {
-          if(result?.error){
-          }
-          else {
-            localStorage.removeItem("couponInfo");
-            notifySuccess("Your Order Confirmed!");
-            router.push(`/order/${result.data?.order?._id}`);
-          }
-        })
-       } 
-    catch (err) {
-      console.log(err);
+        ...orderData,
+      }).then((result) => {
+        if (result?.error) {
+        } else {
+          localStorage.removeItem("couponInfo");
+          notifySuccess("Your Order Confirmed!");
+          router.push(`/order/${result.data?.order?._id}`);
+        }
+      });
+    } catch (err) {
+      console.error(err);
     }
   };
 

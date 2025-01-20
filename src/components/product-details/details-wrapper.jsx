@@ -205,7 +205,7 @@ const DetailsWrapper = ({
       {/* product-details-action-sm end */}
 
       {detailsBottom && (
-        <DetailsBottomInfo category={category?.name} sku={sku} tag={tags[0]} />
+        <DetailsBottomInfo category={category?.name} sku={sku} tags={tags} />
       )}
     </div>
   );

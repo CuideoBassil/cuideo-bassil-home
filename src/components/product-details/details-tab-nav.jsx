@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import ReviewForm from "../forms/review-form";
 import ReviewItem from "./review-item";
 
@@ -146,8 +146,8 @@ const DetailsTabNav = ({ product }) => {
                       Review this product
                     </h3>
                     <p>
-                      Your email address will not be published. Required fields
-                      are marked *
+                      Your email address and phone number will not be published.
+                      Required fields are marked *
                     </p>
                     {/* form start */}
                     <ReviewForm product_id={_id} />

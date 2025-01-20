@@ -1,35 +1,61 @@
-'use client';
-import React from "react";
-import Link from "next/link";
+"use client";
 // internal
-import { ArrowRight } from "@/svg";
-import banner_1 from "@assets/img/product/banner/product-banner-1.jpg";
-import banner_2 from "@assets/img/product/banner/product-banner-2.jpg";
-
+import { useGetFeaturedBySectionQuery } from "@/redux/features/featuredApi";
+import Image from "next/image";
+import ErrorMsg from "../common/error-msg";
+import { HomeTwoPrdLoader } from "../loader";
 
 // banner item
-function BannerItem({ sm = false, bg, title }) {
+function BannerItem({ bg, title, description, img }) {
   return (
     <div
-      className={`tp-banner-item ${
-        sm ? "tp-banner-item-sm" : ""
-      } tp-banner-height p-relative mb-30 z-index-1 fix`}
+      className={`tp-banner-item  tp-banner-height p-relative mb-30 z-index-1 fix`}
     >
       <div
         className="tp-banner-thumb include-bg transition-3"
-        style={{ backgroundImage: `url(${bg.src})` }}
-      ></div>
-      <div className="tp-banner-content">
-        {!sm && <span>Sale 20% off all store</span>}
-        <h3 className="tp-banner-title">
-          <Link href="/shop">{title}</Link>
-        </h3>
-        {sm && <p>Sale 35% off</p>}
-        <div className="tp-banner-btn">
-          <Link href="/shop" className="tp-link-btn">
-            Shop Now
-            <ArrowRight />
-          </Link>
+        style={{
+          backgroundColor: `${bg}`,
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center",
+          padding: "5%",
+        }}
+      >
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-7">
+              <div className="tp-slider-content p-relative z-index-1">
+                <h3
+                  style={{
+                    fontSize: "24px",
+                    color: "black",
+                  }}
+                  className="tp-slider-title"
+                >
+                  {title}
+                </h3>
+                <p
+                  style={{
+                    fontSize: "18px",
+                    color: "black",
+                  }}
+                >
+                  {description}
+                </p>
+              </div>
+            </div>
+            <div className="col-lg-5">
+              <div className="tp-slider-thumb text-end">
+                <Image
+                  width={220}
+                  height={220}
+                  src={img}
+                  alt="slider-img"
+                  className="object-contain w-fit"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -37,35 +63,43 @@ function BannerItem({ sm = false, bg, title }) {
 }
 
 const BannerArea = () => {
-  return (
-    <section className="tp-banner-area pb-70">
-      <div className="container">
-        <div className="row">
-          <div className="col-xl-8 col-lg-7">
-            <BannerItem
-              bg={banner_1}
-              title={
-                <>
-                  Smartphone <br /> BLU G91 Pro 2022
-                </>
-              }
-            />
-          </div>
-          <div className="col-xl-4 col-lg-5">
-            <BannerItem
-              sm={true}
-              bg={banner_2}
-              title={
-                <>
-                  HyperX Cloud II <br /> Wireless
-                </>
-              }
-            />
+  const {
+    data: featured,
+    isError,
+    isLoading,
+  } = useGetFeaturedBySectionQuery(2);
+  let content = null;
+  if (isLoading) {
+    content = <HomeTwoPrdLoader loading={isLoading} />;
+  }
+  if (!isLoading && isError) {
+    content = <ErrorMsg msg="There was an error" />;
+  }
+  if (!isLoading && !isError && featured?.data?.length === 0) {
+    content = <ErrorMsg msg="No Featured found!" />;
+  }
+  if (!isLoading && !isError && featured?.data?.length > 0) {
+    const featured_items = featured.data;
+
+    return (
+      <section className="tp-banner-area pb-70">
+        <div className="container">
+          <div className="row">
+            {featured_items.map((item, i) => (
+              <div key={i} className="col-lg-6">
+                <BannerItem
+                  bg={item.background}
+                  title={item.title}
+                  description={item.description}
+                  img={item.img}
+                />
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
+  }
 };
 
 export default BannerArea;

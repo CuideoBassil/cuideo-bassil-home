@@ -92,7 +92,7 @@ const Header = () => {
                     <div className="tp-header-contact-content">
                       <h5>Contact Us:</h5>
                       <p>
-                        <a href="tel:96181342284">96181342284</a>
+                        <a href="tel:96181342284">81-342284</a>
                       </p>
                     </div>
                   </div>
@@ -146,7 +146,7 @@ const Header = () => {
                       <div className="tp-header-contact-content">
                         <h5>Hotline:</h5>
                         <p>
-                          <a href="tel:96181342284">96181342284</a>
+                          <a href="tel:96181342284">81-342284</a>
                         </p>
                       </div>
                     </div>
@@ -213,7 +213,7 @@ const Header = () => {
                     <div className="tp-header-contact-content">
                       <h5>Contact Us:</h5>
                       <p>
-                        <a href="tel:96181342284">96181342284</a>
+                        <a href="tel:96181342284">81-342284</a>
                       </p>
                     </div>
                   </div>

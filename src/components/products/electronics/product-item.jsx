@@ -1,19 +1,28 @@
-import React, { useEffect, useState } from "react";
+import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
-import { Rating } from "react-simple-star-rating";
-import dayjs from "dayjs";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Rating } from "react-simple-star-rating";
 // internal
-import { Cart, QuickView, Wishlist } from "@/svg";
 import Timer from "@/components/common/timer";
-import { handleProductModal } from "@/redux/features/productModalSlice";
 import { add_cart_product } from "@/redux/features/cartSlice";
+import { handleProductModal } from "@/redux/features/productModalSlice";
 import { add_to_wishlist } from "@/redux/features/wishlist-slice";
+import { Cart, QuickView, Wishlist } from "@/svg";
 
 const ProductItem = ({ product, offer_style = false }) => {
-  const { _id, img, category, title, reviews, price, discount,status,offerDate } = product || {};
-  console.log(status)
+  const {
+    _id,
+    img,
+    category,
+    title,
+    reviews,
+    price,
+    discount,
+    status,
+    offerDate,
+  } = product || {};
   const { cart_products } = useSelector((state) => state.cart);
   const { wishlist } = useSelector((state) => state.wishlist);
   const isAddedToCart = cart_products.some((prd) => prd._id === _id);
@@ -43,22 +52,28 @@ const ProductItem = ({ product, offer_style = false }) => {
   return (
     <>
       <div
-        className={`${offer_style ? "tp-product-offer-item" : "mb-25"
-          } tp-product-item transition-3`}
+        className={`${
+          offer_style ? "tp-product-offer-item" : "mb-25"
+        } tp-product-item transition-3`}
+        style={{ height: "100%" }}
       >
-        <div className="tp-product-thumb p-relative fix">
+        <div
+          style={{ height: "300px" }}
+          className="tp-product-thumb p-relative fix"
+        >
           <Link href={`/product-details/${_id}`}>
             <Image
               src={img}
-              width="0"
-              height="0"
-              sizes="100vw"
-              style={{ width: '100%', height: 'auto' }}
-              alt="product-electronic"
+              width="300"
+              height="300"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              alt="product"
             />
 
             <div className="tp-product-badge">
-              {status === 'out-of-stock' && <span className="product-hot">out-stock</span>}
+              {status === "out-of-stock" && (
+                <span className="product-hot">out-stock</span>
+              )}
             </div>
           </Link>
 
@@ -68,7 +83,9 @@ const ProductItem = ({ product, offer_style = false }) => {
               {isAddedToCart ? (
                 <Link
                   href="/cart"
-                  className={`tp-product-action-btn ${isAddedToCart ? 'active' : ''} tp-product-add-cart-btn`}
+                  className={`tp-product-action-btn ${
+                    isAddedToCart ? "active" : ""
+                  } tp-product-add-cart-btn`}
                 >
                   <Cart /> <span className="tp-product-tooltip">View Cart</span>
                 </Link>
@@ -76,8 +93,10 @@ const ProductItem = ({ product, offer_style = false }) => {
                 <button
                   onClick={() => handleAddProduct(product)}
                   type="button"
-                  className={`tp-product-action-btn ${isAddedToCart ? 'active' : ''} tp-product-add-cart-btn`}
-                  disabled={status === 'out-of-stock'}
+                  className={`tp-product-action-btn ${
+                    isAddedToCart ? "active" : ""
+                  } tp-product-add-cart-btn`}
+                  disabled={status === "out-of-stock"}
                 >
                   <Cart />
 
@@ -95,9 +114,11 @@ const ProductItem = ({ product, offer_style = false }) => {
               </button>
               <button
                 type="button"
-                className={`tp-product-action-btn ${isAddedToWishlist ? 'active' : ''} tp-product-add-to-wishlist-btn`}
+                className={`tp-product-action-btn ${
+                  isAddedToWishlist ? "active" : ""
+                } tp-product-add-to-wishlist-btn`}
                 onClick={() => handleWishlistProduct(product)}
-                disabled={status === 'out-of-stock'}
+                disabled={status === "out-of-stock"}
               >
                 <Wishlist />
                 <span className="tp-product-tooltip">Add To Wishlist</span>
@@ -133,11 +154,18 @@ const ProductItem = ({ product, offer_style = false }) => {
               <>
                 <span className="tp-product-price old-price">${price}</span>
                 <span className="tp-product-price new-price">
-                  {" "} ${(Number(price) - (Number(price) * Number(discount)) / 100).toFixed(2)}
+                  {" "}
+                  $
+                  {(
+                    Number(price) -
+                    (Number(price) * Number(discount)) / 100
+                  ).toFixed(2)}
                 </span>
               </>
             ) : (
-              <span className="tp-product-price new-price">${parseFloat(price).toFixed(2)}</span>
+              <span className="tp-product-price new-price">
+                ${parseFloat(price).toFixed(2)}
+              </span>
             )}
           </div>
           {offer_style && (
