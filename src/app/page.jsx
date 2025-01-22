@@ -12,7 +12,7 @@ export default function HomePage() {
     <Wrapper>
       {/* <Header/> */}
       <HomeHeroSlider />
-      <ElectronicCategory />
+      {/* <ElectronicCategory /> */}
       <FeatureArea />
       <ProductArea />
       <BannerArea />
