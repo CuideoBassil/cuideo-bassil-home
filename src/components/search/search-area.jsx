@@ -117,8 +117,8 @@ export default function SearchArea() {
                               <NiceSelect
                                 options={[
                                   {
-                                    value: "Short By Price",
-                                    text: "Short By Price",
+                                    value: "Sort By Price",
+                                    text: "Sort By Price",
                                   },
                                   {
                                     value: "Price low to high",
@@ -131,7 +131,7 @@ export default function SearchArea() {
                                 ]}
                                 defaultCurrent={0}
                                 onChange={shortHandler}
-                                name="Short By Price"
+                                name="Sort By Price"
                               />
                             </div>
                           </div>

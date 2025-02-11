@@ -1,22 +1,22 @@
-'use client'
-import React, { useState,useEffect } from "react";
-import {useSearchParams, useRouter} from 'next/navigation';
-import ShopLoader from "../loader/shop/shop-loader";
+"use client";
+import { useGetAllProductsQuery } from "@/redux/features/productApi";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import ErrorMsg from "../common/error-msg";
 import ShopFilterOffCanvas from "../common/shop-filter-offcanvas";
-import { useGetAllProductsQuery } from "@/redux/features/productApi";
+import ShopLoader from "../loader/shop/shop-loader";
 import ShopContent from "./shop-content";
 
-const ShopArea = ({shop_right=false,hidden_sidebar=false}) => {
+const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const category = searchParams.get('category');
-  const brand = searchParams.get('brand');
-  const minPrice = searchParams.get('minPrice');
-  const maxPrice = searchParams.get('maxPrice');
-  const subCategory = searchParams.get('subCategory');
-  const filterColor = searchParams.get('color');
-  const status = searchParams.get('status');
+  const category = searchParams.get("category");
+  const brand = searchParams.get("brand");
+  const minPrice = searchParams.get("minPrice");
+  const maxPrice = searchParams.get("maxPrice");
+  const subCategory = searchParams.get("subCategory");
+  const filterColor = searchParams.get("color");
+  const status = searchParams.get("status");
   const { data: products, isError, isLoading } = useGetAllProductsQuery();
   const [priceValue, setPriceValue] = useState([0, 0]);
   const [selectValue, setSelectValue] = useState("");
@@ -58,12 +58,14 @@ const ShopArea = ({shop_right=false,hidden_sidebar=false}) => {
   let content = null;
 
   if (isLoading) {
-    content = <ShopLoader loading={isLoading}/>;
+    content = <ShopLoader loading={isLoading} />;
   }
   if (!isLoading && isError) {
-    content = <div className="pb-80 text-center">
-      <ErrorMsg msg="There was an error" />
-    </div>;
+    content = (
+      <div className="pb-80 text-center">
+        <ErrorMsg msg="There was an error" />
+      </div>
+    );
   }
   if (!isLoading && !isError && products?.data?.length === 0) {
     content = <ErrorMsg msg="No Products found!" />;
@@ -107,7 +109,7 @@ const ShopArea = ({shop_right=false,hidden_sidebar=false}) => {
     if (category) {
       product_items = product_items.filter(
         (p) =>
-          p.parent.toLowerCase().replace("&", "").split(" ").join("-") ===
+          p.productType.toLowerCase().replace("&", "").split(" ").join("-") ===
           category
       );
     }
@@ -116,7 +118,7 @@ const ShopArea = ({shop_right=false,hidden_sidebar=false}) => {
     if (subCategory) {
       product_items = product_items.filter(
         (p) =>
-          p.children.toLowerCase().replace("&", "").split(" ").join("-") ===
+          p.catego.toLowerCase().replace("&", "").split(" ").join("-") ===
           subCategory
       );
     }
@@ -146,41 +148,33 @@ const ShopArea = ({shop_right=false,hidden_sidebar=false}) => {
       );
     }
 
-    if(minPrice && maxPrice){
-      product_items = product_items.filter((p) => Number(p.price) >= Number(minPrice) && 
-      Number(p.price) <= Number(maxPrice))
+    if (minPrice && maxPrice) {
+      product_items = product_items.filter(
+        (p) =>
+          Number(p.price) >= Number(minPrice) &&
+          Number(p.price) <= Number(maxPrice)
+      );
     }
-    
 
     content = (
       <>
+        <ShopContent
+          all_products={products.data}
+          products={product_items}
+          otherProps={otherProps}
+          shop_right={shop_right}
+          hidden_sidebar={hidden_sidebar}
+        />
 
-      <ShopContent 
-        all_products={products.data}
-        products={product_items}
-        otherProps={otherProps}
-        shop_right={shop_right}
-        hidden_sidebar={hidden_sidebar}
-      />
-        
-         <ShopFilterOffCanvas
+        <ShopFilterOffCanvas
           all_products={products.data}
           otherProps={otherProps}
-        /> 
+        />
       </>
     );
   }
 
-
-
- 
-
-
-  return (
-    <>
-      {content}
-    </>
-  );
+  return <>{content}</>;
 };
 
 export default ShopArea;

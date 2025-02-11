@@ -1,5 +1,6 @@
 import BannerArea from "@/components/banner/banner-area";
 import ElectronicCategory from "@/components/categories/electronic-category";
+import ComingSoon from "@/components/coming-soon/coming-soon";
 import FeatureArea from "@/components/features/feature-area";
 import HomeHeroSlider from "@/components/hero-banner/home-hero-slider";
 import NewArrivals from "@/components/products/electronics/new-arrivals";
@@ -10,16 +11,17 @@ import Wrapper from "@/layout/wrapper";
 export default function HomePage() {
   return (
     <Wrapper>
+      <ComingSoon />
       {/* <Header/> */}
-      <HomeHeroSlider />
+      {/* <HomeHeroSlider /> /////*/}
       {/* <ElectronicCategory /> */}
-      <FeatureArea />
+      {/* <FeatureArea />
       <ProductArea />
-      <BannerArea />
+      <BannerArea />//////////// */}
       {/* <OfferProducts /> */}
       {/* <ProductGadgetArea /> */}
-      <NewArrivals />
-      <ProductBanner />
+      {/* <NewArrivals />
+      <ProductBanner /> ///////////*/}
       {/* <ProductSmArea /> */}
       {/* <BlogArea/> */}
       {/* <InstagramArea /> */}

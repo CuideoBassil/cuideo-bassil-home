@@ -1,33 +1,27 @@
-'use client';
-import React, { useEffect, useState } from "react";
-import { useGetProductTypeQuery } from "@/redux/features/productApi";
-import { ShapeLine, TabLine } from "@/svg";
-import ProductItem from "./product-item";
+"use client";
 import ErrorMsg from "@/components/common/error-msg";
 import HomePrdLoader from "@/components/loader/home/home-prd-loader";
-
-const tabs = ["new", "featured", "topSellers"];
+import { useGetProductWithTypeQuery } from "@/redux/features/productApi";
+import { ShapeLine } from "@/svg";
+import ProductItem from "./product-item";
 
 const ProductArea = () => {
-  const [activeTab, setActiveTab] = useState("new");
-  const {data:products,isError,isLoading,refetch} = 
-  useGetProductTypeQuery({type:'electronics',query:`${activeTab}=true`});
-  // handleActiveTab
-  const handleActiveTab = (tab) => {
-    setActiveTab(tab);
-  };
-  // refetch when active value change
-  useEffect(() => {
-    refetch()
-  },[activeTab,refetch])
+  const {
+    data: products,
+    isError,
+    isLoading,
+    refetch,
+  } = useGetProductWithTypeQuery({
+    type: ["All"],
+    skip: -1,
+    take: -1,
+  });
 
   // decide what to render
   let content = null;
 
   if (isLoading) {
-    content = (
-      <HomePrdLoader loading={isLoading}/>
-    );
+    content = <HomePrdLoader loading={isLoading} />;
   }
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
@@ -37,11 +31,11 @@ const ProductArea = () => {
   }
   if (!isLoading && !isError && products?.data?.length > 0) {
     const product_items = products.data;
-    content = product_items.map((prd,i) => (
-      <div key={i} className="col-xl-3 col-lg-3 col-sm-6">
-        <ProductItem product={prd}/>  
-    </div>
-    ))
+    content = product_items.map((prd, i) => (
+      <div key={i} className="col-xl-3 col-lg-3 col-sm-6 mt-4">
+        <ProductItem product={prd} />
+      </div>
+    ));
   }
   return (
     <section className="tp-product-area pb-55">
@@ -55,31 +49,8 @@ const ProductArea = () => {
               </h3>
             </div>
           </div>
-          <div className="col-xl-7 col-lg-6 col-md-7">
-            <div className="tp-product-tab tp-product-tab-border mb-45 tp-tab d-flex justify-content-md-end">
-              <ul className="nav nav-tabs justify-content-sm-end">
-                {tabs.map((tab, i) => (
-                  <li key={i} className="nav-item">
-                    <button
-                      onClick={() => handleActiveTab(tab)}
-                      className={`nav-link text-capitalize ${
-                        activeTab === tab ? "active" : ""
-                      }`}
-                    >
-                      {tab.split("-").join(" ")}
-                      <span className="tp-product-tab-line">
-                        <TabLine />
-                      </span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
         </div>
-        <div className="row">
-          {content}
-        </div>
+        <div className="row">{content}</div>
       </div>
     </section>
   );

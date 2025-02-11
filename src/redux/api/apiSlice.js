@@ -29,9 +29,10 @@ export const apiSlice = createApi({
     "UserOrder",
     "UserOrders",
     "ProductType",
-    "OfferProducts",
+    "ProductWithType",
     "PopularProducts",
     "TopRatedProducts",
     "FeaturedBySection",
+    "AllProductTypes",
   ],
 });

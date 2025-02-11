@@ -62,7 +62,7 @@ const Footer = ({
                 </div>
               </div>
               <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                <div className="tp-footer-widget footer-col-2 mb-50">
+                {/* <div className="tp-footer-widget footer-col-2 mb-50">
                   <h4 className="tp-footer-widget-title">My Account</h4>
                   <div className="tp-footer-widget-content">
                     <ul>
@@ -86,10 +86,10 @@ const Footer = ({
                       </li>
                     </ul>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                <div className="tp-footer-widget footer-col-3 mb-50">
+                {/* <div className="tp-footer-widget footer-col-3 mb-50">
                   <h4 className="tp-footer-widget-title">Information</h4>
                   <div className="tp-footer-widget-content">
                     <ul>
@@ -113,7 +113,7 @@ const Footer = ({
                       </li>
                     </ul>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                 <div className="tp-footer-widget footer-col-4 mb-50">

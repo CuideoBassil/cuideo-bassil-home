@@ -23,6 +23,7 @@ const Header = () => {
   const { quantity } = useCartInfo();
   const { sticky } = useSticky();
   const dispatch = useDispatch();
+
   return (
     <>
       <header>
@@ -71,7 +72,7 @@ const Header = () => {
                 </div>
                 <div className="col-xl-5 col-lg-5 d-none d-lg-block">
                   <div className="tp-header-search pl-70">
-                    <HeaderSearchForm />
+                    {/* <HeaderSearchForm /> */}
                   </div>
                 </div>
 
@@ -97,19 +98,18 @@ const Header = () => {
                     </div>
                   </div>
 
-                  <HeaderMainRight setIsCanvasOpen={setIsCanvasOpen} />
+                  {/* <HeaderMainRight setIsCanvasOpen={setIsCanvasOpen} /> */}
                 </div>
               </div>
             </div>
           </div>
 
           {/* header bottom start */}
-          <div className="tp-header-bottom tp-header-bottom-border d-none d-lg-block">
+          {/* <div className="tp-header-bottom tp-header-bottom-border d-none d-lg-block">
             <div className="container">
               <div className="tp-mega-menu-wrapper p-relative">
                 <div className="row align-items-center">
                   <div className="col-xl-3 col-lg-3">
-                    {/* category start */}
                     <div className="tp-header-category tp-category-menu tp-header-category-toggle">
                       <button
                         onClick={() => setIsCategoryActive(!isCategoryActive)}
@@ -121,13 +121,9 @@ const Header = () => {
                         All Categories
                       </button>
                       <nav className="tp-category-menu-content">
-                        <HeaderCategory
-                          categoryType="electronics"
-                          isCategoryActive={isCategoryActive}
-                        />
+                        <HeaderCategory isCategoryActive={isCategoryActive} />
                       </nav>
                     </div>
-                    {/* category end */}
                   </div>
                   <div className="col-xl-6 col-lg-6">
                     <div className="main-menu menu-style-1">
@@ -136,25 +132,11 @@ const Header = () => {
                       </nav>
                     </div>
                   </div>
-                  {/* <div className="col-xl-3 col-lg-3">
-                    <div className="tp-header-contact d-flex align-items-center justify-content-end">
-                      <div className="tp-header-contact-icon">
-                        <span>
-                          <Phone />
-                        </span>
-                      </div>
-                      <div className="tp-header-contact-content">
-                        <h5>Hotline:</h5>
-                        <p>
-                          <a href="tel:96181342284">81-342284</a>
-                        </p>
-                      </div>
-                    </div>
-                  </div> */}
+                
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </header>
 
