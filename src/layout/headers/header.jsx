@@ -167,9 +167,7 @@ const Header = () => {
               </div>
               <div className="col-xl-6 col-lg-6 col-md-6 d-none d-md-block">
                 <div className="tp-header-sticky-menu main-menu menu-style-1 d-none d-lg-block">
-                  <nav id="mobile-menu">
-                    <Menus />
-                  </nav>
+                  <nav id="mobile-menu">{/* <Menus /> */}</nav>
                 </div>
               </div>
               <div className="col-xl-3 col-lg-3 col-md-3 col-6">
@@ -200,14 +198,14 @@ const Header = () => {
                     </div>
                   </div>
                   <div className="tp-header-action-item">
-                    <button
+                    {/* <button
                       onClick={() => dispatch(openCartMini())}
                       type="button"
                       className="tp-header-action-btn cartmini-open-btn"
                     >
                       <CartTwo />
                       <span className="tp-header-action-badge">{quantity}</span>
-                    </button>
+                    </button> */}
                   </div>
                   <div className="tp-header-action-item d-lg-none">
                     <button
