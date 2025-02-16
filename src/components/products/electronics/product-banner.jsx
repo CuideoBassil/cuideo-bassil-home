@@ -58,7 +58,7 @@ const ProductBanner = () => {
     data: featured,
     isError,
     isLoading,
-  } = useGetFeaturedBySectionQuery(2);
+  } = useGetFeaturedBySectionQuery(3);
   let content = null;
   if (isLoading) {
     content = <HomeTwoPrdLoader loading={isLoading} />;

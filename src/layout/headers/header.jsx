@@ -72,7 +72,7 @@ const Header = () => {
                 </div>
                 <div className="col-xl-5 col-lg-5 d-none d-lg-block">
                   <div className="tp-header-search pl-70">
-                    {/* <HeaderSearchForm /> */}
+                    <HeaderSearchForm />
                   </div>
                 </div>
 
@@ -87,7 +87,9 @@ const Header = () => {
                   <div className="tp-header-contact d-flex align-items-center justify-content-end">
                     <div className="tp-header-contact-icon">
                       <span>
-                        <Phone />
+                        <a href="tel:96181342284">
+                          <Phone />
+                        </a>
                       </span>
                     </div>
                     <div className="tp-header-contact-content">
@@ -98,14 +100,14 @@ const Header = () => {
                     </div>
                   </div>
 
-                  {/* <HeaderMainRight setIsCanvasOpen={setIsCanvasOpen} /> */}
+                  <HeaderMainRight setIsCanvasOpen={setIsCanvasOpen} />
                 </div>
               </div>
             </div>
           </div>
 
           {/* header bottom start */}
-          {/* <div className="tp-header-bottom tp-header-bottom-border d-none d-lg-block">
+          <div className="tp-header-bottom tp-header-bottom-border d-none d-lg-block">
             <div className="container">
               <div className="tp-mega-menu-wrapper p-relative">
                 <div className="row align-items-center">
@@ -132,11 +134,10 @@ const Header = () => {
                       </nav>
                     </div>
                   </div>
-                
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
       </header>
 
@@ -154,8 +155,8 @@ const Header = () => {
                     <Image
                       style={{
                         objectFit: "contain",
-                        width: "270px",
-                        height: "100%",
+                        maxWidth: "100%",
+                        height: "auto",
                       }}
                       src={logo}
                       alt="logo"
@@ -167,7 +168,9 @@ const Header = () => {
               </div>
               <div className="col-xl-6 col-lg-6 col-md-6 d-none d-md-block">
                 <div className="tp-header-sticky-menu main-menu menu-style-1 d-none d-lg-block">
-                  <nav id="mobile-menu">{/* <Menus /> */}</nav>
+                  <nav id="mobile-menu">
+                    <Menus />
+                  </nav>
                 </div>
               </div>
               <div className="col-xl-3 col-lg-3 col-md-3 col-6">
@@ -184,10 +187,15 @@ const Header = () => {
                     </Link>
                   </div> */}
 
-                  <div className="tp-header-contact d-flex align-items-center justify-content-end">
+                  <div
+                    style={{ marginRight: "30px" }}
+                    className="tp-header-contact d-flex align-items-center justify-content-end"
+                  >
                     <div className="tp-header-contact-icon">
                       <span>
-                        <Phone />
+                        <a href="tel:96181342284">
+                          <Phone />
+                        </a>
                       </span>
                     </div>
                     <div className="tp-header-contact-content">
@@ -198,14 +206,14 @@ const Header = () => {
                     </div>
                   </div>
                   <div className="tp-header-action-item">
-                    {/* <button
+                    <button
                       onClick={() => dispatch(openCartMini())}
                       type="button"
                       className="tp-header-action-btn cartmini-open-btn"
                     >
                       <CartTwo />
                       <span className="tp-header-action-badge">{quantity}</span>
-                    </button> */}
+                    </button>
                   </div>
                   <div className="tp-header-action-item d-lg-none">
                     <button

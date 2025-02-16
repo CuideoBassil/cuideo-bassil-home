@@ -11,17 +11,17 @@ import Wrapper from "@/layout/wrapper";
 export default function HomePage() {
   return (
     <Wrapper>
-      <ComingSoon />
-      {/* <Header/> */}
-      {/* <HomeHeroSlider /> /////*/}
+      {/* <ComingSoon /> */}
+      {/* <Header /> */}
+      <HomeHeroSlider />
       {/* <ElectronicCategory /> */}
-      {/* <FeatureArea />
+      <FeatureArea />
       <ProductArea />
-      <BannerArea />//////////// */}
+      <BannerArea />
       {/* <OfferProducts /> */}
       {/* <ProductGadgetArea /> */}
-      {/* <NewArrivals />
-      <ProductBanner /> ///////////*/}
+      <NewArrivals />
+      <ProductBanner />
       {/* <ProductSmArea /> */}
       {/* <BlogArea/> */}
       {/* <InstagramArea /> */}
