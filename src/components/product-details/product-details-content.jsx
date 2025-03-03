@@ -7,17 +7,18 @@ import DetailsWrapper from "./details-wrapper";
 import RelatedProducts from "./related-products";
 
 const ProductDetailsContent = ({ productItem }) => {
-  const { _id, img, imageURLs, videoId, status } = productItem || {};
-  const [activeImg, setActiveImg] = useState(img);
+  const { _id, image, imageURLs, videoId, status } = productItem.data || {};
+  console.log("productItem: ", productItem);
+  const [activeImg, setActiveImg] = useState(image);
   const dispatch = useDispatch();
   // active image change when img change
   useEffect(() => {
-    setActiveImg(img);
-  }, [img]);
+    setActiveImg(image);
+  }, [image]);
 
   // handle image active
   const handleImageActive = (item) => {
-    setActiveImg(item.img);
+    setActiveImg(item.image);
   };
   return (
     <section className="tp-product-details-area">

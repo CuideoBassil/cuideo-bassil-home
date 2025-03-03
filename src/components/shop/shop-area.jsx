@@ -109,8 +109,11 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
     if (category) {
       product_items = product_items.filter(
         (p) =>
-          p.productType.toLowerCase().replace("&", "").split(" ").join("-") ===
-          category
+          p.category.name
+            .toLowerCase()
+            .replace("&", "")
+            .split(" ")
+            .join("-") === category
       );
     }
 

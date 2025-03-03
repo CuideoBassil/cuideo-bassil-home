@@ -1,7 +1,7 @@
 "use client";
 // external
 import Image from "next/image";
-import { EffectFade, Navigation, Pagination } from "swiper/modules";
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 // internal
 import ErrorMsg from "@/components/common/error-msg";
@@ -53,23 +53,25 @@ const HomeHeroSlider = () => {
             spaceBetween={30}
             loop={true}
             effect="fade"
+            autoplay={{
+              delay: 7000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
             navigation={{
               nextEl: ".tp-slider-button-next",
               prevEl: ".tp-slider-button-prev",
             }}
-            // onSlideChange={(swiper) => handleActiveIndex(swiper.activeIndex)}
             pagination={{ el: ".tp-slider-dot", clickable: true }}
-            modules={[Navigation, Pagination, EffectFade]}
-            className={`tp-slider-active tp-slider-variation swiper-container`}
+            modules={[Navigation, Pagination, EffectFade, Autoplay]}
+            className="tp-slider-active tp-slider-variation swiper-container"
           >
             {featured_items.map((item, i) => (
               <SwiperSlide
                 key={i}
-                className={`tp-slider-item tp-slider-height d-flex align-items-center `}
+                className="tp-slider-item tp-slider-height d-flex align-items-center"
                 style={{
-                  backgroundColor: item.background
-                    ? `${item.background}`
-                    : "lightcoral",
+                  backgroundColor: item.background || "lightcoral",
                 }}
               >
                 <div className="tp-slider-shape">
@@ -82,27 +84,16 @@ const HomeHeroSlider = () => {
                   <div className="row align-items-center">
                     <div className="col-xl-5 col-lg-6 col-md-6">
                       <div className="tp-slider-content p-relative z-index-1">
-                        {/* <span>
-                          {item.pre_title.text} <b>${item.pre_title.text}</b>
-                        </span> */}
                         <h3 className="tp-slider-title">{item.title}</h3>
-                        <p>
-                          {item.description}
-                          {/* <span>
-                            -{item.subtitle.percent}%
-                            <TextShape />
-                          </span>{" "} */}
-                          {/* {item.subtitle.text_2} */}
-                        </p>
-
-                        {/* <div className="tp-slider-btn">
-                          <Link
-                            href="/shop"
-                            className="tp-btn tp-btn-2 tp-btn-white"
-                          >
-                            Shop Now <ArrowRightLong />
-                          </Link>
-                        </div> */}
+                        <p>{item.description}</p>
+                        <div className="tp-product-banner-price mb-40">
+                          {item.price && (
+                            <span className="old-price">${item.price}</span>
+                          )}
+                          {item.discounted && (
+                            <p className="new-price">${item.discounted}</p>
+                          )}
+                        </div>
                       </div>
                     </div>
                     <div className="col-xl-7 col-lg-6 col-md-6">

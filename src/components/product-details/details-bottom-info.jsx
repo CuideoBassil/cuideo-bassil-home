@@ -16,7 +16,7 @@ const DetailsBottomInfo = ({ sku, category, tags }) => {
         <div className="tp-product-details-query-item d-flex ">
           <span>Tags: </span>
           <p>
-            {tags.map((tag, index) => (
+            {tags?.map((tag, index) => (
               <span key={index}>
                 {tag}
                 {index < tags.length - 1 && ", "}

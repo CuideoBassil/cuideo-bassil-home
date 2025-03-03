@@ -121,17 +121,6 @@ const ProductBanner = () => {
                       </div>
                       <div className="col-xl-6 col-lg-6">
                         <div className="tp-product-banner-thumb-wrapper p-relative">
-                          {/* <div className="tp-product-banner-thumb-shape">
-                            <span className="tp-product-banner-thumb-gradient"></span>
-                            <Image
-                              className="tp-offer-shape"
-                              src={item.img}
-                              width={100}
-                              height={100}
-                              alt="tp-offer-shape"
-                            />
-                          </div> */}
-
                           <div className="tp-product-banner-thumb text-end p-relative z-index-1">
                             <Image
                               width={400}

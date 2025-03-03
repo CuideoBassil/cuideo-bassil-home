@@ -1,37 +1,37 @@
-'use client'
+"use client";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
 // internal
 import ErrorMsg from "@/components/common/error-msg";
 import { useGetAllProductsQuery } from "@/redux/features/productApi";
 import { handleFilterSidebarClose } from "@/redux/features/shop-filter-slice";
 import ShopColorLoader from "@/components/loader/shop/color-filter-loader";
 
-const ColorFilter = ({setCurrPage,shop_right=false}) => {
+const ColorFilter = ({ setCurrPage, shop_right = false }) => {
   const { data: products, isError, isLoading } = useGetAllProductsQuery();
   const router = useRouter();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const searchParams = useSearchParams();
-  const color = searchParams.get('color');
+  const color = searchParams.get("color");
 
-  // handle color 
+  // handle color
   const handleColor = (clr) => {
-    setCurrPage(1)
+    setCurrPage(1);
     router.push(
-      `/${shop_right?'shop-right-sidebar':'shop'}?color=${clr
+      `/${shop_right ? "shop-right-sidebar" : "shop"}?color=${clr
         .toLowerCase()
         .split(" ")
         .join("-")}`
-    )
+    );
     dispatch(handleFilterSidebarClose());
-  }
+  };
   // decide what to render
   let content = null;
 
   if (isLoading) {
-    content = <ShopColorLoader loading={isLoading}/>;
+    content = <ShopColorLoader loading={isLoading} />;
   }
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
@@ -43,7 +43,7 @@ const ColorFilter = ({setCurrPage,shop_right=false}) => {
     const product_items = products.data;
     let allColor = [];
     product_items.forEach((product) => {
-      let uniqueColor = new Set(product.imageURLs.map((item) => item?.color));
+      let uniqueColor = new Set(product.color.name);
       allColor = [...new Set([...allColor, ...uniqueColor])];
     });
 
@@ -66,10 +66,7 @@ const ColorFilter = ({setCurrPage,shop_right=false}) => {
                 }
                 readOnly
               />
-              <label
-                onClick={() => handleColor(item.name)}
-                htmlFor={item.name}
-              >
+              <label onClick={() => handleColor(item.name)} htmlFor={item.name}>
                 {item.name}
               </label>
               <span

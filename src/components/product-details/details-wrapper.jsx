@@ -1,13 +1,12 @@
 "use client";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Rating } from "react-simple-star-rating";
 // internal
 import { add_cart_product } from "@/redux/features/cartSlice";
 import { add_to_compare } from "@/redux/features/compareSlice";
-import { handleModalClose } from "@/redux/features/productModalSlice";
 import { add_to_wishlist } from "@/redux/features/wishlist-slice";
+import { WishlistTwo } from "@/svg";
 import DetailsBottomInfo from "./details-bottom-info";
 import ProductQuantity from "./product-quantity";
 
@@ -19,9 +18,9 @@ const DetailsWrapper = ({
 }) => {
   const {
     sku,
-    img,
+    image,
     title,
-    imageURLs,
+    additionalImages,
     category,
     description,
     discount,
@@ -36,19 +35,21 @@ const DetailsWrapper = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (reviews && reviews.length > 0) {
+    if (productItem.data.reviews && productItem.data.reviews.length > 0) {
       const rating =
-        reviews.reduce((acc, review) => acc + review.rating, 0) /
-        reviews.length;
+        productItem.data.reviews.reduce(
+          (acc, review) => acc + review.rating,
+          0
+        ) / productItem.data.reviews.length;
       setRatingVal(rating);
     } else {
       setRatingVal(0);
     }
-  }, [reviews]);
+  }, [productItem.data.reviews]);
 
   // handle add product
   const handleAddProduct = (prd) => {
-    dispatch(add_cart_product(prd));
+    dispatch(add_cart_product(prd.data));
   };
 
   // handle wishlist product
@@ -64,14 +65,14 @@ const DetailsWrapper = ({
   return (
     <div className="tp-product-details-wrapper">
       <div className="tp-product-details-category">
-        <span>{category.name}</span>
+        <span>{productItem.data.category.name}</span>
       </div>
-      <h3 className="tp-product-details-title">{title}</h3>
+      <h3 className="tp-product-details-title">{productItem.data.title}</h3>
 
       {/* inventory details */}
       <div className="tp-product-details-inventory d-flex align-items-center mb-10">
         <div className="tp-product-details-stock mb-10">
-          <span>{status}</span>
+          <span>{productItem.data.status}</span>
         </div>
         <div className="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
           <div className="tp-product-details-rating">
@@ -84,13 +85,21 @@ const DetailsWrapper = ({
           </div>
           <div className="tp-product-details-reviews">
             <span>
-              ({reviews && reviews.length > 0 ? reviews.length : 0} Review)
+              (
+              {productItem.data.reviews && productItem.data.reviews.length > 0
+                ? productItem.data.reviews.length
+                : 0}{" "}
+              Review)
             </span>
           </div>
         </div>
       </div>
       <p>
-        {textMore ? description : `${description.substring(0, 100)}...`}
+        {textMore
+          ? productItem.data.description
+          : productItem.data.description
+          ? `${productItem.data.description.slice(0, 100)}...`
+          : "No description available"}
         <span onClick={() => setTextMore(!textMore)}>
           {textMore ? "See less" : "See more"}
         </span>
@@ -98,55 +107,43 @@ const DetailsWrapper = ({
 
       {/* price */}
       <div className="tp-product-details-price-wrapper mb-20">
-        {discount > 0 ? (
+        {productItem.data.discount > 0 ? (
           <>
-            <span className="tp-product-details-price old-price">${price}</span>
+            <span className="tp-product-details-price old-price">
+              ${productItem.data.price}
+            </span>
             <span className="tp-product-details-price new-price">
               {" "}
-              $
-              {(
-                Number(price) -
-                (Number(price) * Number(discount)) / 100
-              ).toFixed(2)}
+              ${Number(productItem.data.discount).toFixed(2)}
             </span>
           </>
         ) : (
           <span className="tp-product-details-price new-price">
-            ${price.toFixed(2)}
+            ${productItem.data.price?.toFixed(2)}
           </span>
         )}
       </div>
 
       {/* variations */}
-      {imageURLs.some((item) => item?.color && item?.color?.name) && (
-        <div className="tp-product-details-variation">
-          <div className="tp-product-details-variation-item">
-            <h4 className="tp-product-details-variation-title">Color :</h4>
-            <div className="tp-product-details-variation-list">
-              {imageURLs.map((item, i) => (
-                <button
-                  onClick={() => handleImageActive(item)}
-                  key={i}
-                  type="button"
-                  className={`color tp-color-variation-btn ${
-                    item.img === activeImg ? "active" : ""
-                  }`}
-                >
-                  <span
-                    data-bg-color={`${item.color.clrCode}`}
-                    style={{ backgroundColor: `${item.color.clrCode}` }}
-                  ></span>
-                  {item.color && item.color.name && (
-                    <span className="tp-color-variation-tootltip">
-                      {item.color.name}
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
+      {/* {imageURLs.some((item) => item?.color && item?.color?.name) && ( */}
+      <div className="tp-product-details-variation">
+        <div className="tp-product-details-variation-item">
+          <h4 className="tp-product-details-variation-title">Color :</h4>
+          <div className="tp-product-details-variation-list">
+            {productItem.data.additionalImages?.map((item, i) => (
+              <button
+                onClick={() => handleImageActive(item)}
+                key={i}
+                type="button"
+                className={`color tp-color-variation-btn ${
+                  item === activeImg ? "active" : ""
+                }`}
+              ></button>
+            ))}
           </div>
         </div>
-      )}
+      </div>
+      {/* )} */}
 
       {/* if ProductDetailsCountdown true start */}
       {/* {offerDate?.endDate && (
@@ -164,7 +161,7 @@ const DetailsWrapper = ({
           <div className="tp-product-details-add-to-cart mb-15 w-100">
             <button
               onClick={() => handleAddProduct(productItem)}
-              disabled={status === "out-of-stock"}
+              disabled={productItem.data.status === "out-of-stock"}
               className="tp-product-details-add-to-cart-btn w-100"
             >
               Add To Cart
@@ -181,23 +178,23 @@ const DetailsWrapper = ({
       <div className="tp-product-details-action-sm">
         {/* <button
           disabled={status === "out-of-stock"}
-          onClick={() => handleCompareProduct(productItem)}
+          onClick={() => handleCompareProduct(productItem.data)}
           type="button"
           className="tp-product-details-action-sm-btn"
         >
           <CompareTwo />
           Compare
-        </button>
+        </button> */}
         <button
           disabled={status === "out-of-stock"}
-          onClick={() => handleWishlistProduct(productItem)}
+          onClick={() => handleWishlistProduct(productItem.data)}
           type="button"
           className="tp-product-details-action-sm-btn"
         >
           <WishlistTwo />
           Add Wishlist
         </button>
-        <button type="button" className="tp-product-details-action-sm-btn">
+        {/* <button type="button" className="tp-product-details-action-sm-btn">
           <AskQuestion />
           Ask a question
         </button> */}
@@ -205,7 +202,11 @@ const DetailsWrapper = ({
       {/* product-details-action-sm end */}
 
       {detailsBottom && (
-        <DetailsBottomInfo category={category?.name} sku={sku} tags={tags} />
+        <DetailsBottomInfo
+          category={productItem.data.category?.name}
+          sku={productItem.data.sku}
+          tags={productItem.data.tags}
+        />
       )}
     </div>
   );

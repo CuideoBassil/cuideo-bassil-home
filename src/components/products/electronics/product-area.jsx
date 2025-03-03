@@ -3,6 +3,7 @@ import ErrorMsg from "@/components/common/error-msg";
 import HomePrdLoader from "@/components/loader/home/home-prd-loader";
 import { useGetProductWithTypeQuery } from "@/redux/features/productApi";
 import { ShapeLine } from "@/svg";
+import { useEffect } from "react";
 import ProductItem from "./product-item";
 
 const ProductArea = () => {
@@ -16,6 +17,9 @@ const ProductArea = () => {
     skip: -1,
     take: -1,
   });
+  useEffect(() => {
+    if (products.data) console.log("ProductArea: ", products.data);
+  }, [products]);
 
   // decide what to render
   let content = null;
@@ -30,9 +34,11 @@ const ProductArea = () => {
     content = <ErrorMsg msg="No Products found!" />;
   }
   if (!isLoading && !isError && products?.data?.length > 0) {
-    const product_items = products.data;
+    const product_items = products.data.filter(
+      (prd) => prd.status !== "out-of-stock"
+    );
     content = product_items.map((prd, i) => (
-      <div key={i} className="col-xl-3 col-lg-3 col-sm-6 mt-4">
+      <div key={i} className="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-4">
         <ProductItem product={prd} />
       </div>
     ));

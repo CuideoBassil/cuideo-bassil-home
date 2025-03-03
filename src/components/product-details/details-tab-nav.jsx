@@ -57,7 +57,7 @@ const DetailsTabNav = ({ product }) => {
               title="Description"
             />
             {/* <NavItem id="additional" title="Additional information" /> */}
-            <NavItem id="review" title={`Reviews (${reviews.length})`} />
+            <NavItem id="review" title={`Reviews (${reviews?.length})`} />
 
             <span
               ref={marker}
@@ -128,12 +128,12 @@ const DetailsTabNav = ({ product }) => {
                       <h3 className="tp-product-details-review-title">
                         Rating & Review
                       </h3>
-                      {reviews.length === 0 && (
+                      {reviews?.length === 0 && (
                         <h3 className="tp-product-details-review-title">
                           There are no reviews yet.
                         </h3>
                       )}
-                      {reviews.length > 0 &&
+                      {reviews?.length > 0 &&
                         reviews.map((item) => (
                           <ReviewItem key={item._id} review={item} />
                         ))}

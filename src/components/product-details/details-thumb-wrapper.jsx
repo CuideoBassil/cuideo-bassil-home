@@ -1,6 +1,6 @@
-'use client';
+"use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PopupVideo from "../common/popup-video";
 
 const DetailsThumbWrapper = ({
@@ -10,7 +10,7 @@ const DetailsThumbWrapper = ({
   imgWidth = 416,
   imgHeight = 480,
   videoId = false,
-  status
+  status,
 }) => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   return (
@@ -21,11 +21,13 @@ const DetailsThumbWrapper = ({
             {imageURLs?.map((item, i) => (
               <button
                 key={i}
-                className={`nav-link ${item.img === activeImg ? "active" : ""}`}
+                className={`nav-link ${
+                  item.image === activeImg ? "active" : ""
+                }`}
                 onClick={() => handleImageActive(item)}
               >
                 <Image
-                  src={item.img}
+                  src={item.image}
                   alt="image"
                   width={78}
                   height={100}
@@ -45,7 +47,9 @@ const DetailsThumbWrapper = ({
                 height={imgHeight}
               />
               <div className="tp-product-badge">
-                {status === 'out-of-stock' && <span className="product-hot">out-stock</span>}
+                {status === "out-of-stock" && (
+                  <span className="product-hot">out-stock</span>
+                )}
               </div>
               {videoId && (
                 <div
