@@ -1,15 +1,18 @@
-'use client';
+"use client";
 import React from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 // internal
 import { Close, Minus, Plus } from "@/svg";
-import {add_cart_product,quantityDecrement} from "@/redux/features/cartSlice";
+import {
+  add_cart_product,
+  quantityDecrement,
+} from "@/redux/features/cartSlice";
 import { remove_wishlist_product } from "@/redux/features/wishlist-slice";
 
 const WishlistItem = ({ product }) => {
-  const { _id, img, title, price } = product || {};
+  const { _id, image, title, price } = product || {};
   const { cart_products } = useSelector((state) => state.cart);
   const isAddToCart = cart_products.find((item) => item._id === _id);
   const dispatch = useDispatch();
@@ -30,7 +33,9 @@ const WishlistItem = ({ product }) => {
     <tr>
       <td className="tp-cart-img">
         <Link href={`/product-details/${_id}`}>
-          <Image src={img} alt="product img" width={70} height={100} />
+          {img && (
+            <Image src={image} alt="product img" width={70} height={100} />
+          )}
         </Link>
       </td>
       <td className="tp-cart-title">

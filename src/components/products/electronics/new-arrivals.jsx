@@ -58,7 +58,9 @@ const NewArrivals = () => {
     content = <ErrorMsg msg="No Products found!" />;
   }
   if (!isLoading && !isError && products?.data?.length > 0) {
-    const product_items = products.data;
+    const product_items = products.data.filter(
+      (prd) => prd.status !== "out-of-stock"
+    );
     content = (
       <Swiper
         {...slider_setting}

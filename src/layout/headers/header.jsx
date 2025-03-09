@@ -114,6 +114,7 @@ const Header = () => {
                     <div className="tp-header-category tp-category-menu tp-header-category-toggle">
                       <button
                         onClick={() => setIsCategoryActive(!isCategoryActive)}
+                        style={{ backgroundColor: "#0500ff" }}
                         className="tp-category-menu-btn tp-category-menu-toggle"
                       >
                         <span>

@@ -72,27 +72,31 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   }
   if (!isLoading && !isError && products?.data?.length > 0) {
     // products
-    let product_items = products.data;
+
+    let _products = products.data.filter(
+      (prd) => prd.status !== "out-of-stock"
+    );
+    let product_items = _products;
     // select short filtering
     if (selectValue) {
       if (selectValue === "Default Sorting") {
-        product_items = products.data;
+        product_items = _products;
       } else if (selectValue === "Low to High") {
-        product_items = products.data
+        product_items = _products
           .slice()
           .sort((a, b) => Number(a.price) - Number(b.price));
       } else if (selectValue === "High to Low") {
-        product_items = products.data
+        product_items = _products
           .slice()
           .sort((a, b) => Number(b.price) - Number(a.price));
       } else if (selectValue === "New Added") {
-        product_items = products.data
+        product_items = _products
           .slice()
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       } else if (selectValue === "On Sale") {
-        product_items = products.data.filter((p) => p.discount > 0);
+        product_items = _products.filter((p) => p.discount > 0);
       } else {
-        product_items = products.data;
+        product_items = _products;
       }
     }
 
@@ -135,10 +139,10 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
             color &&
             color?.name.toLowerCase().split(" ").join("-") === filterColor
           ) {
-            return true; // match found, include product in result
+            return true;
           }
         }
-        return false; // no match found, exclude product from result
+        return false;
       });
     }
 

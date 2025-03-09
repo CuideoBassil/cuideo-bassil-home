@@ -45,14 +45,16 @@ function BannerItem({ bg, title, description, img, discounted, price }) {
           </div>
         </div>
         <div className="text-center">
-          <Image
-            width={180}
-            height={180}
-            src={img}
-            alt="slider-img"
-            className="img-fluid"
-            style={{ maxWidth: "100%", height: "auto" }}
-          />
+          {img && (
+            <Image
+              width={180}
+              height={180}
+              src={img}
+              alt="slider-img"
+              className="img-fluid"
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+          )}
         </div>
       </div>
     </div>

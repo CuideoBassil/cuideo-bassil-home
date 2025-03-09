@@ -54,12 +54,14 @@ const CartMiniSidebar = () => {
                   <div key={i} className="cartmini__widget-item">
                     <div className="cartmini__thumb">
                       <Link href={`/product-details/${item._id}`}>
-                        <Image
-                          src={item.image}
-                          width={70}
-                          height={60}
-                          alt="product img"
-                        />
+                        {item.image && (
+                          <Image
+                            src={item.image}
+                            width={70}
+                            height={60}
+                            alt="product img"
+                          />
+                        )}
                       </Link>
                     </div>
                     <div className="cartmini__content">
@@ -99,7 +101,9 @@ const CartMiniSidebar = () => {
             {/* if no item in cart */}
             {cart_products.length === 0 && (
               <div className="cartmini__empty text-center">
-                <Image src={empty_cart_img} alt="empty-cart-img" />
+                {empty_cart_img && (
+                  <Image src={empty_cart_img} alt="empty-cart-img" />
+                )}
                 <p>Your Cart is empty</p>
                 <Link href="/shop" className="tp-btn">
                   Go to Shop

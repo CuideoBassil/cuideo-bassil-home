@@ -18,7 +18,7 @@ const ProductArea = () => {
     take: -1,
   });
   useEffect(() => {
-    if (products.data) console.log("ProductArea: ", products.data);
+    if (products?.data) console.log("ProductArea: ", products.data);
   }, [products]);
 
   // decide what to render
@@ -38,7 +38,7 @@ const ProductArea = () => {
       (prd) => prd.status !== "out-of-stock"
     );
     content = product_items.map((prd, i) => (
-      <div key={i} className="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-4">
+      <div key={i} className="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 mt-4">
         <ProductItem product={prd} />
       </div>
     ));

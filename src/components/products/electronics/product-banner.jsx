@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { EffectFade, Pagination } from "swiper/modules";
+import { EffectFade, Pagination, Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 // internal
 import ErrorMsg from "@/components/common/error-msg";
@@ -79,7 +79,14 @@ const ProductBanner = () => {
             <div className="tp-product-banner-slider fix">
               <Swiper
                 {...slider_setting}
-                modules={[Pagination, EffectFade]}
+                modules={[Navigation, Pagination, EffectFade, Autoplay]}
+                loop={true}
+                effect="fade"
+                autoplay={{
+                  delay: 7000,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }}
                 className="tp-product-banner-slider-active swiper-container"
               >
                 {featured_items.map((item, i) => (

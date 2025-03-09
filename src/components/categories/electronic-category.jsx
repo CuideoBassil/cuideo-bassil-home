@@ -56,13 +56,19 @@ const ElectronicCategory = () => {
               className="cursor-pointer"
               onClick={() => handleCategoryRoute(item.parent)}
             >
-              <Image
-                src={item.img}
-                alt="product-category"
-                width={180}
-                height={180}
-                style={{ objectFit: "contain", width: "100%", height: "100%" }}
-              />
+              {item?.img && (
+                <Image
+                  src={item.img}
+                  alt="product-category"
+                  width={180}
+                  height={180}
+                  style={{
+                    objectFit: "contain",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              )}
             </a>
           </div>
           <div className="tp-product-category-content">
