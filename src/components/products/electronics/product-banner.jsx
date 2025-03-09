@@ -132,7 +132,7 @@ const ProductBanner = () => {
                             <Image
                               width={400}
                               height={400}
-                              src={item.img}
+                              src={item?.img}
                               alt="banner-slider img"
                             />
                           </div>

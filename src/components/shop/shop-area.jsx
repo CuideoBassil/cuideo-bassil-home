@@ -133,8 +133,8 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
     // color filter
     if (filterColor) {
       product_items = product_items.filter((product) => {
-        for (let i = 0; i < product.imageURLs.length; i++) {
-          const color = product.imageURLs[i]?.color;
+        for (let i = 0; i < product?.imageURLs.length; i++) {
+          const color = product?.imageURLs[i]?.color;
           if (
             color &&
             color?.name.toLowerCase().split(" ").join("-") === filterColor

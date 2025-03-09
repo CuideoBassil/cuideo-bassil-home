@@ -102,8 +102,8 @@ const FashionBanner = () => {
                         </div>
                         <div className="tp-slider-thumb-2 text-end">
                           <span className="tp-slider-thumb-2-gradient"></span>
-                          {item.img && (
-                            <Image src={item.img} alt="slider img" priority />
+                          {item?.img && (
+                            <Image src={item?.img} alt="slider img" priority />
                           )}
                         </div>
                       </div>

@@ -36,7 +36,7 @@ const ProductModal = () => {
 
   // handle image active
   const handleImageActive = (item) => {
-    setActiveImg(item.img);
+    setActiveImg(item?.img);
     setLoading(true);
   };
 

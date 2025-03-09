@@ -101,7 +101,7 @@ const HomeHeroSlider = () => {
                         <Image
                           width={320}
                           height={320}
-                          src={item.img}
+                          src={item?.img}
                           alt="slider-img"
                           className="object-contain"
                         />

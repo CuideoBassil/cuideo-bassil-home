@@ -1,4 +1,4 @@
-'use client';
+"use client";
 // external
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -46,16 +46,19 @@ const slider_setting = {
 };
 
 const PopularProducts = () => {
-  const {data: products,isError,isLoading} = useGetPopularProductByTypeQuery("fashion");
+  const {
+    data: products,
+    isError,
+    isLoading,
+  } = useGetPopularProductByTypeQuery("fashion");
   const { cart_products } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   // handle add product
   const handleAddProduct = (prd) => {
-    if(prd.status === 'out-of-stock'){
-      notifyError(`This product out-of-stock`)
-    }
-    else {
+    if (prd.status === "out-of-stock") {
+      notifyError(`This product out-of-stock`);
+    } else {
       dispatch(add_cart_product(prd));
     }
   };
@@ -63,7 +66,7 @@ const PopularProducts = () => {
   let content = null;
 
   if (isLoading) {
-    content = <HomeTwoPopularPrdLoader loading={isLoading}/>;
+    content = <HomeTwoPopularPrdLoader loading={isLoading} />;
   }
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
@@ -87,13 +90,20 @@ const PopularProducts = () => {
           >
             <div className="tp-category-thumb-2">
               <Link href={`/product-details/${item._id}`}>
-                <Image src={item.img} alt="product-img" width={224} height={260} />
+                <Image
+                  src={item?.img}
+                  alt="product-img"
+                  width={224}
+                  height={260}
+                />
               </Link>
             </div>
             <div className="tp-category-content-2">
               <span>From ${item.price}</span>
               <h3 className="tp-category-title-2">
-                <Link href={`/product-details/${item._id}`}>{item.title.substring(0, 15)}</Link>
+                <Link href={`/product-details/${item._id}`}>
+                  {item.title.substring(0, 15)}
+                </Link>
               </h3>
               <div className="tp-category-btn-2">
                 {cart_products.some((prd) => prd._id === item._id) ? (

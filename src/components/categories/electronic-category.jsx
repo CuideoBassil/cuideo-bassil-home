@@ -58,7 +58,7 @@ const ElectronicCategory = () => {
             >
               {item?.img && (
                 <Image
-                  src={item.img}
+                  src={item?.img}
                   alt="product-category"
                   width={180}
                   height={180}

@@ -54,9 +54,9 @@ const CartMiniSidebar = () => {
                   <div key={i} className="cartmini__widget-item">
                     <div className="cartmini__thumb">
                       <Link href={`/product-details/${item._id}`}>
-                        {item.image && (
+                        {item?.image && (
                           <Image
-                            src={item.image}
+                            src={item?.image}
                             width={70}
                             height={60}
                             alt="product img"

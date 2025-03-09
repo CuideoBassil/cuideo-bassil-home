@@ -18,7 +18,7 @@ const ProductDetailsContent = ({ productItem }) => {
 
   // handle image active
   const handleImageActive = (item) => {
-    setActiveImg(item.image);
+    setActiveImg(item?.image);
   };
   return (
     <section className="tp-product-details-area">

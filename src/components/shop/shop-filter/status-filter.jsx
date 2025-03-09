@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 const StatusFilter = ({ setCurrPage, shop_right = false }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const status = ["On sale", "In Stock"];
+  const status = ["On sale"];
   const searchParams = useSearchParams();
   const router_status = searchParams.get("status");
 

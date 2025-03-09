@@ -49,8 +49,8 @@ const MobileMenus = () => {
                         <div className="home-menu-item">
                           <Link href={home.link}>
                             <div className="home-menu-thumb p-relative fix">
-                              {home.img && (
-                                <Image src={home.img} alt="home img" />
+                              {home?.img && (
+                                <Image src={home?.img} alt="home img" />
                               )}
                             </div>
                             <div className="home-menu-content">

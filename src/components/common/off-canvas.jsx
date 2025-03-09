@@ -51,8 +51,8 @@ const OffCanvas = ({
                   <Image
                     src={logo}
                     alt="logo"
-                    width={200} // Set an appropriate width
-                    height={100} // Set an appropriate height
+                    width={200}
+                    height={100}
                     style={{
                       objectFit: "contain",
                       maxWidth: "100%",

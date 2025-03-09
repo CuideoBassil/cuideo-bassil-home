@@ -87,7 +87,7 @@ const BannerArea = () => {
                   price={item.price}
                   discounted={item.discounted}
                   description={item.description}
-                  img={item.img}
+                  img={item?.img}
                 />
               </div>
             ))}

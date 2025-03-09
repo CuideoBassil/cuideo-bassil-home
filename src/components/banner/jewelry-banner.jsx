@@ -115,7 +115,7 @@ const JewelryBanner = () => {
               className="tp-slider-item-4 tp-slider-height-4 p-relative khaki-bg d-flex align-items-center"
             >
               <div className="tp-slider-thumb-4">
-                {item.img && <Image src={item.img} alt="slider img" />}
+                {item.img && <Image src={item?.img} alt="slider img" />}
                 <div className="tp-slider-thumb-4-shape">
                   <span className="tp-slider-thumb-4-shape-1"></span>
                   <span className="tp-slider-thumb-4-shape-2"></span>

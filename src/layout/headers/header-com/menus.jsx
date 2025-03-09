@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 import menu_data from "@/data/menu-data";
 import Link from "next/link";
@@ -18,7 +18,7 @@ const Menus = () => {
                     <div className="home-menu-item">
                       <Link href={home.link}>
                         <div className="home-menu-thumb p-relative fix">
-                          <Image src={home.img} alt="home img" />
+                          <Image src={home?.img} alt="home img" />
                         </div>
                         <div className="home-menu-content">
                           <h5 className="home-menu-title">{home.title}</h5>

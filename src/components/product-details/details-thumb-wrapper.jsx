@@ -22,12 +22,12 @@ const DetailsThumbWrapper = ({
               <button
                 key={i}
                 className={`nav-link ${
-                  item.image === activeImg ? "active" : ""
+                  item?.image === activeImg ? "active" : ""
                 }`}
                 onClick={() => handleImageActive(item)}
               >
                 <Image
-                  src={item.image}
+                  src={item?.image}
                   alt="image"
                   width={78}
                   height={100}

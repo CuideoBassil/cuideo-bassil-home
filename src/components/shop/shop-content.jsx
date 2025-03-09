@@ -57,7 +57,7 @@ const ShopContent = ({
                   {/* color */}
                   <ColorFilter setCurrPage={setCurrPage} />
                   {/* product rating */}
-                  <TopRatedProducts />
+                  {/* <TopRatedProducts /> */}
                   {/* brand */}
                   <ProductBrand setCurrPage={setCurrPage} />
                   {/* reset filter */}
@@ -172,7 +172,7 @@ const ShopContent = ({
                   {/* color */}
                   <ColorFilter setCurrPage={setCurrPage} />
                   {/* product rating */}
-                  <TopRatedProducts />
+                  {/* <TopRatedProducts /> */}
                   {/* brand */}
                   <ProductBrand setCurrPage={setCurrPage} />
                   {/* reset filter */}

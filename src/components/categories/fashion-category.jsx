@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 import { useRouter } from "next/navigation";
 // internal
@@ -13,7 +13,7 @@ const FashionCategory = () => {
     isLoading,
     isError,
   } = useGetProductTypeCategoryQuery("fashion");
-  const router = useRouter()
+  const router = useRouter();
 
   // handle category route
   const handleCategoryRoute = (title) => {
@@ -44,7 +44,7 @@ const FashionCategory = () => {
         <div className="tp-banner-item-2 p-relative z-index-1 grey-bg-2 mb-20 fix">
           <div
             className="tp-banner-thumb-2 include-bg transition-3"
-            style={{ backgroundImage: `url(${item.img})` }}
+            style={{ backgroundImage: `url(${item?.img})` }}
           ></div>
           <h3 className="tp-banner-title-2">
             <a
