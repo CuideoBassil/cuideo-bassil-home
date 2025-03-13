@@ -1,21 +1,20 @@
 "use client";
-import * as dayjs from "dayjs";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useForm } from "react-hook-form";
+import * as dayjs from "dayjs";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 //internal import
-import useCartInfo from "./use-cart-info";
-import { set_shipping } from "@/redux/features/order/orderSlice";
+import { useGetOfferCouponsQuery } from "@/redux/features/coupon/couponApi";
 import { set_coupon } from "@/redux/features/coupon/couponSlice";
-import { notifyError, notifySuccess } from "@/utils/toast";
 import {
   useCreatePaymentIntentMutation,
   useSaveOrderMutation,
 } from "@/redux/features/order/orderApi";
-import { useGetOfferCouponsQuery } from "@/redux/features/coupon/couponApi";
+import { set_shipping } from "@/redux/features/order/orderSlice";
+import { notifyError, notifySuccess } from "@/utils/toast";
+import useCartInfo from "./use-cart-info";
 
 const useCheckoutSubmit = () => {
   // offerCoupons
@@ -203,6 +202,7 @@ const useCheckoutSubmit = () => {
 
   // submitHandler
   const submitHandler = async (data) => {
+    console.log("data", data);
     dispatch(set_shipping(data));
     setIsCheckoutSubmit(true);
 
@@ -210,60 +210,60 @@ const useCheckoutSubmit = () => {
       name: `${data.firstName} ${data.lastName}`,
       address: data.address,
       contact: data.contactNo,
-      email: data.email,
+      email: " ",
       city: data.city,
       country: "lebanon",
       zipCode: "0961",
       shippingOption: data.shippingOption,
       status: "Pending",
       cart: cart_products,
-      paymentMethod: data.payment,
+      paymentMethod: "COD",
       subTotal: total,
-      shippingCost: shippingCost,
-      discount: discountAmount,
+      shippingCost: 0,
+      discount: 0,
       totalAmount: cartTotal,
       orderNote: data.orderNote,
-      user: `${user?._id}`,
+      user: `${data.firstName} ${data.lastName}`,
     };
-    if (data.payment === "Card") {
-      if (!stripe || !elements) {
-        return;
-      }
-      const card = elements.getElement(CardElement);
-      if (card == null) {
-        return;
-      }
-      const { error, paymentMethod } = await stripe.createPaymentMethod({
-        type: "card",
-        card: card,
-      });
-      if (error && !paymentMethod) {
-        setCardError(error.message);
-        setIsCheckoutSubmit(false);
-      } else {
-        setCardError("");
-        const orderData = {
-          ...orderInfo,
-          cardInfo: paymentMethod,
-        };
+    // if (data.payment === "Card") {
+    //   if (!stripe || !elements) {
+    //     return;
+    //   }
+    //   const card = elements.getElement(CardElement);
+    //   if (card == null) {
+    //     return;
+    //   }
+    //   const { error, paymentMethod } = await stripe.createPaymentMethod({
+    //     type: "card",
+    //     card: card,
+    //   });
+    //   if (error && !paymentMethod) {
+    //     setCardError(error.message);
+    //     setIsCheckoutSubmit(false);
+    //   } else {
+    //     setCardError("");
+    //     const orderData = {
+    //       ...orderInfo,
+    //       cardInfo: paymentMethod,
+    //     };
 
-        return handlePaymentWithStripe(orderData);
+    //     return handlePaymentWithStripe(orderData);
+    //   }
+    // }
+    // if (data.payment === "COD") {
+    saveOrder({
+      ...orderInfo,
+    }).then((res) => {
+      if (res?.error) {
+      } else {
+        localStorage.removeItem("cart_products");
+        localStorage.removeItem("couponInfo");
+        setIsCheckoutSubmit(false);
+        notifySuccess("Your Order Confirmed!");
+        router.push(`/order/${res.data?.order?._id}`);
       }
-    }
-    if (data.payment === "COD") {
-      saveOrder({
-        ...orderInfo,
-      }).then((res) => {
-        if (res?.error) {
-        } else {
-          localStorage.removeItem("cart_products");
-          localStorage.removeItem("couponInfo");
-          setIsCheckoutSubmit(false);
-          notifySuccess("Your Order Confirmed!");
-          router.push(`/order/${res.data?.order?._id}`);
-        }
-      });
-    }
+    });
+    // }
   };
 
   // handlePaymentWithStripe

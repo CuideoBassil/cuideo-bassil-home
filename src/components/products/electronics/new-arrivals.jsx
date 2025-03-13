@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // internal
 import ErrorMsg from "@/components/common/error-msg";
 import HomeNewArrivalPrdLoader from "@/components/loader/home/home-newArrival-prd-loader";
-import { useGetProductTypeQuery } from "@/redux/features/productApi";
+import { useGetProductWithTypeQuery } from "@/redux/features/productApi";
 import { NextArr, PrevArr, ShapeLine } from "@/svg";
 import ProductItem from "./product-item";
 
@@ -44,7 +44,12 @@ const NewArrivals = () => {
     data: products,
     isError,
     isLoading,
-  } = useGetProductTypeQuery({ type: "all", query: "new=true" });
+    refetch,
+  } = useGetProductWithTypeQuery({
+    type: ["All"],
+    skip: 0,
+    take: 8,
+  });
   // decide what to render
   let content = null;
 

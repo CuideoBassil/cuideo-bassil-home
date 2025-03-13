@@ -8,6 +8,7 @@ import { add_to_compare } from "@/redux/features/compareSlice";
 import { add_to_wishlist } from "@/redux/features/wishlist-slice";
 import { WishlistTwo } from "@/svg";
 import DetailsBottomInfo from "./details-bottom-info";
+import ProductDetailsCountdown from "./product-details-countdown";
 import ProductQuantity from "./product-quantity";
 
 const DetailsWrapper = ({
@@ -19,6 +20,7 @@ const DetailsWrapper = ({
   const {
     sku,
     image,
+    color,
     title,
     additionalImages,
     category,
@@ -30,22 +32,21 @@ const DetailsWrapper = ({
     tags,
     offerDate,
   } = productItem || {};
+  console.log("productItem11", productItem);
   const [ratingVal, setRatingVal] = useState(0);
   const [textMore, setTextMore] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (productItem.data.reviews && productItem.data.reviews.length > 0) {
+    if (reviews && reviews.length > 0) {
       const rating =
-        productItem.data.reviews.reduce(
-          (acc, review) => acc + review.rating,
-          0
-        ) / productItem.data.reviews.length;
+        reviews.reduce((acc, review) => acc + review.rating, 0) /
+        reviews.length;
       setRatingVal(rating);
     } else {
       setRatingVal(0);
     }
-  }, [productItem.data.reviews]);
+  }, [reviews]);
 
   // handle add product
   const handleAddProduct = (prd) => {
@@ -65,14 +66,14 @@ const DetailsWrapper = ({
   return (
     <div className="tp-product-details-wrapper">
       <div className="tp-product-details-category">
-        <span>{productItem.data.category.name}</span>
+        <span>{category?.name}</span>
       </div>
-      <h3 className="tp-product-details-title">{productItem.data.title}</h3>
+      <h3 className="tp-product-details-title">{title}</h3>
 
       {/* inventory details */}
       <div className="tp-product-details-inventory d-flex align-items-center mb-10">
         <div className="tp-product-details-stock mb-10">
-          <span>{productItem.data.status}</span>
+          <span>{status}</span>
         </div>
         <div className="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
           <div className="tp-product-details-rating">
@@ -85,41 +86,42 @@ const DetailsWrapper = ({
           </div>
           <div className="tp-product-details-reviews">
             <span>
-              (
-              {productItem.data.reviews && productItem.data.reviews.length > 0
-                ? productItem.data.reviews.length
-                : 0}{" "}
-              Review)
+              ({reviews && reviews.length > 0 ? reviews.length : 0} Review)
             </span>
           </div>
         </div>
       </div>
       <p>
         {textMore
-          ? productItem.data.description
-          : productItem.data.description
-          ? `${productItem.data.description.slice(0, 100)}...`
+          ? description
+          : description
+          ? `${description.slice(0, 100)}${
+              description.length > 100 ? "..." : ""
+            }`
           : "No description available"}
-        <span onClick={() => setTextMore(!textMore)}>
-          {textMore ? "See less" : "See more"}
-        </span>
+        {description?.length > 100 && (
+          <span
+            style={{ cursor: "pointer" }}
+            onClick={() => setTextMore(!textMore)}
+          >
+            {textMore ? " See less" : " See more"}
+          </span>
+        )}
       </p>
 
       {/* price */}
       <div className="tp-product-details-price-wrapper mb-20">
-        {productItem.data.discount > 0 ? (
+        {discount > 0 ? (
           <>
-            <span className="tp-product-details-price old-price">
-              ${productItem.data.price}
-            </span>
+            <span className="tp-product-details-price old-price">${price}</span>
             <span className="tp-product-details-price new-price">
               {" "}
-              ${Number(productItem.data.discount).toFixed(2)}
+              ${Number(discount).toFixed(2)}
             </span>
           </>
         ) : (
           <span className="tp-product-details-price new-price">
-            ${productItem.data.price?.toFixed(2)}
+            ${price?.toFixed(2)}
           </span>
         )}
       </div>
@@ -128,9 +130,11 @@ const DetailsWrapper = ({
       {/* {imageURLs.some((item) => item?.color && item?.color?.name) && ( */}
       <div className="tp-product-details-variation">
         <div className="tp-product-details-variation-item">
-          <h4 className="tp-product-details-variation-title">Color :</h4>
+          <h4 className="tp-product-details-variation-title">
+            Color : {color?.name}
+          </h4>
           <div className="tp-product-details-variation-list">
-            {productItem.data.additionalImages?.map((item, i) => (
+            {additionalImages?.map((item, i) => (
               <button
                 onClick={() => handleImageActive(item)}
                 key={i}
@@ -146,9 +150,9 @@ const DetailsWrapper = ({
       {/* )} */}
 
       {/* if ProductDetailsCountdown true start */}
-      {/* {offerDate?.endDate && (
+      {offerDate?.endDate && (
         <ProductDetailsCountdown offerExpiryTime={offerDate?.endDate} />
-      )} */}
+      )}
       {/* if ProductDetailsCountdown true end */}
 
       {/* actions */}
@@ -161,7 +165,7 @@ const DetailsWrapper = ({
           <div className="tp-product-details-add-to-cart mb-15 w-100">
             <button
               onClick={() => handleAddProduct(productItem)}
-              disabled={productItem.data.status === "out-of-stock"}
+              disabled={status === "out-of-stock"}
               className="tp-product-details-add-to-cart-btn w-100"
             >
               Add To Cart
@@ -202,11 +206,7 @@ const DetailsWrapper = ({
       {/* product-details-action-sm end */}
 
       {detailsBottom && (
-        <DetailsBottomInfo
-          category={productItem.data.category?.name}
-          sku={productItem.data.sku}
-          tags={productItem.data.tags}
-        />
+        <DetailsBottomInfo category={category?.name} sku={sku} tags={tags} />
       )}
     </div>
   );

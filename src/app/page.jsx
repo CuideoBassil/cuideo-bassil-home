@@ -12,21 +12,19 @@ export default function HomePage() {
     <>
       <Wrapper>
         {/* <ComingSoon /> */}
-        {/* <Header /> */}
         <HomeHeroSlider />
-        {/* <ElectronicCategory /> */}
         <FeatureArea />
-        <ProductArea />
-        <BannerArea />
-        {/* <OfferProducts /> */}
-        {/* <ProductGadgetArea /> */}
         <NewArrivals />
+        <BannerArea />
+        <ProductArea />
         <ProductBanner />
+        {/* <ElectronicCategory /> */}
+        {/* <ProductGadgetArea /> */}
+        {/* <OfferProducts /> */}
         {/* <ProductSmArea /> */}
         {/* <BlogArea/> */}
         {/* <InstagramArea /> */}
         {/* <CtaArea /> */}
-        {/* <Footer /> */}
       </Wrapper>
       <WhatsAppButton />
     </>

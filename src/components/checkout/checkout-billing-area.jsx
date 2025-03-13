@@ -43,7 +43,7 @@ const CheckoutBillingArea = ({ register, errors }) => {
                 <ErrorMsg msg={errors?.lastName?.message} />
               </div>
             </div>
-            {/* <div className="col-md-12">
+            <div className="col-md-12">
               <div className="tp-checkout-input">
                 <label>
                   Country <span>*</span>
@@ -57,7 +57,7 @@ const CheckoutBillingArea = ({ register, errors }) => {
                 />
                 <ErrorMsg msg={errors?.lastName?.message} />
               </div>
-            </div> */}
+            </div>
             <div className="col-md-6">
               <div className="tp-checkout-input">
                 <label>Town / City</label>
@@ -115,7 +115,7 @@ const CheckoutBillingArea = ({ register, errors }) => {
                 <ErrorMsg msg={errors?.contactNo?.message} />
               </div>
             </div>
-            <div className="col-md-12">
+            {/* <div className="col-md-12">
               <div className="tp-checkout-input">
                 <label>
                   Email address <span>*</span>
@@ -129,7 +129,7 @@ const CheckoutBillingArea = ({ register, errors }) => {
                 />
                 <ErrorMsg msg={errors?.email?.message} />
               </div>
-            </div>
+            </div> */}
             <div className="col-md-12">
               <div className="tp-checkout-input">
                 <label>Order notes (optional)</label>
