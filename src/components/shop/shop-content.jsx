@@ -112,7 +112,7 @@ const ShopContent = ({
                             .map((item, i) => (
                               <div
                                 key={i}
-                                className="col-xl-4 col-md-6 col-sm-6"
+                                className="col-xl-4 col-md-6 col-sm-6 mt-20"
                               >
                                 <ProductItem product={item} />
                               </div>

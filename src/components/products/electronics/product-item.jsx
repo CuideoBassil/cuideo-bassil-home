@@ -5,11 +5,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Rating } from "react-simple-star-rating";
 // internal
-import Timer from "@/components/common/timer";
 import { add_cart_product } from "@/redux/features/cartSlice";
 import { handleProductModal } from "@/redux/features/productModalSlice";
 import { add_to_wishlist } from "@/redux/features/wishlist-slice";
-import { Cart, QuickView, Wishlist } from "@/svg";
+import { QuickView } from "@/svg";
 
 const ProductItem = ({ product, offer_style = false }) => {
   const {
@@ -49,16 +48,19 @@ const ProductItem = ({ product, offer_style = false }) => {
     dispatch(add_to_wishlist(prd));
   };
 
+  const isDiscountValid =
+    discount > 0 &&
+    (!offerDate ||
+      (offerDate.startDate &&
+        offerDate.endDate &&
+        dayjs().isAfter(offerDate.startDate) &&
+        dayjs().isBefore(offerDate.endDate)));
+
   return (
     <>
-      <div
-        className={`${
-          offer_style ? "tp-product-offer-item" : "mb-25"
-        } tp-product-item transition-3`}
-        style={{ height: "100%" }}
-      >
+      <div className=" tp-product-item transition-3" style={{ height: "100%" }}>
         <div
-          style={{ height: "300px" }}
+          style={{ height: "260px" }}
           className="tp-product-thumb p-relative fix"
         >
           <Link href={`/product-details/${_id}`}>
@@ -80,7 +82,7 @@ const ProductItem = ({ product, offer_style = false }) => {
           {/*  product action */}
           <div className="tp-product-action">
             <div className="tp-product-action-item d-flex flex-column">
-              {isAddedToCart ? (
+              {/* {isAddedToCart ? (
                 <Link
                   href="/cart"
                   className={`tp-product-action-btn ${
@@ -102,7 +104,7 @@ const ProductItem = ({ product, offer_style = false }) => {
 
                   <span className="tp-product-tooltip">Add to Cart</span>
                 </button>
-              )}
+              )} */}
               <button
                 onClick={() => dispatch(handleProductModal(product))}
                 type="button"
@@ -112,7 +114,7 @@ const ProductItem = ({ product, offer_style = false }) => {
 
                 <span className="tp-product-tooltip">Quick View</span>
               </button>
-              <button
+              {/* <button
                 type="button"
                 className={`tp-product-action-btn ${
                   isAddedToWishlist ? "active" : ""
@@ -122,14 +124,22 @@ const ProductItem = ({ product, offer_style = false }) => {
               >
                 <Wishlist />
                 <span className="tp-product-tooltip">Add To Wishlist</span>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
         {/*  product content */}
         <div className="tp-product-content">
           <div className="tp-product-category">
-            <a href="#">{category?.name}</a>
+            <a
+              href={`/shop?subCategory=${category?.name
+                .toLowerCase()
+                .replace("&", "")
+                .split(" ")
+                .join("-")}`}
+            >
+              {category?.name}
+            </a>
           </div>
           <h3 className="tp-product-title">
             <Link href={`/product-details/${_id}`}>
@@ -153,7 +163,7 @@ const ProductItem = ({ product, offer_style = false }) => {
             </div>
           </div>
           <div className="tp-product-price-wrapper">
-            {discount > 0 ? (
+            {isDiscountValid ? (
               <>
                 <span className="tp-product-price old-price">${price}</span>
                 <span className="tp-product-price new-price">
@@ -167,7 +177,7 @@ const ProductItem = ({ product, offer_style = false }) => {
               </span>
             )}
           </div>
-          {offer_style && (
+          {/* {offer_style && (
             <div className="tp-product-countdown">
               <div className="tp-product-countdown-inner">
                 {dayjs().isAfter(offerDate?.endDate) ? (
@@ -190,7 +200,7 @@ const ProductItem = ({ product, offer_style = false }) => {
                 )}
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </>

@@ -1,10 +1,11 @@
-'use client';
+"use client";
 // internal
 import useSearchFormSubmit from "@/hooks/use-search-form-submit";
 import { Search } from "@/svg";
 
 const HeaderSearchForm = () => {
-  const { setSearchText, setCategory, handleSubmit, searchText } = useSearchFormSubmit();
+  const { setSearchText, setCategory, handleSubmit, searchText } =
+    useSearchFormSubmit();
 
   // selectHandle
   const selectCategoryHandle = (e) => {
@@ -19,7 +20,7 @@ const HeaderSearchForm = () => {
             onChange={(e) => setSearchText(e.target.value)}
             value={searchText}
             type="text"
-            placeholder="Search for Products..."
+            placeholder="Search..."
           />
         </div>
         {/* <div className="tp-header-search-category">

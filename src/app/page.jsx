@@ -1,6 +1,7 @@
 import BannerArea from "@/components/banner/banner-area";
 import FeatureArea from "@/components/features/feature-area";
 import HomeHeroSlider from "@/components/hero-banner/home-hero-slider";
+import CategoriesList from "@/components/products/electronics/categories";
 import NewArrivals from "@/components/products/electronics/new-arrivals";
 import ProductArea from "@/components/products/electronics/product-area";
 import ProductBanner from "@/components/products/electronics/product-banner";
@@ -14,7 +15,8 @@ export default function HomePage() {
         {/* <ComingSoon /> */}
         <HomeHeroSlider />
         <FeatureArea />
-        <NewArrivals />
+        {/* <NewArrivals /> */}
+        <CategoriesList />
         <BannerArea />
         <ProductArea />
         <ProductBanner />

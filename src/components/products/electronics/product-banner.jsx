@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { EffectFade, Pagination, Autoplay, Navigation } from "swiper/modules";
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 // internal
 import ErrorMsg from "@/components/common/error-msg";
@@ -74,19 +74,19 @@ const ProductBanner = () => {
 
     return (
       <>
-        <div className="tp-product-banner-area pb-90">
+        <div className="tp-product-banner-area pb-20">
           <div className="container">
             <div className="tp-product-banner-slider fix">
               <Swiper
                 {...slider_setting}
-                modules={[Navigation, Pagination, EffectFade, Autoplay]}
+                modules={[Navigation, Pagination, EffectFade]}
                 loop={true}
                 effect="fade"
-                autoplay={{
-                  delay: 7000,
-                  disableOnInteraction: false,
-                  pauseOnMouseEnter: true,
-                }}
+                // autoplay={{
+                //   delay: 7000,
+                //   disableOnInteraction: false,
+                //   pauseOnMouseEnter: true,
+                // }}
                 className="tp-product-banner-slider-active swiper-container"
               >
                 {featured_items.map((item, i) => (
@@ -100,7 +100,7 @@ const ProductBanner = () => {
                     }}
                   >
                     <div className="row align-items-center">
-                      <div className="col-xl-6 col-lg-6">
+                      <div className="col-xl-6 col-lg-6 flex flex-col items-center text-center lg:items-start lg:text-left">
                         <div
                           className="tp-product-banner-content p-relative z-index-1"
                           style={{ display: "flex", flexDirection: "column" }}
@@ -111,9 +111,15 @@ const ProductBanner = () => {
                           <h3 className="tp-product-banner-subtitle">
                             {item.description}
                           </h3>
-                          <div className="tp-product-banner-price mb-40">
+                          <div className="tp-product-banner-price mb-6">
                             {item.price && (
-                              <span className="old-price">${item.price}</span>
+                              <span
+                                className={
+                                  item.discounted ? "old-price" : "new-price"
+                                }
+                              >
+                                ${item.price}
+                              </span>
                             )}
                             {item.discounted && (
                               <p className="new-price">${item.discounted}</p>
@@ -126,7 +132,10 @@ const ProductBanner = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="col-xl-6 col-lg-6">
+                      <div
+                        className="col-xl-6 col-lg-6 "
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
                         <div className="tp-product-banner-thumb-wrapper p-relative">
                           <div className="tp-product-banner-thumb text-end p-relative z-index-1">
                             <Image

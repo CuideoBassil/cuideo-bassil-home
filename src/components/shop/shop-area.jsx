@@ -10,12 +10,12 @@ import ShopContent from "./shop-content";
 const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const category = searchParams.get("category");
-  const brand = searchParams.get("brand");
+  const categories = searchParams.getAll("category");
+  const brands = searchParams.getAll("brand");
   const minPrice = searchParams.get("minPrice");
   const maxPrice = searchParams.get("maxPrice");
-  const subCategory = searchParams.get("subCategory");
-  const filterColor = searchParams.get("color");
+  const subCategories = searchParams.getAll("subCategory");
+  const filterColors = searchParams.getAll("color");
   const status = searchParams.get("status");
   const { data: products, isError, isLoading } = useGetAllProductsQuery();
   const [priceValue, setPriceValue] = useState([0, 0]);
@@ -32,18 +32,18 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
     }
   }, [isLoading, isError, products]);
 
-  // handleChanges
+  // handleChanges for price range
   const handleChanges = (val) => {
     setCurrPage(1);
     setPriceValue(val);
   };
 
-  // selectHandleFilter
+  // selectHandleFilter for sorting
   const selectHandleFilter = (e) => {
     setSelectValue(e.value);
   };
 
-  // other props
+  // other props to pass down
   const otherProps = {
     priceFilterValues: {
       priceValue,
@@ -54,6 +54,7 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
     currPage,
     setCurrPage,
   };
+
   // decide what to render
   let content = null;
 
@@ -72,12 +73,12 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   }
   if (!isLoading && !isError && products?.data?.length > 0) {
     // products
-
     let _products = products.data.filter(
       (prd) => prd.status !== "out-of-stock"
     );
     let product_items = _products;
-    // select short filtering
+
+    // select short filtering (sorting)
     if (selectValue) {
       if (selectValue === "Default Sorting") {
         product_items = _products;
@@ -109,52 +110,55 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
       }
     }
 
-    // category filter
-    if (category) {
-      product_items = product_items.filter(
-        (p) =>
-          p.category.name
-            .toLowerCase()
-            .replace("&", "")
-            .split(" ")
-            .join("-") === category
+    // category filter (cumulative)
+    if (categories && categories.length > 0) {
+      product_items = product_items.filter((p) =>
+        categories.some(
+          (cat) =>
+            p.productType.name
+              .toLowerCase()
+              .replace("&", "")
+              .split(" ")
+              .join("-") === cat
+        )
       );
     }
 
-    // category filter
-    if (subCategory) {
-      product_items = product_items.filter(
-        (p) =>
-          p.catego.toLowerCase().replace("&", "").split(" ").join("-") ===
-          subCategory
+    // subCategory filter (cumulative)
+    if (subCategories && subCategories.length > 0) {
+      product_items = product_items.filter((p) =>
+        subCategories.some(
+          (subCat) =>
+            p.category.name
+              .toLowerCase()
+              .replace("&", "")
+              .split(" ")
+              .join("-") === subCat
+        )
       );
     }
 
-    // color filter
-    if (filterColor) {
-      product_items = product_items.filter((product) => {
-        for (let i = 0; i < product?.imageURLs.length; i++) {
-          const color = product?.imageURLs[i]?.color;
-          if (
-            color &&
-            color?.name.toLowerCase().split(" ").join("-") === filterColor
-          ) {
-            return true;
-          }
-        }
-        return false;
-      });
-    }
-
-    // brand filter
-    if (brand) {
-      product_items = product_items.filter(
-        (p) =>
-          p.brand.name.toLowerCase().split(" ").join("-").replace("&", "") ===
-          brand
+    // color filter (cumulative)
+    if (filterColors && filterColors.length > 0) {
+      product_items = product_items.filter((product) =>
+        filterColors.some(
+          (color) => product?.color?.name?.toLowerCase() === color
+        )
       );
     }
 
+    // brand filter (cumulative)
+    if (brands && brands.length > 0) {
+      product_items = product_items.filter((p) =>
+        brands.some(
+          (br) =>
+            p.brand.name.toLowerCase().split(" ").join("-").replace("&", "") ===
+            br
+        )
+      );
+    }
+
+    // price range filter
     if (minPrice && maxPrice) {
       product_items = product_items.filter(
         (p) =>

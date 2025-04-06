@@ -9,10 +9,9 @@ import { HomeTwoPrdLoader } from "../loader";
 function BannerItem({ bg, title, description, img, discounted, price }) {
   return (
     <div
-      className="tp-banner-item tp-banner-height p-relative mb-30 z-index-1 fix"
+      className="  tp-banner-item tp-banner-height p-relative mb-30 z-index-1 fix "
       style={{
-        backgroundColor: `${bg}`,
-        padding: "5%",
+        backgroundColor: bg,
         borderRadius: "10px",
       }}
     >
@@ -29,7 +28,10 @@ function BannerItem({ bg, title, description, img, discounted, price }) {
             {price && (
               <span
                 className="old-price"
-                style={{ color: "black", textDecoration: "line-through" }}
+                style={{
+                  color: "black",
+                  textDecoration: discounted ? "line-through" : "none",
+                }}
               >
                 ${price}
               </span>
@@ -76,11 +78,11 @@ const BannerArea = () => {
 
   if (!isLoading && !isError && featured?.data?.length > 0) {
     return (
-      <section className="tp-banner-area pb-70">
+      <section className="tp-banner-area pb-50">
         <div className="container">
           <div className="row">
             {featured.data.map((item, i) => (
-              <div key={i} className="col-lg-6 col-md-12 mb-4">
+              <div key={i} className="col-lg-6 col-md-12 ">
                 <BannerItem
                   bg={item.background}
                   title={item.title}

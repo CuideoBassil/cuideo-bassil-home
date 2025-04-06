@@ -12,7 +12,6 @@ export const metadata = {
 export default function NotFound() {
   return (
     <Wrapper>
-      <HeaderTwo style_2={true} />
       {/* 404 area start */}
       <section className="tp-error-area pt-110 pb-110">
         <div className="container">
@@ -38,7 +37,6 @@ export default function NotFound() {
         </div>
       </section>
       {/* 404 area end */}
-      <Footer primary_style={true} />
     </Wrapper>
   );
 }

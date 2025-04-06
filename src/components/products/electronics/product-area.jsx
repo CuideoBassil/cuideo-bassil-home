@@ -49,7 +49,7 @@ const ProductArea = () => {
     content = shuffleArray(product_items)
       .slice(0, 20)
       .map((prd, i) => (
-        <div key={i} className="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 mt-4">
+        <div key={i} className="col-6 col-lg-4 col-xl-3 mt-4">
           <ProductItem product={prd} />
         </div>
       ));
@@ -59,7 +59,7 @@ const ProductArea = () => {
       <div className="container">
         <div className="row align-items-end">
           <div className="col-xl-5 col-lg-6 col-md-5">
-            <div className="tp-section-title-wrapper mb-40">
+            <div className="tp-section-title-wrapper ">
               <h3 className="tp-section-title">
                 Products
                 <ShapeLine />
@@ -68,7 +68,7 @@ const ProductArea = () => {
           </div>
           <div className="col-xl-7 col-sm-6">
             <div className="tp-product-arrival-more-wrapper d-flex justify-content-end">
-              <div className="tp-product-arrival-arrow tp-swiper-arrow mb-40 text-end tp-product-arrival-border">
+              <div className="tp-product-arrival-arrow tp-swiper-arrow  text-end tp-product-arrival-border">
                 <button
                   type="button"
                   style={{
@@ -87,7 +87,7 @@ const ProductArea = () => {
             </div>
           </div>
         </div>
-        <div className="row">{content}</div>
+        <div className="row ">{content}</div>
       </div>
     </section>
   );

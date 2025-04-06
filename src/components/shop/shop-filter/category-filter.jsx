@@ -19,7 +19,7 @@ const CategoryFilter = ({ setCurrPage, shop_right = false }) => {
   const handleCategoryRoute = (title) => {
     setCurrPage(1);
     router.push(
-      `/${shop_right ? "shop-right-sidebar" : "shop"}?category=${title
+      `/${shop_right ? "shop-right-sidebar" : "shop"}?subCategory=${title
         .toLowerCase()
         .replace("&", "")
         .split(" ")
@@ -27,6 +27,7 @@ const CategoryFilter = ({ setCurrPage, shop_right = false }) => {
     );
     dispatch(handleFilterSidebarClose());
   };
+
   // decide what to render
   let content = null;
 
@@ -40,7 +41,10 @@ const CategoryFilter = ({ setCurrPage, shop_right = false }) => {
     content = <ErrorMsg msg="No Category found!" />;
   }
   if (!isLoading && !isError && categories?.result?.length > 0) {
-    const category_items = categories.result;
+    const category_items = [...categories.result]
+      .filter((item) => item.products.length > 0)
+      .sort((a, b) => a.parent.localeCompare(b.parent));
+
     content = category_items.map((item) => (
       <li key={item._id}>
         <a
@@ -58,6 +62,7 @@ const CategoryFilter = ({ setCurrPage, shop_right = false }) => {
       </li>
     ));
   }
+
   return (
     <>
       <div className="tp-shop-widget mb-10">
