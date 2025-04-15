@@ -121,7 +121,11 @@ const Header = () => {
                         All Categories
                       </button>
                       <nav className="tp-category-menu-content">
-                        <HeaderCategory isCategoryActive={isCategoryActive} />
+                        <HeaderCategory
+                          isCategoryActive={isCategoryActive}
+                          setIsCategoryActive={setIsCategoryActive}
+                        />{" "}
+                        {/* Pass setIsCategoryActive */}
                       </nav>
                     </div>
                   </div>

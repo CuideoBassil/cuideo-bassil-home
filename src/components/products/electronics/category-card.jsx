@@ -6,13 +6,7 @@ const CategoryCard = ({ category }) => {
 
   return (
     <div style={{ width: "100%", padding: "0.5rem" }}>
-      <Link
-        href={`/shop?category=${name
-          ?.toLowerCase()
-          .replace(/&/g, "")
-          .split(" ")
-          .join("-")}`}
-      >
+      <Link href={`/shop?category=${name?.toLowerCase()}`}>
         <div
           style={{
             backgroundColor: "white",

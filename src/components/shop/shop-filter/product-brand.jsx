@@ -15,11 +15,9 @@ const ProductBrand = ({ setCurrPage, shop_right = false }) => {
   const handleBrandRoute = (brand) => {
     setCurrPage(1);
     router.push(
-      `/${shop_right ? "shop-right-sidebar" : "shop"}?brand=${brand
-        .toLowerCase()
-        .replace("&", "")
-        .split(" ")
-        .join("-")}`
+      `/${
+        shop_right ? "shop-right-sidebar" : "shop"
+      }?brand=${brand.toLowerCase()}`
     );
     dispatch(handleFilterSidebarClose());
   };

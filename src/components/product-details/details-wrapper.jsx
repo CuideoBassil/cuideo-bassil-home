@@ -32,7 +32,6 @@ const DetailsWrapper = ({
     tags,
     offerDate,
   } = productItem || {};
-  console.log("productItem11", productItem);
   const [ratingVal, setRatingVal] = useState(0);
   const [textMore, setTextMore] = useState(false);
   const dispatch = useDispatch();
@@ -150,18 +149,16 @@ const DetailsWrapper = ({
       {/* )} */}
 
       {/* if ProductDetailsCountdown true start */}
-      {offerDate?.endDate && (
+      {/* {offerDate?.endDate && (
         <ProductDetailsCountdown offerExpiryTime={offerDate?.endDate} />
-      )}
+      )} */}
       {/* if ProductDetailsCountdown true end */}
 
       {/* actions */}
-      <div className="tp-product-details-action-wrapper">
+      {/* <div className="tp-product-details-action-wrapper">
         <h3 className="tp-product-details-action-title">Quantity</h3>
         <div className="tp-product-details-action-item-wrapper d-sm-flex align-items-center">
-          {/* product quantity */}
           <ProductQuantity />
-          {/* product quantity */}
           <div className="tp-product-details-add-to-cart mb-15 w-100">
             <button
               onClick={() => handleAddProduct(productItem)}
@@ -172,12 +169,12 @@ const DetailsWrapper = ({
             </button>
           </div>
         </div>
-        {/* <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
+        <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
           <button className="tp-product-details-buy-now-btn w-100">
             Buy Now
           </button>
-        </Link> */}
-      </div>
+        </Link>
+      </div> */}
       {/* product-details-action-sm start */}
       <div className="tp-product-details-action-sm">
         {/* <button
@@ -189,7 +186,7 @@ const DetailsWrapper = ({
           <CompareTwo />
           Compare
         </button> */}
-        <button
+        {/* <button
           disabled={status === "out-of-stock"}
           onClick={() => handleWishlistProduct(productItem.data)}
           type="button"
@@ -197,7 +194,7 @@ const DetailsWrapper = ({
         >
           <WishlistTwo />
           Add Wishlist
-        </button>
+        </button> */}
         {/* <button type="button" className="tp-product-details-action-sm-btn">
           <AskQuestion />
           Ask a question

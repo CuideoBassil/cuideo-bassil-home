@@ -1,5 +1,5 @@
 "use client";
-import { useGetAllProductsQuery } from "@/redux/features/productApi";
+import { useGetFilteredPaginatedProductsQuery } from "@/redux/features/productApi";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ErrorMsg from "../common/error-msg";
@@ -12,50 +12,126 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   const router = useRouter();
   const categories = searchParams.getAll("category");
   const brands = searchParams.getAll("brand");
-  const minPrice = searchParams.get("minPrice");
-  const maxPrice = searchParams.get("maxPrice");
   const subCategories = searchParams.getAll("subCategory");
   const filterColors = searchParams.getAll("color");
-  const status = searchParams.get("status");
-  const { data: products, isError, isLoading } = useGetAllProductsQuery();
-  const [priceValue, setPriceValue] = useState([0, 0]);
-  const [selectValue, setSelectValue] = useState("");
+  const sortBy = searchParams.get("sortBy");
   const [currPage, setCurrPage] = useState(1);
+  const itemsPerPage = 12;
 
-  // Load the maximum price once the products have been loaded
-  useEffect(() => {
-    if (!isLoading && !isError && products?.data?.length > 0) {
-      const maxPrice = products.data.reduce((max, product) => {
-        return product.price > max ? product.price : max;
-      }, 0);
-      setPriceValue([0, maxPrice]);
+  // Build filter parameters object
+  const buildFilters = () => {
+    const filters = {
+      skip: (currPage - 1) * itemsPerPage,
+      take: itemsPerPage,
+    };
+
+    if (filterColors.length > 0) filters.color = filterColors;
+    if (subCategories.length > 0) filters.category = subCategories;
+    if (categories.length > 0) filters.productType = categories;
+    if (brands.length > 0) filters.brand = brands;
+    if (sortBy) filters.sortBy = sortBy;
+
+    return filters;
+  };
+
+  const {
+    data: productsData,
+    isError,
+    isLoading,
+    refetch,
+  } = useGetFilteredPaginatedProductsQuery(buildFilters());
+
+  // Update URL when filters change
+  const updateUrl = (newParams) => {
+    setCurrPage(1); // Reset to first page when filters change
+    if (newParams.toString() == "sortBy=default") {
+      router.push(`/shop`);
+    } else {
+      router.push(`/shop?${newParams.toString()}`);
     }
-  }, [isLoading, isError, products]);
+  };
+  const updateFilterParams = (params, key, values) => {
+    // First delete all existing values for this filter
+    params.delete(key);
 
-  // handleChanges for price range
-  const handleChanges = (val) => {
-    setCurrPage(1);
-    setPriceValue(val);
+    // Then add the new values
+    values.forEach((value) => {
+      if (value) {
+        // only add if value is not empty
+        params.append(key, value);
+      }
+    });
+
+    return params;
   };
 
-  // selectHandleFilter for sorting
-  const selectHandleFilter = (e) => {
-    setSelectValue(e.value);
+  // Handle sorting changes
+  const handleSortChange = (e) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("sortBy", e.value);
+    updateUrl(newParams);
   };
 
-  // other props to pass down
+  // Handle category filter changes
+  const handleCategoryChange = (categories) => {
+    const newParams = new URLSearchParams(searchParams);
+    updateFilterParams(newParams, "category", categories);
+    updateUrl(newParams);
+  };
+
+  // Handle color filter changes
+  const handleColorChange = (colors) => {
+    const newParams = new URLSearchParams(searchParams);
+    updateFilterParams(newParams, "color", colors);
+    updateUrl(newParams);
+  };
+
+  // Handle brand filter changes
+  const handleBrandChange = (brands) => {
+    const newParams = new URLSearchParams(searchParams);
+    updateFilterParams(newParams, "brand", brands);
+    updateUrl(newParams);
+  };
+
+  // Handle subcategory filter changes
+  const handleSubCategoryChange = (subCategories) => {
+    const newParams = new URLSearchParams(searchParams);
+    updateFilterParams(newParams, "subCategory", subCategories);
+    updateUrl(newParams);
+  };
+  // Reset all filters
+  const handleResetFilters = () => {
+    router.push("/shop");
+  };
+
+  // Update page from URL
+  useEffect(() => {
+    const pageFromURL = searchParams.get("page");
+    if (pageFromURL) {
+      setCurrPage(parseInt(pageFromURL));
+    } else {
+      setCurrPage(1);
+    }
+  }, [searchParams]);
+
   const otherProps = {
-    priceFilterValues: {
-      priceValue,
-      handleChanges,
-      setPriceValue,
-    },
-    selectHandleFilter,
+    selectHandleFilter: handleSortChange,
     currPage,
     setCurrPage,
+    handleCategoryChange,
+    handleColorChange,
+    handleBrandChange,
+    handleSubCategoryChange,
+    handleResetFilters,
+    activeFilters: {
+      categories,
+      brands,
+      colors: filterColors,
+      subCategories,
+      sortBy,
+    },
   };
 
-  // decide what to render
   let content = null;
 
   if (isLoading) {
@@ -64,121 +140,27 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   if (!isLoading && isError) {
     content = (
       <div className="pb-80 text-center">
-        <ErrorMsg msg="There was an error" />
+        <ErrorMsg msg="There was an error fetching products" />
       </div>
     );
   }
-  if (!isLoading && !isError && products?.data?.length === 0) {
-    content = <ErrorMsg msg="No Products found!" />;
+  if (!isLoading && !isError && productsData?.products?.length === 0) {
+    content = <ErrorMsg msg="No Products found with the current filters!" />;
   }
-  if (!isLoading && !isError && products?.data?.length > 0) {
-    // products
-    let _products = products.data.filter(
-      (prd) => prd.status !== "out-of-stock"
-    );
-    let product_items = _products;
-
-    // select short filtering (sorting)
-    if (selectValue) {
-      if (selectValue === "Default Sorting") {
-        product_items = _products;
-      } else if (selectValue === "Low to High") {
-        product_items = _products
-          .slice()
-          .sort((a, b) => Number(a.price) - Number(b.price));
-      } else if (selectValue === "High to Low") {
-        product_items = _products
-          .slice()
-          .sort((a, b) => Number(b.price) - Number(a.price));
-      } else if (selectValue === "New Added") {
-        product_items = _products
-          .slice()
-          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      } else if (selectValue === "On Sale") {
-        product_items = _products.filter((p) => p.discount > 0);
-      } else {
-        product_items = _products;
-      }
-    }
-
-    // status filter
-    if (status) {
-      if (status === "on-sale") {
-        product_items = product_items.filter((p) => p.discount > 0);
-      } else if (status === "in-stock") {
-        product_items = product_items.filter((p) => p.status === "in-stock");
-      }
-    }
-
-    // category filter (cumulative)
-    if (categories && categories.length > 0) {
-      product_items = product_items.filter((p) =>
-        categories.some(
-          (cat) =>
-            p.productType.name
-              .toLowerCase()
-              .replace("&", "")
-              .split(" ")
-              .join("-") === cat
-        )
-      );
-    }
-
-    // subCategory filter (cumulative)
-    if (subCategories && subCategories.length > 0) {
-      product_items = product_items.filter((p) =>
-        subCategories.some(
-          (subCat) =>
-            p.category.name
-              .toLowerCase()
-              .replace("&", "")
-              .split(" ")
-              .join("-") === subCat
-        )
-      );
-    }
-
-    // color filter (cumulative)
-    if (filterColors && filterColors.length > 0) {
-      product_items = product_items.filter((product) =>
-        filterColors.some(
-          (color) => product?.color?.name?.toLowerCase() === color
-        )
-      );
-    }
-
-    // brand filter (cumulative)
-    if (brands && brands.length > 0) {
-      product_items = product_items.filter((p) =>
-        brands.some(
-          (br) =>
-            p.brand.name.toLowerCase().split(" ").join("-").replace("&", "") ===
-            br
-        )
-      );
-    }
-
-    // price range filter
-    if (minPrice && maxPrice) {
-      product_items = product_items.filter(
-        (p) =>
-          Number(p.price) >= Number(minPrice) &&
-          Number(p.price) <= Number(maxPrice)
-      );
-    }
-
+  if (!isLoading && !isError && productsData?.products?.length > 0) {
     content = (
       <>
         <ShopContent
-          all_products={products.data}
-          products={product_items}
+          all_products={productsData.products}
+          products={productsData.products}
           otherProps={otherProps}
           shop_right={shop_right}
           hidden_sidebar={hidden_sidebar}
+          totalProducts={productsData?.totalCount}
+          itemsPerPage={itemsPerPage}
         />
-
         <ShopFilterOffCanvas
-          all_products={products.data}
+          all_products={productsData.products}
           otherProps={otherProps}
         />
       </>

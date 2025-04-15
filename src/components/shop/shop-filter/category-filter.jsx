@@ -1,12 +1,11 @@
 "use client";
-import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 // internal
 import ErrorMsg from "@/components/common/error-msg";
+import ShopCategoryLoader from "@/components/loader/shop/shop-category-loader";
 import { useGetShowCategoryQuery } from "@/redux/features/categoryApi";
 import { handleFilterSidebarClose } from "@/redux/features/shop-filter-slice";
-import ShopCategoryLoader from "@/components/loader/shop/shop-category-loader";
 
 const CategoryFilter = ({ setCurrPage, shop_right = false }) => {
   const { data: categories, isLoading, isError } = useGetShowCategoryQuery();
@@ -19,11 +18,9 @@ const CategoryFilter = ({ setCurrPage, shop_right = false }) => {
   const handleCategoryRoute = (title) => {
     setCurrPage(1);
     router.push(
-      `/${shop_right ? "shop-right-sidebar" : "shop"}?subCategory=${title
-        .toLowerCase()
-        .replace("&", "")
-        .split(" ")
-        .join("-")}`
+      `/${
+        shop_right ? "shop-right-sidebar" : "shop"
+      }?subCategory=${title.toLowerCase()}`
     );
     dispatch(handleFilterSidebarClose());
   };

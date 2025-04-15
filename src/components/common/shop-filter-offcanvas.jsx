@@ -15,7 +15,18 @@ const ShopFilterOffCanvas = ({
   otherProps,
   right_side = false,
 }) => {
-  const { priceFilterValues, setCurrPage } = otherProps;
+  const {
+    priceFilterValues,
+    setCurrPage,
+    handleColorChange,
+    handleCategoryChange,
+    handleBrandChange,
+    handleSubCategoryChange,
+    handleStatusChange,
+    handleResetFilters,
+    activeFilters,
+  } = otherProps;
+
   const { filterSidebar } = useSelector((state) => state.shopFilter);
   const dispatch = useDispatch();
 
@@ -42,33 +53,48 @@ const ShopFilterOffCanvas = ({
             </button>
           </div>
           <div className="tp-shop-sidebar">
-            {/* filter */}
-            <PriceFilter
+            {/* <PriceFilter
               priceFilterValues={priceFilterValues}
               maxPrice={maxPrice}
+            /> */}
+            <StatusFilter
+              setCurrPage={setCurrPage}
+              handleStatusChange={handleStatusChange}
+              activeStatus={activeFilters?.status}
+              shop_right={right_side}
             />
-            {/* status */}
-            <StatusFilter setCurrPage={setCurrPage} shop_right={right_side} />
-            {/* categories */}
-            <CategoryFilter setCurrPage={setCurrPage} shop_right={right_side} />
-            {/* color */}
-            <ColorFilter setCurrPage={setCurrPage} shop_right={right_side} />
-            {/* product rating */}
-            {/* <TopRatedProducts /> */}
-            {/* brand */}
-            <ProductBrand setCurrPage={setCurrPage} shop_right={right_side} />
-            {/* reset filter */}
-            <ResetButton shop_right={right_side} />
+            <CategoryFilter
+              setCurrPage={setCurrPage}
+              handleCategoryChange={handleCategoryChange}
+              handleSubCategoryChange={handleSubCategoryChange}
+              activeCategories={activeFilters?.categories}
+              activeSubCategories={activeFilters?.subCategories}
+              shop_right={right_side}
+            />
+            <ColorFilter
+              setCurrPage={setCurrPage}
+              handleColorChange={handleColorChange}
+              activeFilters={activeFilters}
+              shop_right={right_side}
+            />
+            <ProductBrand
+              setCurrPage={setCurrPage}
+              handleBrandChange={handleBrandChange}
+              activeBrands={activeFilters?.brands}
+              shop_right={right_side}
+            />
+            <ResetButton
+              handleResetFilters={handleResetFilters}
+              shop_right={right_side}
+            />
           </div>
         </div>
       </div>
 
-      {/* overlay start */}
       <div
         onClick={() => dispatch(handleFilterSidebarClose())}
         className={`body-overlay ${filterSidebar ? "opened" : ""}`}
       ></div>
-      {/* overlay end */}
     </>
   );
 };

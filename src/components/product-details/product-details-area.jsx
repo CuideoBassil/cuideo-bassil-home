@@ -23,7 +23,7 @@ const ProductDetailsArea = ({ id }) => {
           category={product.data.category.name}
           title={product.data.title}
         />
-        <ProductDetailsContent productItem={product} />
+        <ProductDetailsContent productItem={product.data} />
       </>
     );
   }

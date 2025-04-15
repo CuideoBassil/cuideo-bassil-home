@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const ContactBreadcrumb = () => {
   return (
     <section className="breadcrumb__area include-bg text-center pt-25 pb-20">
@@ -8,7 +10,7 @@ const ContactBreadcrumb = () => {
               <h3 className="breadcrumb__title">Keep In Touch with Us</h3>
               <div className="breadcrumb__list">
                 <span>
-                  <a href="/">Home</a>
+                  <Link href="/">Home</Link>
                 </span>
                 <span>Contact</span>
               </div>

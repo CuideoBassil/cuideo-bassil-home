@@ -131,13 +131,7 @@ const ProductItem = ({ product, offer_style = false }) => {
         {/*  product content */}
         <div className="tp-product-content">
           <div className="tp-product-category">
-            <a
-              href={`/shop?subCategory=${category?.name
-                .toLowerCase()
-                .replace("&", "")
-                .split(" ")
-                .join("-")}`}
-            >
+            <a href={`/shop?subCategory=${category?.name.toLowerCase()}`}>
               {category?.name}
             </a>
           </div>

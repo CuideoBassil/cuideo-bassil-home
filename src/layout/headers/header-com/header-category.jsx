@@ -1,28 +1,40 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useEffect, useRef } from "react"; // Import useState, useEffect, and useRef
 // internal
 import ErrorMsg from "@/components/common/error-msg";
 import Loader from "@/components/loader/loader";
 import { useGetAllProductTypesQuery } from "@/redux/features/productTypeApi";
 
-const HeaderCategory = ({ isCategoryActive }) => {
+const HeaderCategory = ({ isCategoryActive, setIsCategoryActive }) => {
   const {
     data: productTypes,
     isError,
     isLoading,
   } = useGetAllProductTypesQuery();
   const router = useRouter();
+  const dropdownRef = useRef(null); // Create a ref for the dropdown
 
   // handle category route
   const handleCategoryRoute = (title) => {
-    router.push(
-      `/shop?category=${title
-        .toLowerCase()
-        .replace("&", "")
-        .split(" ")
-        .join("-")}`
-    );
+    setIsCategoryActive(false); // Close the dropdown when a category is selected
+    router.push(`/shop?category=${title.toLowerCase()}`);
   };
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsCategoryActive(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef, setIsCategoryActive]);
+
   // decide what to render
   let content = null;
 
@@ -52,7 +64,14 @@ const HeaderCategory = ({ isCategoryActive }) => {
       </li>
     ));
   }
-  return <ul className={isCategoryActive ? "active" : ""}>{content}</ul>;
+  return (
+    <ul
+      ref={dropdownRef} // Attach the ref to the ul element
+      className={`tp-category-menu-content ${isCategoryActive ? "active" : ""}`}
+    >
+      {content}
+    </ul>
+  );
 };
 
 export default HeaderCategory;

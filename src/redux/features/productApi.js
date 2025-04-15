@@ -43,9 +43,31 @@ export const productApi = apiSlice.injectEndpoints({
         { type: "RelatedProducts", id: arg },
       ],
     }),
+    getFilteredPaginatedProducts: builder.query({
+      query: ({
+        skip = 0,
+        take = 12,
+        color,
+        category,
+        brand,
+        subCategory,
+        sortBy,
+      }) => {
+        const params = new URLSearchParams();
+        params.append("skip", skip);
+        params.append("take", take);
+        if (color) params.append("color", color);
+        if (category) params.append("category", category);
+        if (brand) params.append("brand", brand);
+        if (subCategory) params.append("subCategory", subCategory);
+        if (sortBy && sortBy !== "default") params.append("sortBy", sortBy);
+
+        return `/api/product/filtered/paginated?${params.toString()}`;
+      },
+      providesTags: ["FilteredPaginatedProducts"],
+    }),
   }),
 });
-
 export const {
   useGetAllProductsQuery,
   useGetProductTypeQuery,
@@ -56,4 +78,5 @@ export const {
   useGetRelatedProductsQuery,
   useGetProductWithTypeQuery,
   useGetProductsWithFilterQuery,
+  useGetFilteredPaginatedProductsQuery,
 } = productApi;

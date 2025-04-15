@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 import ErrorMsg from "../common/error-msg";
 import { useGetShowCategoryQuery } from "@/redux/features/categoryApi";
@@ -10,13 +10,7 @@ const ShopCategoryArea = () => {
   const router = useRouter();
   // handle category route
   const handleCategoryRoute = (title) => {
-    router.push(
-      `/shop?category=${title
-        .toLowerCase()
-        .replace("&", "")
-        .split(" ")
-        .join("-")}`
-    );
+    router.push(`/shop?category=${title.toLowerCase()}`);
   };
 
   // decide what to render

@@ -1,6 +1,6 @@
-'use client';
-import { useEffect, useState } from "react";
+"use client";
 import { PaginationNext, PaginationPrev } from "@/svg";
+import { useEffect } from "react";
 
 const Pagination = ({
   items = [],
@@ -23,7 +23,7 @@ const Pagination = ({
 
   useEffect(() => {
     paginatedData(items, pageStart, countOfPage);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, pageStart, countOfPage]);
 
   return (

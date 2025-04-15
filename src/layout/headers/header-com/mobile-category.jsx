@@ -27,21 +27,9 @@ const MobileCategory = ({ isCategoryActive, categoryType }) => {
   // handle category route
   const handleCategoryRoute = (title, route) => {
     if (route === "parent") {
-      router.push(
-        `/shop?category=${title
-          .toLowerCase()
-          .replace("&", "")
-          .split(" ")
-          .join("-")}`
-      );
+      router.push(`/shop?category=${title.toLowerCase()}`);
     } else {
-      router.push(
-        `/shop?subCategory=${title
-          .toLowerCase()
-          .replace("&", "")
-          .split(" ")
-          .join("-")}`
-      );
+      router.push(`/shop?subCategory=${title.toLowerCase()}`);
     }
   };
   // decide what to render

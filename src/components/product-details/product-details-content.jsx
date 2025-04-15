@@ -7,8 +7,7 @@ import DetailsWrapper from "./details-wrapper";
 import RelatedProducts from "./related-products";
 
 const ProductDetailsContent = ({ productItem }) => {
-  const { _id, image, imageURLs, videoId, status } = productItem.data || {};
-  console.log("productItem: ", productItem);
+  const { _id, image, imageURLs, videoId, status } = productItem || {};
   const [activeImg, setActiveImg] = useState(image);
   const dispatch = useDispatch();
   // active image change when img change

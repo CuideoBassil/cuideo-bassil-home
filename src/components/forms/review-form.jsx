@@ -20,7 +20,7 @@ const schema = Yup.object().shape({
 const ReviewForm = ({ product_id }) => {
   // const { user } = useSelector((state) => state.auth);
   const [rating, setRating] = useState(0.5);
-  const [addReview, {}] = useAddReviewMutation();
+  const [addReview] = useAddReviewMutation();
 
   // Catch Rating value
   const handleRating = (rate) => {
@@ -38,7 +38,6 @@ const ReviewForm = ({ product_id }) => {
   });
   // on submit
   const onSubmit = (data) => {
-    console.log("data: ", data);
     addReview({
       productId: product_id,
       rating: rating,
