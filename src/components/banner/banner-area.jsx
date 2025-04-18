@@ -2,68 +2,74 @@
 // internal
 import { useGetFeaturedBySectionQuery } from "@/redux/features/featuredApi";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import ErrorMsg from "../common/error-msg";
 import { HomeTwoPrdLoader } from "../loader";
 
-// banner item
-function BannerItem({ bg, title, description, img, discounted, price }) {
-  return (
-    <div
-      className="  tp-banner-item tp-banner-height p-relative mb-30 z-index-1 fix "
-      style={{
-        backgroundColor: bg,
-        borderRadius: "10px",
-      }}
-    >
-      <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
-        <div className="text-center text-md-start">
-          <h3
-            className="tp-slider-title"
-            style={{ fontSize: "22px", color: "black" }}
-          >
-            {title}
-          </h3>
-          <p style={{ fontSize: "16px", color: "black" }}>{description}</p>
-          <div className="tp-product-banner-price mb-3">
-            {price && (
-              <span
-                className="old-price"
-                style={{
-                  color: "black",
-                  textDecoration: discounted ? "line-through" : "none",
-                }}
-              >
-                ${price}
-              </span>
-            )}
-            {discounted && (
-              <span
-                className="new-price ms-2"
-                style={{ color: "red", fontWeight: "bold" }}
-              >
-                ${discounted}
-              </span>
+const BannerArea = () => {
+  const router = useRouter();
+
+  // banner item
+  function BannerItem({ id, bg, title, description, img, discounted, price }) {
+    return (
+      <div
+        className="  tp-banner-item tp-banner-height p-relative mb-30 z-index-1 fix "
+        style={{
+          backgroundColor: bg,
+          borderRadius: "10px",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          router.push(id ? `/product-details/${id}` : "/shop");
+        }}
+      >
+        <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+          <div className="text-center text-md-start">
+            <h3
+              className="tp-slider-title"
+              style={{ fontSize: "22px", color: "black" }}
+            >
+              {title}
+            </h3>
+            <p style={{ fontSize: "16px", color: "black" }}>{description}</p>
+            <div className="tp-product-banner-price mb-3">
+              {price && (
+                <span
+                  className="old-price"
+                  style={{
+                    color: "black",
+                    textDecoration: discounted ? "line-through" : "none",
+                  }}
+                >
+                  ${price}
+                </span>
+              )}
+              {discounted && (
+                <span
+                  className="new-price ms-2"
+                  style={{ color: "red", fontWeight: "bold" }}
+                >
+                  ${discounted}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="text-center">
+            {img && (
+              <Image
+                width={180}
+                height={180}
+                src={img}
+                alt="slider-img"
+                className="img-fluid"
+                style={{ maxWidth: "100%", height: "auto" }}
+              />
             )}
           </div>
         </div>
-        <div className="text-center">
-          {img && (
-            <Image
-              width={180}
-              height={180}
-              src={img}
-              alt="slider-img"
-              className="img-fluid"
-              style={{ maxWidth: "100%", height: "auto" }}
-            />
-          )}
-        </div>
       </div>
-    </div>
-  );
-}
-
-const BannerArea = () => {
+    );
+  }
   const {
     data: featured,
     isError,
@@ -90,6 +96,7 @@ const BannerArea = () => {
                   discounted={item.discounted}
                   description={item.description}
                   img={item?.img}
+                  id={item.id}
                 />
               </div>
             ))}

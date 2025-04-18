@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -22,6 +21,7 @@ const ProductItem = ({ product, offer_style = false }) => {
     status,
     offerDate,
   } = product || {};
+  console.log("product", product);
   const { cart_products } = useSelector((state) => state.cart);
   const { wishlist } = useSelector((state) => state.wishlist);
   const isAddedToCart = cart_products.some((prd) => prd._id === _id);
@@ -48,13 +48,7 @@ const ProductItem = ({ product, offer_style = false }) => {
     dispatch(add_to_wishlist(prd));
   };
 
-  const isDiscountValid =
-    discount > 0 &&
-    (!offerDate ||
-      (offerDate.startDate &&
-        offerDate.endDate &&
-        dayjs().isAfter(offerDate.startDate) &&
-        dayjs().isBefore(offerDate.endDate)));
+  const isDiscountValid = discount > 0;
 
   return (
     <>

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
+import { EffectFade, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 // internal
 import ErrorMsg from "@/components/common/error-msg";
@@ -126,7 +126,14 @@ const ProductBanner = () => {
                             )}
                           </div>
                           <div className="tp-product-banner-btn">
-                            <Link href="/shop" className="tp-btn tp-btn-2">
+                            <Link
+                              href={
+                                item.productId
+                                  ? `/product-details/${item.productId}`
+                                  : "/shop"
+                              }
+                              className="tp-btn tp-btn-2"
+                            >
                               Shop now
                             </Link>
                           </div>

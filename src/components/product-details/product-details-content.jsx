@@ -30,8 +30,8 @@ const ProductDetailsContent = ({ productItem }) => {
                 activeImg={activeImg}
                 handleImageActive={handleImageActive}
                 imageURLs={imageURLs}
-                imgWidth={580}
-                imgHeight={670}
+                imgWidth={1000}
+                imgHeight={1000}
                 videoId={videoId}
                 status={status}
               />

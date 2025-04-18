@@ -36,30 +36,17 @@ const DetailsThumbWrapper = ({
           </div>
         </nav>
         <div className="tab-content m-img">
-          <div className="tab-pane fade show active">
-            <div className="tp-product-details-nav-main-thumb p-relative">
-              <Image
-                src={activeImg}
-                alt="product img"
-                width={imgWidth}
-                height={imgHeight}
-              />
-              <div className="tp-product-badge">
-                {status === "out-of-stock" && (
-                  <span className="product-hot">out-stock</span>
-                )}
-              </div>
-              {videoId && (
-                <div
-                  onClick={() => setIsVideoOpen(true)}
-                  className="tp-product-details-thumb-video"
-                >
-                  <a className="tp-product-details-thumb-video-btn cursor-pointer popup-video">
-                    <i className="fas fa-play"></i>
-                  </a>
-                </div>
-              )}
-            </div>
+          <Image
+            src={activeImg}
+            alt="product img"
+            width={imgWidth}
+            height={imgHeight}
+            style={{ objectFit: "contain", width: 700, height: 500 }}
+          />
+          <div className="tp-product-badge">
+            {status === "out-of-stock" && (
+              <span className="product-hot">out-stock</span>
+            )}
           </div>
         </div>
       </div>

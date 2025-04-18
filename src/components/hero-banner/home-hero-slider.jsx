@@ -12,6 +12,7 @@ import shape_1 from "@assets/img/slider/shape/slider-shape-1.png";
 import shape_2 from "@assets/img/slider/shape/slider-shape-2.png";
 import shape_3 from "@assets/img/slider/shape/slider-shape-3.png";
 import shape_4 from "@assets/img/slider/shape/slider-shape-4.png";
+import { useRouter } from "next/navigation";
 import { HomeTwoPrdLoader } from "../loader";
 // slider data
 
@@ -27,6 +28,8 @@ function Shape({ img, num }) {
 }
 
 const HomeHeroSlider = () => {
+  const router = useRouter();
+
   const {
     data: featured,
     isError,
@@ -44,6 +47,7 @@ const HomeHeroSlider = () => {
   }
   if (!isLoading && !isError && featured?.data?.length > 0) {
     const featured_items = featured.data;
+    console.log("featured_items", featured_items);
 
     return (
       <>
@@ -84,7 +88,20 @@ const HomeHeroSlider = () => {
                   <div className="row align-items-center">
                     <div className="col-xl-5 col-lg-6 col-md-6">
                       <div className="tp-slider-content p-relative z-index-1">
-                        <h3 className="tp-slider-title">{item.title}</h3>
+                        <h3
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            router.push(
+                              item.productId
+                                ? `/product-details/${item.productId}`
+                                : "/shop"
+                            );
+                          }}
+                          className="tp-slider-title"
+                        >
+                          {item.title}
+                        </h3>
+
                         <p>{item.description}</p>
                         <div className="tp-product-banner-price mb-40">
                           {item.price && (
@@ -99,6 +116,14 @@ const HomeHeroSlider = () => {
                     <div className="col-xl-7 col-lg-6 col-md-6">
                       <div className="tp-slider-thumb text-end">
                         <Image
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            router.push(
+                              item.productId
+                                ? `/product-details/${item.productId}`
+                                : "/shop"
+                            );
+                          }}
                           width={320}
                           height={320}
                           src={item?.img}
