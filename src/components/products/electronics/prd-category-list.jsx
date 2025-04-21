@@ -1,9 +1,8 @@
-import React from "react";
 import { useRouter } from "next/navigation";
 // internal
 import ErrorMsg from "@/components/common/error-msg";
-import { useGetProductTypeCategoryQuery } from "@/redux/features/categoryApi";
 import CategoryListLoader from "@/components/loader/home/category-list-loader";
+import { useGetProductTypeCategoryQuery } from "@/redux/features/categoryApi";
 
 const PrdCategoryList = () => {
   const {
@@ -15,7 +14,7 @@ const PrdCategoryList = () => {
 
   // handle category route
   const handleCategoryRoute = (title) => {
-    router.push(`/shop?category=${title.toLowerCase()}`);
+    router.push(`/shop?search=${title.toLowerCase()}`);
   };
   // decide what to render
   let content = null;

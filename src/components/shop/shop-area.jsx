@@ -10,7 +10,8 @@ import ShopContent from "./shop-content";
 const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const categories = searchParams.getAll("category");
+  const productTypes = searchParams.getAll("type");
+  const searchFilter = searchParams.getAll("search");
   const brands = searchParams.getAll("brand");
   const subCategories = searchParams.getAll("subCategory");
   const filterColors = searchParams.getAll("color");
@@ -25,9 +26,10 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
       take: itemsPerPage,
     };
 
+    if (searchFilter.length > 0) filters.search = searchFilter;
+    if (productTypes.length > 0) filters.productType = productTypes;
     if (filterColors.length > 0) filters.color = filterColors;
     if (subCategories.length > 0) filters.category = subCategories;
-    if (categories.length > 0) filters.productType = categories;
     if (brands.length > 0) filters.brand = brands;
     if (sortBy) filters.sortBy = sortBy;
 
@@ -72,13 +74,6 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
     updateUrl(newParams);
   };
 
-  // Handle category filter changes
-  const handleCategoryChange = (categories) => {
-    const newParams = new URLSearchParams(searchParams);
-    updateFilterParams(newParams, "category", categories);
-    updateUrl(newParams);
-  };
-
   // Handle color filter changes
   const handleColorChange = (colors) => {
     const newParams = new URLSearchParams(searchParams);
@@ -106,25 +101,18 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
 
   // Update page from URL
   useEffect(() => {
-    const pageFromURL = searchParams.get("page");
-    if (pageFromURL) {
-      setCurrPage(parseInt(pageFromURL));
-    } else {
-      setCurrPage(1);
-    }
+    setCurrPage(1);
   }, [searchParams]);
 
   const otherProps = {
     selectHandleFilter: handleSortChange,
     currPage,
     setCurrPage,
-    handleCategoryChange,
     handleColorChange,
     handleBrandChange,
     handleSubCategoryChange,
     handleResetFilters,
     activeFilters: {
-      categories,
       brands,
       colors: filterColors,
       subCategories,

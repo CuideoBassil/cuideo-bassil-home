@@ -47,7 +47,6 @@ const HomeHeroSlider = () => {
   }
   if (!isLoading && !isError && featured?.data?.length > 0) {
     const featured_items = featured.data;
-    console.log("featured_items", featured_items);
 
     return (
       <>

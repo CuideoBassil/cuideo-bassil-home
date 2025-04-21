@@ -27,7 +27,7 @@ const MobileCategory = ({ isCategoryActive, categoryType }) => {
   // handle category route
   const handleCategoryRoute = (title, route) => {
     if (route === "parent") {
-      router.push(`/shop?category=${title.toLowerCase()}`);
+      router.push(`/shop?search=${title.toLowerCase()}`);
     } else {
       router.push(`/shop?subCategory=${title.toLowerCase()}`);
     }

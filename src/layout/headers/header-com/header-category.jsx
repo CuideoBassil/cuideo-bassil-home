@@ -1,10 +1,9 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react"; // Import useState, useEffect, and useRef
-// internal
 import ErrorMsg from "@/components/common/error-msg";
 import Loader from "@/components/loader/loader";
 import { useGetAllProductTypesQuery } from "@/redux/features/productTypeApi";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
 
 const HeaderCategory = ({ isCategoryActive, setIsCategoryActive }) => {
   const {
@@ -18,7 +17,7 @@ const HeaderCategory = ({ isCategoryActive, setIsCategoryActive }) => {
   // handle category route
   const handleCategoryRoute = (title) => {
     setIsCategoryActive(false); // Close the dropdown when a category is selected
-    router.push(`/shop?category=${title.toLowerCase()}`);
+    router.push(`/shop?search=${title.toLowerCase()}`);
   };
 
   // Close dropdown on outside click

@@ -1,10 +1,9 @@
 "use client";
-import React from "react";
 import Link from "next/link";
 // internal
-import ErrorMsg from "../common/error-msg";
-import { ArrowRightSm, ArrowRightSmTwo } from "@/svg";
 import { useGetProductTypeCategoryQuery } from "@/redux/features/categoryApi";
+import { ArrowRightSm, ArrowRightSmTwo } from "@/svg";
+import ErrorMsg from "../common/error-msg";
 import { HomeThreeCategoryLoader } from "../loader";
 
 const BeautyCategory = () => {
@@ -16,7 +15,7 @@ const BeautyCategory = () => {
 
   // handle category route
   const handleCategoryRoute = (title) => {
-    router.push(`/shop?category=${title.toLowerCase()}`);
+    router.push(`/shop?search=${title.toLowerCase()}`);
   };
   // decide what to render
   let content = null;

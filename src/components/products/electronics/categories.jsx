@@ -48,10 +48,6 @@ const CategoriesList = () => {
     isLoading,
   } = useGetAllProductTypesQuery();
 
-  useEffect(() => {
-    console.log("productTypes", productTypes);
-  }, [productTypes]);
-
   let content = null;
 
   if (isLoading) {

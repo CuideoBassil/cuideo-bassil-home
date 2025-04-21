@@ -45,9 +45,7 @@ const ColorFilter = ({ setCurrPage, shop_right = false }) => {
 
     product_items.forEach((product) => {
       if (product.color?.name && product.color?.code) {
-        const colorKey = `${product.color.name.toLowerCase()}-${
-          product.color.code
-        }`;
+        const colorKey = `${product.color.name.toLowerCase()}-${product.color.code.toLowerCase()}`;
         if (!uniqueColorsMap.has(colorKey)) {
           uniqueColorsMap.set(colorKey, {
             name: product.color.name,

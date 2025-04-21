@@ -16,7 +16,6 @@ const ProductDetailsArea = ({ id }) => {
     content = <ErrorMsg msg="There was an error" />;
   }
   if (!isLoading && !isError && product) {
-    console.log("product: ", product);
     content = (
       <>
         <ProductDetailsBreadcrumb

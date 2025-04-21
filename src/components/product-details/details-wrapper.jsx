@@ -6,10 +6,7 @@ import { Rating } from "react-simple-star-rating";
 import { add_cart_product } from "@/redux/features/cartSlice";
 import { add_to_compare } from "@/redux/features/compareSlice";
 import { add_to_wishlist } from "@/redux/features/wishlist-slice";
-import { WishlistTwo } from "@/svg";
 import DetailsBottomInfo from "./details-bottom-info";
-import ProductDetailsCountdown from "./product-details-countdown";
-import ProductQuantity from "./product-quantity";
 
 const DetailsWrapper = ({
   productItem,
@@ -71,9 +68,9 @@ const DetailsWrapper = ({
 
       {/* inventory details */}
       <div className="tp-product-details-inventory d-flex align-items-center mb-10">
-        <div className="tp-product-details-stock mb-10">
+        {/* <div className="tp-product-details-stock mb-10">
           <span>{status}</span>
-        </div>
+        </div> */}
         <div className="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
           <div className="tp-product-details-rating">
             <Rating

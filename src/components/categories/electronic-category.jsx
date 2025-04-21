@@ -16,7 +16,7 @@ const ElectronicCategory = () => {
 
   // handle category route
   const handleCategoryRoute = (title) => {
-    router.push(`/shop?category=${title.toLowerCase()}`);
+    router.push(`/shop?search=${title.toLowerCase()}`);
   };
   // decide what to render
   let content = null;

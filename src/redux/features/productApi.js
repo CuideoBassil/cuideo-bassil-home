@@ -47,6 +47,7 @@ export const productApi = apiSlice.injectEndpoints({
       query: ({
         skip = 0,
         take = 12,
+        search,
         color,
         category,
         brand,
@@ -56,6 +57,8 @@ export const productApi = apiSlice.injectEndpoints({
         const params = new URLSearchParams();
         params.append("skip", skip);
         params.append("take", take);
+        params.append("status", "in-stock");
+        if (search) params.append("search", search);
         if (color) params.append("color", color);
         if (category) params.append("category", category);
         if (brand) params.append("brand", brand);

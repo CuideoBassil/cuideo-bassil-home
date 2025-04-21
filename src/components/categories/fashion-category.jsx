@@ -1,11 +1,10 @@
 "use client";
-import React from "react";
 import { useRouter } from "next/navigation";
 // internal
-import ErrorMsg from "../common/error-msg";
-import { ArrowRightLong } from "@/svg";
-import { HomeTwoCateLoader } from "../loader";
 import { useGetProductTypeCategoryQuery } from "@/redux/features/categoryApi";
+import { ArrowRightLong } from "@/svg";
+import ErrorMsg from "../common/error-msg";
+import { HomeTwoCateLoader } from "../loader";
 
 const FashionCategory = () => {
   const {
@@ -17,7 +16,7 @@ const FashionCategory = () => {
 
   // handle category route
   const handleCategoryRoute = (title) => {
-    router.push(`/shop?category=${title.toLowerCase()}`);
+    router.push(`/shop?search=${title.toLowerCase()}`);
   };
   // decide what to render
   let content = null;

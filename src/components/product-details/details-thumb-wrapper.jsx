@@ -43,11 +43,11 @@ const DetailsThumbWrapper = ({
             height={imgHeight}
             style={{ objectFit: "contain", width: 700, height: 500 }}
           />
-          <div className="tp-product-badge">
+          {/* <div className="tp-product-badge">
             {status === "out-of-stock" && (
               <span className="product-hot">out-stock</span>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
       {/* modal popup start */}
