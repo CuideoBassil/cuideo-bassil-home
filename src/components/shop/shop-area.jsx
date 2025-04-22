@@ -10,7 +10,6 @@ import ShopContent from "./shop-content";
 const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const productTypes = searchParams.getAll("type");
   const searchFilter = searchParams.getAll("search");
   const brands = searchParams.getAll("brand");
   const subCategories = searchParams.getAll("subCategory");
@@ -26,10 +25,14 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
       take: itemsPerPage,
     };
 
-    if (searchFilter.length > 0) filters.search = searchFilter;
-    if (productTypes.length > 0) filters.productType = productTypes;
+    // if (searchFilter.length > 0) filters.search = searchFilter;
+    // if (subCategories.length > 0) filters.category = subCategories;
+    if (searchFilter.length > 0) {
+      filters.search = searchFilter;
+    } else if (subCategories.length > 0) {
+      filters.category = subCategories;
+    }
     if (filterColors.length > 0) filters.color = filterColors;
-    if (subCategories.length > 0) filters.category = subCategories;
     if (brands.length > 0) filters.brand = brands;
     if (sortBy) filters.sortBy = sortBy;
 
@@ -91,6 +94,10 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   // Handle subcategory filter changes
   const handleSubCategoryChange = (subCategories) => {
     const newParams = new URLSearchParams(searchParams);
+
+    if (searchFilter.length > 0) {
+      newParams.delete("search");
+    }
     updateFilterParams(newParams, "subCategory", subCategories);
     updateUrl(newParams);
   };

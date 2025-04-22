@@ -19,6 +19,7 @@ const ProductDetailsArea = ({ id }) => {
     content = (
       <>
         <ProductDetailsBreadcrumb
+          pt={product.data.productType.name}
           category={product.data.category.name}
           title={product.data.title}
         />

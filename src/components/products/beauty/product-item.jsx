@@ -1,12 +1,11 @@
-import React from "react";
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
 // internal
-import { Cart, QuickView, Wishlist } from "@/svg";
-import { handleProductModal } from "@/redux/features/productModalSlice";
 import { add_cart_product } from "@/redux/features/cartSlice";
+import { handleProductModal } from "@/redux/features/productModalSlice";
 import { add_to_wishlist } from "@/redux/features/wishlist-slice";
+import { QuickView } from "@/svg";
 
 const ProductItem = ({ product, prdCenter = false, primary_style = false }) => {
   const { _id, image, title, price, tags, status } = product || {};
@@ -45,7 +44,7 @@ const ProductItem = ({ product, prdCenter = false, primary_style = false }) => {
         {/* product action */}
         <div className="tp-product-action-3 tp-product-action-blackStyle">
           <div className="tp-product-action-item-3 d-flex flex-column">
-            {isAddedToCart ? (
+            {/* {isAddedToCart ? (
               <Link
                 href="/cart"
                 className={`tp-product-action-btn-3 ${
@@ -67,7 +66,7 @@ const ProductItem = ({ product, prdCenter = false, primary_style = false }) => {
                 <Cart />
                 <span className="tp-product-tooltip">Add to Cart</span>
               </button>
-            )}
+            )} */}
             <button
               onClick={() => dispatch(handleProductModal(product))}
               className="tp-product-action-btn-3 tp-product-quick-view-btn"
@@ -76,7 +75,7 @@ const ProductItem = ({ product, prdCenter = false, primary_style = false }) => {
               <span className="tp-product-tooltip">Quick View</span>
             </button>
 
-            <button
+            {/* <button
               disabled={status === "out-of-stock"}
               onClick={() => handleWishlistProduct(product)}
               className={`tp-product-action-btn-3 
@@ -86,11 +85,11 @@ const ProductItem = ({ product, prdCenter = false, primary_style = false }) => {
             >
               <Wishlist />
               <span className="tp-product-tooltip">Add To Wishlist</span>
-            </button>
+            </button> */}
           </div>
         </div>
 
-        <div className="tp-product-add-cart-btn-large-wrapper">
+        {/* <div className="tp-product-add-cart-btn-large-wrapper">
           {isAddedToCart ? (
             <Link
               href="/cart"
@@ -108,7 +107,7 @@ const ProductItem = ({ product, prdCenter = false, primary_style = false }) => {
               Add To Cart
             </button>
           )}
-        </div>
+        </div> */}
       </div>
       <div className="tp-product-content-3">
         <div className="tp-product-tag-3">

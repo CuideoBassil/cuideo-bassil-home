@@ -8,7 +8,6 @@ import * as Yup from "yup";
 import { useAddReviewMutation } from "@/redux/features/reviewApi";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import ErrorMsg from "../common/error-msg";
-
 // schema
 const schema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -20,7 +19,7 @@ const schema = Yup.object().shape({
 const ReviewForm = ({ product_id }) => {
   // const { user } = useSelector((state) => state.auth);
   const [rating, setRating] = useState(0.5);
-  const [addReview] = useAddReviewMutation();
+  const [addReview, {}] = useAddReviewMutation();
 
   // Catch Rating value
   const handleRating = (rate) => {
@@ -64,7 +63,7 @@ const ReviewForm = ({ product_id }) => {
           <Rating
             onClick={handleRating}
             allowFraction
-            size={16}
+            size={25}
             initialValue={rating}
           />
         </div>
@@ -81,7 +80,7 @@ const ReviewForm = ({ product_id }) => {
         <div className="tp-product-details-review-input-title">
           <label htmlFor="msg">Your Review *</label>
         </div>
-        <ErrorMsg msg={errors.comment?.message} />
+        <ErrorMsg msg={errors?.comment?.message} />
       </div>
       <div className="tp-product-details-review-input-box">
         <div className="tp-product-details-review-input">
@@ -96,7 +95,7 @@ const ReviewForm = ({ product_id }) => {
         <div className="tp-product-details-review-input-title">
           <label htmlFor="name">Your Name *</label>
         </div>
-        <ErrorMsg msg={errors.name?.message} />
+        <ErrorMsg msg={errors?.name?.message} />
       </div>
       <div className="tp-product-details-review-input-box">
         <div className="tp-product-details-review-input">
@@ -111,7 +110,7 @@ const ReviewForm = ({ product_id }) => {
         <div className="tp-product-details-review-input-title">
           <label htmlFor="email">Your Email</label>
         </div>
-        <ErrorMsg msg={errors.email?.message} />
+        <ErrorMsg msg={errors?.email?.message} />
       </div>
       <div className="tp-product-details-review-input-box">
         <div className="tp-product-details-review-input">
@@ -128,7 +127,7 @@ const ReviewForm = ({ product_id }) => {
         <div className="tp-product-details-review-input-title">
           <label htmlFor="phoneNumber">Your Phone Number</label>
         </div>
-        <ErrorMsg msg={errors.phoneNumber?.message} />
+        <ErrorMsg msg={errors?.phoneNumber?.message} />
       </div>
 
       <div className="tp-product-details-review-btn-wrapper">

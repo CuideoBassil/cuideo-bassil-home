@@ -57,7 +57,8 @@ const DetailsTabNav = ({ product }) => {
               title="Description"
             />
             {/* <NavItem id="additional" title="Additional information" /> */}
-            <NavItem id="review" title={`Reviews (${reviews?.length})`} />
+            {/* // fix reviews */}
+            {/* <NavItem id="review" title={`Reviews (${reviews?.length})`} /> */}
 
             <span
               ref={marker}

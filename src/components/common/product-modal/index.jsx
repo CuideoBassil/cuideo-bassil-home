@@ -62,7 +62,7 @@ const ProductModal = () => {
             <DetailsThumbWrapper
               activeImg={activeImg}
               handleImageActive={handleImageActive}
-              imageURLs={[...additionalImages, image]}
+              imageURLs={[image, ...additionalImages]}
               imgWidth={416}
               imgHeight={480}
               loading={loading}
