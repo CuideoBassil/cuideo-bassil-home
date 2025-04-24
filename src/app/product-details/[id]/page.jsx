@@ -8,7 +8,7 @@ export const metadata = {
 export default function ProductDetailsPage({ params }) {
   return (
     <Wrapper>
-      <ProductDetailsArea id={params?.id} />
+      {params ?? id ? <ProductDetailsArea id={params?.id} /> : <></>}
     </Wrapper>
   );
 }

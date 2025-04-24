@@ -85,10 +85,10 @@ const HomeHeroSlider = () => {
                 </div>
                 <div className="container">
                   <div className="row align-items-center">
-                    <div className="col-xl-5 col-lg-6 col-md-6">
+                    <div className="col-xl-7 col-lg-6 col-md-6">
                       <div className="tp-slider-content p-relative z-index-1">
-                        <h3
-                          style={{ cursor: "pointer" }}
+                        <h2
+                          style={{ cursor: "pointer", fontSize: "4.5rem" }}
                           onClick={() => {
                             router.push(
                               item.productId
@@ -99,23 +99,40 @@ const HomeHeroSlider = () => {
                           className="tp-slider-title"
                         >
                           {item.title}
-                        </h3>
+                        </h2>
 
-                        <p>{item.description}</p>
-                        <div className="tp-product-banner-price mb-40">
+                        <p style={{ fontSize: "2.5rem" }}>{item.description}</p>
+                        <div className="tp-product-banner-price">
                           {item.price && (
-                            <span className="old-price">${item.price}</span>
+                            <p
+                              style={{
+                                fontSize: "1.5rem",
+                              }}
+                              className="old-price"
+                            >
+                              ${item.price}
+                            </p>
                           )}
                           {item.discounted && (
-                            <p className="new-price">${item.discounted}</p>
+                            <p
+                              style={{ fontSize: "4.5rem" }}
+                              className="new-price"
+                            >
+                              ${item.discounted}
+                            </p>
                           )}
                         </div>
                       </div>
                     </div>
-                    <div className="col-xl-7 col-lg-6 col-md-6">
+                    <div className="col-xl-5 col-lg-6 col-md-6">
                       <div className="tp-slider-thumb text-end">
                         <Image
-                          style={{ cursor: "pointer" }}
+                          style={{
+                            cursor: "pointer",
+                            objectFit: "contain",
+                            width: "500px",
+                            height: "100%",
+                          }}
                           onClick={() => {
                             router.push(
                               item.productId
@@ -123,11 +140,10 @@ const HomeHeroSlider = () => {
                                 : "/shop"
                             );
                           }}
-                          width={320}
-                          height={320}
+                          width={880}
+                          height={800}
                           src={item?.img}
                           alt="slider-img"
-                          className="object-contain"
                         />
                       </div>
                     </div>

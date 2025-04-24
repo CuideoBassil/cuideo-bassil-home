@@ -13,7 +13,7 @@ const BannerArea = () => {
   function BannerItem({ id, bg, title, description, img, discounted, price }) {
     return (
       <div
-        className="  tp-banner-item tp-banner-height p-relative mb-30 z-index-1 fix "
+        className="tp-banner-item h-full flex flex-col justify-between p-relative mb-25 z-index-1 fix"
         style={{
           backgroundColor: bg,
           borderRadius: "10px",
@@ -27,17 +27,18 @@ const BannerArea = () => {
           <div className="text-center text-md-start">
             <h3
               className="tp-slider-title"
-              style={{ fontSize: "22px", color: "black" }}
+              style={{ fontSize: "28px", color: "black" }}
             >
               {title}
             </h3>
-            <p style={{ fontSize: "16px", color: "black" }}>{description}</p>
+            <p style={{ fontSize: "22px", color: "black" }}>{description}</p>
             <div className="tp-product-banner-price mb-3">
               {price && (
                 <span
                   className="old-price"
                   style={{
                     color: "black",
+                    fontSize: "22px",
                     textDecoration: discounted ? "line-through" : "none",
                   }}
                 >
@@ -57,12 +58,16 @@ const BannerArea = () => {
           <div className="text-center">
             {img && (
               <Image
-                width={180}
-                height={180}
+                width={480}
+                height={480}
                 src={img}
                 alt="slider-img"
                 className="img-fluid"
-                style={{ maxWidth: "100%", height: "auto" }}
+                style={{
+                  width: "300px",
+                  height: "100%",
+                  objectFit: "contain",
+                }}
               />
             )}
           </div>

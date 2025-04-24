@@ -20,7 +20,7 @@ export const feature_data = [
   {
     icon: <Support />,
     title: "Opening Hours",
-    subtitle: "Mon-Sat: 10AM – 6PM",
+    subtitle: "Mon-Sat: 9AM – 7PM",
   },
 ];
 

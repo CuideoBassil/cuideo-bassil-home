@@ -5,12 +5,6 @@ const ReviewItem = ({ review }) => {
   const { comment, createdAt, rating, name } = review || {};
   return (
     <div className="tp-product-details-review-avater d-flex align-items-start">
-      {/* <div className="tp-product-details-review-avater-thumb">
-        <h5 className="review-name">{name}</h5>
-        <a href="#">
-          {userId?.imageURL && <Image src={userId?.imageURL} alt="user img" width={60} height={60} />}
-        </a>
-      </div> */}
       <div className="tp-product-details-review-avater-content">
         <div className="tp-product-details-review-avater-rating d-flex align-items-center">
           <Rating
