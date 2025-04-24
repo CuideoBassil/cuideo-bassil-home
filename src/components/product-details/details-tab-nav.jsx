@@ -113,8 +113,8 @@ const DetailsTabNav = ({ product }) => {
                         </h3>
                       )}
                       {reviews?.length > 0 &&
-                        reviews.map((item) => (
-                          <p>
+                        reviews.map((item, index) => (
+                          <p key={index}>
                             {item?.name}: {item?.comment}
                           </p>
                           // <ReviewItem key={item._id} review={item} />
