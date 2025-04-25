@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import ReactModal from "react-modal";
+import { useDispatch, useSelector } from "react-redux";
 // internal
-import { handleModalClose } from "@/redux/features/productModalSlice";
 import DetailsThumbWrapper from "@/components/product-details/details-thumb-wrapper";
 import DetailsWrapper from "@/components/product-details/details-wrapper";
 import { initialOrderQuantity } from "@/redux/features/cartSlice";
+import { handleModalClose } from "@/redux/features/productModalSlice";
 
 const customStyles = {
   content: {
@@ -23,21 +23,22 @@ const ProductModal = () => {
   const { productItem, isModalOpen } = useSelector(
     (state) => state.productModal
   );
-  const { img, imageURLs,status } = productItem || {};
-  const [activeImg, setActiveImg] = useState(img);
-  const [loading,setLoading] = useState(false);
+  const { image, additionalImages, status } = productItem || {};
+
+  const [activeImg, setActiveImg] = useState(image);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   // active image change when img change
   useEffect(() => {
-    setActiveImg(img);
-    dispatch(initialOrderQuantity())
-    setLoading(false)
-  }, [img,dispatch]);
+    setActiveImg(image);
+    dispatch(initialOrderQuantity());
+    setLoading(false);
+  }, [image, dispatch]);
 
   // handle image active
   const handleImageActive = (item) => {
-    setActiveImg(item.img);
-    setLoading(true)
+    setActiveImg(item);
+    setLoading(true);
   };
 
   return (
@@ -61,7 +62,7 @@ const ProductModal = () => {
             <DetailsThumbWrapper
               activeImg={activeImg}
               handleImageActive={handleImageActive}
-              imageURLs={imageURLs}
+              imageURLs={[image, ...additionalImages]}
               imgWidth={416}
               imgHeight={480}
               loading={loading}

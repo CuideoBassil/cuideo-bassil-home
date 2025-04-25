@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -12,15 +12,16 @@ import CheckoutOrderArea from "./checkout-order-area";
 import useCheckoutSubmit from "@/hooks/use-checkout-submit";
 
 const CheckoutArea = () => {
-  const router = useRouter();
-  useEffect(() => {
-    const isAuthenticate = Cookies.get("userInfo");
-    if(!isAuthenticate){
-      router.push("/login")
-    }
-  },[router]);
   const checkoutData = useCheckoutSubmit();
-  const {handleSubmit,submitHandler,register,errors,handleCouponCode,couponRef,couponApplyMsg} = checkoutData;
+  const {
+    handleSubmit,
+    submitHandler,
+    register,
+    errors,
+    handleCouponCode,
+    couponRef,
+    couponApplyMsg,
+  } = checkoutData;
   const { cart_products } = useSelector((state) => state.cart);
   return (
     <>
@@ -39,7 +40,7 @@ const CheckoutArea = () => {
           )}
           {cart_products.length > 0 && (
             <div className="row">
-              <div className="col-xl-7 col-lg-7">
+              {/* <div className="col-xl-7 col-lg-7">
                 <div className="tp-checkout-verify">
                   <CheckoutLogin />
                   <CheckoutCoupon
@@ -48,7 +49,7 @@ const CheckoutArea = () => {
                     couponApplyMsg={couponApplyMsg}
                   />
                 </div>
-              </div>
+              </div> */}
               <form onSubmit={handleSubmit(submitHandler)}>
                 <div className="row">
                   <div className="col-lg-7">

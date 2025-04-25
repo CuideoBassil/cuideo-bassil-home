@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
 import ReviewForm from "../forms/review-form";
-import ReviewItem from "./review-item";
 
 const DetailsTabNav = ({ product }) => {
   const { _id, description, additionalInformation, reviews } = product || {};
@@ -56,8 +55,7 @@ const DetailsTabNav = ({ product }) => {
               id="desc"
               title="Description"
             />
-            {/* <NavItem id="additional" title="Additional information" /> */}
-            <NavItem id="review" title={`Reviews (${reviews.length})`} />
+            {/* <NavItem id="review" title={`Reviews (${reviews?.length})`} /> */}
 
             <span
               ref={marker}
@@ -91,26 +89,7 @@ const DetailsTabNav = ({ product }) => {
               </div>
             </div>
           </div>
-          {/* addInfo */}
-          {/* <div className="tab-pane fade" id="nav-additional" role="tabpanel" aria-labelledby="nav-additional-tab" tabIndex="-1">
 
-            <div className="tp-product-details-additional-info ">
-              <div className="row justify-content-center">
-                <div className="col-xl-10">
-                  <table>
-                    <tbody>
-                      {additionalInformation?.map((item, i) => (
-                        <tr key={i}>
-                          <td>{item.key}</td>
-                          <td>{item.value}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div> */}
           {/* review */}
           <div
             className="tab-pane fade"
@@ -128,14 +107,17 @@ const DetailsTabNav = ({ product }) => {
                       <h3 className="tp-product-details-review-title">
                         Rating & Review
                       </h3>
-                      {reviews.length === 0 && (
+                      {reviews?.length === 0 && (
                         <h3 className="tp-product-details-review-title">
                           There are no reviews yet.
                         </h3>
                       )}
-                      {reviews.length > 0 &&
-                        reviews.map((item) => (
-                          <ReviewItem key={item._id} review={item} />
+                      {reviews?.length > 0 &&
+                        reviews.map((item, index) => (
+                          <p key={index}>
+                            {item?.name}: {item?.comment}
+                          </p>
+                          // <ReviewItem key={item._id} review={item} />
                         ))}
                     </div>
                   </div>

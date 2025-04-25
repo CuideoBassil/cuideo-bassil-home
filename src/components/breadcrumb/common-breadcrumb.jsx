@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 
 const CommonBreadcrumb = ({
@@ -11,7 +11,7 @@ const CommonBreadcrumb = ({
     <section
       className={`breadcrumb__area ${
         center ? "text-center" : ""
-      } include-bg pt-95 pb-50`}
+      } include-bg pt-25 pb-50`}
       style={{ backgroundColor: bg_clr && `#EFF1F5` }}
     >
       <div className="container">

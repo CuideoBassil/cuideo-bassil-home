@@ -26,11 +26,11 @@ const Footer = ({
         }`}
         data-bg-color={`${style_2 ? "footer-bg-white" : "footer-bg-grey"}`}
       >
-        <div className="tp-footer-top pt-95 pb-40">
+        <div className="tp-footer-top pt-25 ">
           <div className="container">
             <div className="row">
               <div className="col-xl-4 col-lg-3 col-md-4 col-sm-6">
-                <div className="tp-footer-widget footer-col-1 mb-50">
+                <div className="tp-footer-widget footer-col-1 mb-20">
                   <div className="tp-footer-widget-content">
                     <div className="tp-footer-logo">
                       <Link href="/">
@@ -116,7 +116,7 @@ const Footer = ({
                 </div> */}
               </div>
               <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                <div className="tp-footer-widget footer-col-4 mb-50">
+                <div className="tp-footer-widget footer-col-4 mb-20">
                   <h4 className="tp-footer-widget-title">Talk To Us</h4>
                   <div className="tp-footer-widget-content">
                     <div className="tp-footer-talk mb-20">
@@ -166,7 +166,10 @@ const Footer = ({
         </div>
         <div className="tp-footer-bottom">
           <div className="container">
-            <div className="tp-footer-bottom-wrapper">
+            <div
+              className="tp-footer-bottom-wrapper"
+              style={{ paddingBottom: "10px" }}
+            >
               <div className="row align-items-center">
                 {/* <div className="col-md-12"> */}
                 <div className="tp-footer-copyright">

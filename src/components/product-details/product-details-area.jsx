@@ -16,14 +16,14 @@ const ProductDetailsArea = ({ id }) => {
     content = <ErrorMsg msg="There was an error" />;
   }
   if (!isLoading && !isError && product) {
-    console.log("product: ", product);
     content = (
       <>
         <ProductDetailsBreadcrumb
-          category={product.category.name}
-          title={product.title}
+          pt={product.data.productType.name}
+          category={product.data.category.name}
+          title={product.data.title}
         />
-        <ProductDetailsContent productItem={product} />
+        <ProductDetailsContent productItem={product.data} />
       </>
     );
   }

@@ -11,10 +11,8 @@ export const metadata = {
 export default function CartPage() {
   return (
     <Wrapper>
-      <HeaderTwo style_2={true} />
       <CommonBreadcrumb title="Shopping Cart" subtitle="Shopping Cart" />
       <CartArea />
-      <Footer primary_style={true} />
     </Wrapper>
   );
 }

@@ -1,11 +1,10 @@
-'use client';
-import React from "react";
+"use client";
 import { useRouter } from "next/navigation";
 // internal
-import ErrorMsg from "../common/error-msg";
-import { ArrowRightLong } from "@/svg";
-import { HomeTwoCateLoader } from "../loader";
 import { useGetProductTypeCategoryQuery } from "@/redux/features/categoryApi";
+import { ArrowRightLong } from "@/svg";
+import ErrorMsg from "../common/error-msg";
+import { HomeTwoCateLoader } from "../loader";
 
 const FashionCategory = () => {
   const {
@@ -13,17 +12,11 @@ const FashionCategory = () => {
     isLoading,
     isError,
   } = useGetProductTypeCategoryQuery("fashion");
-  const router = useRouter()
+  const router = useRouter();
 
   // handle category route
   const handleCategoryRoute = (title) => {
-    router.push(
-      `/shop?category=${title
-        .toLowerCase()
-        .replace("&", "")
-        .split(" ")
-        .join("-")}`
-    );
+    router.push(`/shop?search=${title.toLowerCase()}`);
   };
   // decide what to render
   let content = null;
@@ -44,7 +37,7 @@ const FashionCategory = () => {
         <div className="tp-banner-item-2 p-relative z-index-1 grey-bg-2 mb-20 fix">
           <div
             className="tp-banner-thumb-2 include-bg transition-3"
-            style={{ backgroundImage: `url(${item.img})` }}
+            style={{ backgroundImage: `url(${item?.img})` }}
           ></div>
           <h3 className="tp-banner-title-2">
             <a

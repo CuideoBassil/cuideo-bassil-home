@@ -1,20 +1,20 @@
-'use client';
+"use client";
 import { useDispatch, useSelector } from "react-redux";
 // internal
 import useCartInfo from "@/hooks/use-cart-info";
 import { openCartMini } from "@/redux/features/cartSlice";
-import { CartTwo, Menu } from "@/svg";
+import { Cart, Menu } from "@/svg";
 
 const HeaderMainRight = ({ setIsCanvasOpen }) => {
   const { user: userInfo } = useSelector((state) => state.auth);
   const { wishlist } = useSelector((state) => state.wishlist);
   const { quantity } = useCartInfo();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   return (
     <div className="tp-header-main-right d-flex align-items-center justify-content-end">
-      <div className="tp-header-login d-none d-lg-block">
+      {/* <div className="tp-header-login d-none d-lg-block">
         <div className="d-flex align-items-center">
-          {/* <div className="tp-header-login-icon">
+          <div className="tp-header-login-icon">
             <span>
               {userInfo?.imageURL ? (
                 <Link href="/profile">
@@ -35,8 +35,8 @@ const HeaderMainRight = ({ setIsCanvasOpen }) => {
                 <User />
               )}
             </span>
-          </div> */}
-          {/* <div className="tp-header-login-content d-none d-xl-block">
+          </div>
+          <div className="tp-header-login-content d-none d-xl-block">
             {!userInfo?.name && (
               <Link href="/login">
                 <span>Hello,</span>
@@ -47,14 +47,13 @@ const HeaderMainRight = ({ setIsCanvasOpen }) => {
               {!userInfo?.name && <Link href="/login">Sign In</Link>}
               {userInfo?.name && <Link href="/profile">Your Account</Link>}
             </div>
-          </div> */}
+          </div>
         </div>
-      </div>
-      <div className="tp-header-action d-flex align-items-center ml-50">
+      </div> */}
+      <div className="tp-header-action d-flex align-items-center sm-ml-10 xs-ml-10 ml-10">
         {/* <div className="tp-header-action-item d-none d-lg-block">
           <Link href="/compare" className="tp-header-action-btn">
-            <Compare />
-          </Link>
+            <Compare />          </Link>
         </div> */}
         {/* <div className="tp-header-action-item d-none d-lg-block">
           <Link href="/wishlist" className="tp-header-action-btn">
@@ -68,7 +67,7 @@ const HeaderMainRight = ({ setIsCanvasOpen }) => {
             type="button"
             className="tp-header-action-btn cartmini-open-btn"
           >
-            <CartTwo />
+            <Cart />
             <span className="tp-header-action-badge">{quantity}</span>
           </button>
         </div>

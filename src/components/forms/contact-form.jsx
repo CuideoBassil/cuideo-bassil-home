@@ -1,11 +1,10 @@
-'use client'
-import React from "react";
-import { useForm } from "react-hook-form";
+"use client";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 // internal
+import emailjs from "emailjs-com";
 import ErrorMsg from "../common/error-msg";
-import { notifySuccess } from "@/utils/toast";
 
 // schema
 const schema = Yup.object().shape({
@@ -19,26 +18,55 @@ const schema = Yup.object().shape({
 });
 
 const ContactForm = () => {
+  // react hook form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  // on submit
+  const onSubmit = (data) => {
+    if (data) {
+      emailjs
+        .send(
+          "service_jwqxoyl",
+          "template_2iw29tc",
+          {
+            to_email: "cuidobassilhome2025@gmail.com",
+            message: data.message,
+            name: data.name,
+            subject: data.subject,
+            email: data.email,
+          },
+          "zaZOYT0puedHXFONT"
+        )
+        .then((response) => {
+          alert("message sent successfully");
+          setMessage("");
+        })
+        .catch((error) => {
+          alert("error sending message");
+        });
+    }
 
-    // react hook form
-    const {register,handleSubmit,formState: { errors },reset} = useForm({
-      resolver: yupResolver(schema),
-    });
-    // on submit
-    const onSubmit = (data) => {
-      if(data){
-        notifySuccess('Message sent successfully!');
-      }
-
-      reset();
-    };
+    reset();
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} id="contact-form">
       <div className="tp-contact-input-wrapper">
         <div className="tp-contact-input-box">
           <div className="tp-contact-input">
-            <input {...register("name", { required: `Name is required!` })} name="name" id="name" type="text" placeholder="Shahnewaz Sakil" />
+            <input
+              {...register("name", { required: `Name is required!` })}
+              name="name"
+              id="name"
+              type="text"
+              placeholder="Enter your name"
+            />
           </div>
           <div className="tp-contact-input-title">
             <label htmlFor="name">Your Name</label>
@@ -47,7 +75,13 @@ const ContactForm = () => {
         </div>
         <div className="tp-contact-input-box">
           <div className="tp-contact-input">
-            <input {...register("email", { required: `Email is required!` })} name="email" id="email" type="email" placeholder="shofy@mail.com" />
+            <input
+              {...register("email", { required: `Email is required!` })}
+              name="email"
+              id="email"
+              type="email"
+              placeholder="enter your email"
+            />
           </div>
           <div className="tp-contact-input-title">
             <label htmlFor="email">Your Email</label>
@@ -56,7 +90,13 @@ const ContactForm = () => {
         </div>
         <div className="tp-contact-input-box">
           <div className="tp-contact-input">
-            <input {...register("subject", { required: `Subject is required!` })} name="subject" id="subject" type="text" placeholder="Write your subject" />
+            <input
+              {...register("subject", { required: `Subject is required!` })}
+              name="subject"
+              id="subject"
+              type="text"
+              placeholder="Write your subject"
+            />
           </div>
           <div className="tp-contact-input-title">
             <label htmlFor="subject">Subject</label>
@@ -65,19 +105,17 @@ const ContactForm = () => {
         </div>
         <div className="tp-contact-input-box">
           <div className="tp-contact-input">
-            <textarea {...register("message", { required: `Message is required!` })} id="message" name="message" placeholder="Write your message here..."/>
+            <textarea
+              {...register("message", { required: `Message is required!` })}
+              id="message"
+              name="message"
+              placeholder="Write your message here..."
+            />
           </div>
           <div className="tp-contact-input-title">
             <label htmlFor="message">Your Message</label>
           </div>
           <ErrorMsg msg={errors.message?.message} />
-        </div>
-      </div>
-      <div className="tp-contact-suggetions mb-20">
-        <div className="tp-contact-remeber">
-          <input  {...register("remember", {required: `Terms and Conditions is required!`})} name="remember" id="remember" type="checkbox" />
-          <label htmlFor="remember">Save my name, email, and website in this browser for the next time I comment.</label>
-          <ErrorMsg msg={errors.remember?.message} />
         </div>
       </div>
       <div className="tp-contact-btn">

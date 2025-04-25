@@ -7,17 +7,17 @@ import DetailsWrapper from "./details-wrapper";
 import RelatedProducts from "./related-products";
 
 const ProductDetailsContent = ({ productItem }) => {
-  const { _id, img, imageURLs, videoId, status } = productItem || {};
-  const [activeImg, setActiveImg] = useState(img);
+  const { _id, image, additionalImages, videoId, status } = productItem || {};
+  const [activeImg, setActiveImg] = useState(image);
   const dispatch = useDispatch();
   // active image change when img change
   useEffect(() => {
-    setActiveImg(img);
-  }, [img]);
+    setActiveImg(image);
+  }, [image]);
 
   // handle image active
   const handleImageActive = (item) => {
-    setActiveImg(item.img);
+    setActiveImg(item);
   };
   return (
     <section className="tp-product-details-area">
@@ -29,9 +29,9 @@ const ProductDetailsContent = ({ productItem }) => {
               <DetailsThumbWrapper
                 activeImg={activeImg}
                 handleImageActive={handleImageActive}
-                imageURLs={imageURLs}
-                imgWidth={580}
-                imgHeight={670}
+                imageURLs={[image, ...additionalImages]}
+                imgWidth={1000}
+                imgHeight={1000}
                 videoId={videoId}
                 status={status}
               />

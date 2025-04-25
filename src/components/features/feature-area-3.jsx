@@ -32,6 +32,10 @@ const FeatureAreaThree = () => {
                           target="_blank"
                         >
                           Facebook
+                        </a>{" "}
+                        -{" "}
+                        <a href={`https://wa.me/+96181342284`} target="_blank">
+                          Whatsapp
                         </a>
                       </div>
                     ) : (

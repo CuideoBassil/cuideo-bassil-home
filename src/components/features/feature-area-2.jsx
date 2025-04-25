@@ -9,18 +9,18 @@ export const feature_data = [
   },
   {
     icon: <Refund />,
-    title: "Cash And Visa",
+    title: "Cash Payments",
     subtitle: "$ rate may change",
   },
   {
     icon: <Search />,
     title: "Find Us On",
-    subtitle: "Instagram - Facebook",
+    subtitle: "Instagram - Facebook - Whatsapp",
   },
   {
     icon: <Support />,
     title: "Opening Hours",
-    subtitle: "Mon-Sat: 10AM – 8PM",
+    subtitle: "Mon-Sat: 9AM – 7PM",
   },
 ];
 

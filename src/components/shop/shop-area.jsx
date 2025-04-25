@@ -1,5 +1,5 @@
 "use client";
-import { useGetAllProductsQuery } from "@/redux/features/productApi";
+import { useGetFilteredPaginatedProductsQuery } from "@/redux/features/productApi";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ErrorMsg from "../common/error-msg";
@@ -10,51 +10,123 @@ import ShopContent from "./shop-content";
 const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const category = searchParams.get("category");
-  const brand = searchParams.get("brand");
-  const minPrice = searchParams.get("minPrice");
-  const maxPrice = searchParams.get("maxPrice");
-  const subCategory = searchParams.get("subCategory");
-  const filterColor = searchParams.get("color");
-  const status = searchParams.get("status");
-  const { data: products, isError, isLoading } = useGetAllProductsQuery();
-  const [priceValue, setPriceValue] = useState([0, 0]);
-  const [selectValue, setSelectValue] = useState("");
+  const searchFilter = searchParams.getAll("search");
+  const brands = searchParams.getAll("brand");
+  const subCategories = searchParams.getAll("subCategory");
+  const filterColors = searchParams.getAll("color");
+  const sortBy = searchParams.get("sortBy");
   const [currPage, setCurrPage] = useState(1);
+  const itemsPerPage = 12;
 
-  // Load the maximum price once the products have been loaded
-  useEffect(() => {
-    if (!isLoading && !isError && products?.data?.length > 0) {
-      const maxPrice = products.data.reduce((max, product) => {
-        return product.price > max ? product.price : max;
-      }, 0);
-      setPriceValue([0, maxPrice]);
+  // Build filter parameters object
+  const buildFilters = () => {
+    const filters = {
+      skip: (currPage - 1) * itemsPerPage,
+      take: itemsPerPage,
+    };
+
+    // if (searchFilter.length > 0) filters.search = searchFilter;
+    // if (subCategories.length > 0) filters.category = subCategories;
+    if (searchFilter.length > 0) {
+      filters.search = searchFilter;
+    } else if (subCategories.length > 0) {
+      filters.category = subCategories;
     }
-  }, [isLoading, isError, products]);
+    if (filterColors.length > 0) filters.color = filterColors;
+    if (brands.length > 0) filters.brand = brands;
+    if (sortBy) filters.sortBy = sortBy;
 
-  // handleChanges
-  const handleChanges = (val) => {
+    return filters;
+  };
+
+  const {
+    data: productsData,
+    isError,
+    isLoading,
+    refetch,
+  } = useGetFilteredPaginatedProductsQuery(buildFilters());
+
+  // Update URL when filters change
+  const updateUrl = (newParams) => {
+    setCurrPage(1); // Reset to first page when filters change
+    if (newParams.toString() == "sortBy=default") {
+      router.push(`/shop`);
+    } else {
+      router.push(`/shop?${newParams.toString()}`);
+    }
+  };
+  const updateFilterParams = (params, key, values) => {
+    // First delete all existing values for this filter
+    params.delete(key);
+
+    // Then add the new values
+    values.forEach((value) => {
+      if (value) {
+        // only add if value is not empty
+        params.append(key, value);
+      }
+    });
+
+    return params;
+  };
+
+  // Handle sorting changes
+  const handleSortChange = (e) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("sortBy", e.value);
+    updateUrl(newParams);
+  };
+
+  // Handle color filter changes
+  const handleColorChange = (colors) => {
+    const newParams = new URLSearchParams(searchParams);
+    updateFilterParams(newParams, "color", colors);
+    updateUrl(newParams);
+  };
+
+  // Handle brand filter changes
+  const handleBrandChange = (brands) => {
+    const newParams = new URLSearchParams(searchParams);
+    updateFilterParams(newParams, "brand", brands);
+    updateUrl(newParams);
+  };
+
+  // Handle subcategory filter changes
+  const handleSubCategoryChange = (subCategories) => {
+    const newParams = new URLSearchParams(searchParams);
+
+    if (searchFilter.length > 0) {
+      newParams.delete("search");
+    }
+    updateFilterParams(newParams, "subCategory", subCategories);
+    updateUrl(newParams);
+  };
+  // Reset all filters
+  const handleResetFilters = () => {
+    router.push("/shop");
+  };
+
+  // Update page from URL
+  useEffect(() => {
     setCurrPage(1);
-    setPriceValue(val);
-  };
+  }, [searchParams]);
 
-  // selectHandleFilter
-  const selectHandleFilter = (e) => {
-    setSelectValue(e.value);
-  };
-
-  // other props
   const otherProps = {
-    priceFilterValues: {
-      priceValue,
-      handleChanges,
-      setPriceValue,
-    },
-    selectHandleFilter,
+    selectHandleFilter: handleSortChange,
     currPage,
     setCurrPage,
+    handleColorChange,
+    handleBrandChange,
+    handleSubCategoryChange,
+    handleResetFilters,
+    activeFilters: {
+      brands,
+      colors: filterColors,
+      subCategories,
+      sortBy,
+    },
   };
-  // decide what to render
+
   let content = null;
 
   if (isLoading) {
@@ -63,111 +135,27 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   if (!isLoading && isError) {
     content = (
       <div className="pb-80 text-center">
-        <ErrorMsg msg="There was an error" />
+        <ErrorMsg msg="There was an error fetching products" />
       </div>
     );
   }
-  if (!isLoading && !isError && products?.data?.length === 0) {
-    content = <ErrorMsg msg="No Products found!" />;
+  if (!isLoading && !isError && productsData?.products?.length === 0) {
+    content = <ErrorMsg msg="No Products found with the current filters!" />;
   }
-  if (!isLoading && !isError && products?.data?.length > 0) {
-    // products
-    let product_items = products.data;
-    // select short filtering
-    if (selectValue) {
-      if (selectValue === "Default Sorting") {
-        product_items = products.data;
-      } else if (selectValue === "Low to High") {
-        product_items = products.data
-          .slice()
-          .sort((a, b) => Number(a.price) - Number(b.price));
-      } else if (selectValue === "High to Low") {
-        product_items = products.data
-          .slice()
-          .sort((a, b) => Number(b.price) - Number(a.price));
-      } else if (selectValue === "New Added") {
-        product_items = products.data
-          .slice()
-          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      } else if (selectValue === "On Sale") {
-        product_items = products.data.filter((p) => p.discount > 0);
-      } else {
-        product_items = products.data;
-      }
-    }
-
-    // status filter
-    if (status) {
-      if (status === "on-sale") {
-        product_items = product_items.filter((p) => p.discount > 0);
-      } else if (status === "in-stock") {
-        product_items = product_items.filter((p) => p.status === "in-stock");
-      }
-    }
-
-    // category filter
-    if (category) {
-      product_items = product_items.filter(
-        (p) =>
-          p.productType.toLowerCase().replace("&", "").split(" ").join("-") ===
-          category
-      );
-    }
-
-    // category filter
-    if (subCategory) {
-      product_items = product_items.filter(
-        (p) =>
-          p.catego.toLowerCase().replace("&", "").split(" ").join("-") ===
-          subCategory
-      );
-    }
-
-    // color filter
-    if (filterColor) {
-      product_items = product_items.filter((product) => {
-        for (let i = 0; i < product.imageURLs.length; i++) {
-          const color = product.imageURLs[i]?.color;
-          if (
-            color &&
-            color?.name.toLowerCase().split(" ").join("-") === filterColor
-          ) {
-            return true; // match found, include product in result
-          }
-        }
-        return false; // no match found, exclude product from result
-      });
-    }
-
-    // brand filter
-    if (brand) {
-      product_items = product_items.filter(
-        (p) =>
-          p.brand.name.toLowerCase().split(" ").join("-").replace("&", "") ===
-          brand
-      );
-    }
-
-    if (minPrice && maxPrice) {
-      product_items = product_items.filter(
-        (p) =>
-          Number(p.price) >= Number(minPrice) &&
-          Number(p.price) <= Number(maxPrice)
-      );
-    }
-
+  if (!isLoading && !isError && productsData?.products?.length > 0) {
     content = (
       <>
         <ShopContent
-          all_products={products.data}
-          products={product_items}
+          all_products={productsData.products}
+          products={productsData.products}
           otherProps={otherProps}
           shop_right={shop_right}
           hidden_sidebar={hidden_sidebar}
+          totalProducts={productsData?.totalCount}
+          itemsPerPage={itemsPerPage}
         />
-
         <ShopFilterOffCanvas
-          all_products={products.data}
+          all_products={productsData.products}
           otherProps={otherProps}
         />
       </>

@@ -1,45 +1,35 @@
-'use client';
-import { useState } from "react";
-import Image from "next/image";
+"use client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 // internal
-import { useGetProductTypeCategoryQuery } from "@/redux/features/categoryApi";
 import ErrorMsg from "@/components/common/error-msg";
 import Loader from "@/components/loader/loader";
+import { useGetAllProductTypesQuery } from "@/redux/features/productTypeApi";
 
 const MobileCategory = ({ isCategoryActive, categoryType }) => {
-  const {data: categories,isError,isLoading} = useGetProductTypeCategoryQuery(categoryType);
-  const [isActiveSubMenu,setIsActiveSubMenu] = useState("")
+  const {
+    data: productTypes,
+    isError,
+    isLoading,
+  } = useGetAllProductTypesQuery();
+  const [isActiveSubMenu, setIsActiveSubMenu] = useState("");
   const router = useRouter();
 
   // handleOpenSubMenu
   const handleOpenSubMenu = (title) => {
-    if(title === isActiveSubMenu){
-      setIsActiveSubMenu("")
+    if (title === isActiveSubMenu) {
+      setIsActiveSubMenu("");
+    } else {
+      setIsActiveSubMenu(title);
     }
-    else {
-      setIsActiveSubMenu(title)
-    }
-  }
+  };
 
   // handle category route
   const handleCategoryRoute = (title, route) => {
     if (route === "parent") {
-      router.push(
-        `/shop?category=${title
-          .toLowerCase()
-          .replace("&", "")
-          .split(" ")
-          .join("-")}`
-      );
+      router.push(`/shop?search=${title.toLowerCase()}`);
     } else {
-      router.push(
-        `/shop?subCategory=${title
-          .toLowerCase()
-          .replace("&", "")
-          .split(" ")
-          .join("-")}`
-      );
+      router.push(`/shop?subCategory=${title.toLowerCase()}`);
     }
   };
   // decide what to render
@@ -55,39 +45,19 @@ const MobileCategory = ({ isCategoryActive, categoryType }) => {
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && !isError && categories?.result?.length === 0) {
+  if (!isLoading && !isError && productTypes?.result?.length === 0) {
     content = <ErrorMsg msg="No Category found!" />;
   }
-  if (!isLoading && !isError && categories?.result?.length > 0) {
-    const category_items = categories.result;
+  if (!isLoading && !isError && productTypes?.result?.length > 0) {
+    const category_items = productTypes.result;
     content = category_items.map((item) => (
       <li className="has-dropdown" key={item._id}>
-        <a className="cursor-pointer">
-          {item.img && (
-            <span>
-              <Image src={item.img} alt="cate img" width={50} height={50} />
-            </span>
-          )}
-          {item.parent}
-          {item.children && (
-            <button onClick={()=> handleOpenSubMenu(item.parent)} className="dropdown-toggle-btn">
-              <i className="fa-regular fa-angle-right"></i>
-            </button>
-          )}
+        <a
+          className="cursor-pointer"
+          onClick={() => handleCategoryRoute(item.name)}
+        >
+          {item.name}
         </a>
-
-        {item.children && (
-          <ul className={`tp-submenu ${isActiveSubMenu === item.parent ? 'active':''}`}>
-            {item.children.map((child, i) => (
-              <li
-                key={i}
-                onClick={() => handleCategoryRoute(child, "children")}
-              >
-                <a className="cursor-pointer">{child}</a>
-              </li>
-            ))}
-          </ul>
-        )}
       </li>
     ));
   }

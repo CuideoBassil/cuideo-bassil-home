@@ -26,7 +26,7 @@ const InstagramArea = () => {
             <div key={item.id} className="col">
               <div className="tp-instagram-item p-relative z-index-1 fix mb-30 w-img">
                 <Image
-                  src={item.img}
+                  src={item?.img}
                   alt="instagram img"
                   style={{ width: "100%", height: "100%" }}
                 />

@@ -1,15 +1,12 @@
 "use client";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Rating } from "react-simple-star-rating";
 // internal
 import { add_cart_product } from "@/redux/features/cartSlice";
 import { add_to_compare } from "@/redux/features/compareSlice";
-import { handleModalClose } from "@/redux/features/productModalSlice";
 import { add_to_wishlist } from "@/redux/features/wishlist-slice";
 import DetailsBottomInfo from "./details-bottom-info";
-import ProductQuantity from "./product-quantity";
 
 const DetailsWrapper = ({
   productItem,
@@ -19,9 +16,10 @@ const DetailsWrapper = ({
 }) => {
   const {
     sku,
-    img,
+    image,
+    color,
     title,
-    imageURLs,
+    additionalImages,
     category,
     description,
     discount,
@@ -48,7 +46,7 @@ const DetailsWrapper = ({
 
   // handle add product
   const handleAddProduct = (prd) => {
-    dispatch(add_cart_product(prd));
+    dispatch(add_cart_product(prd.data));
   };
 
   // handle wishlist product
@@ -64,15 +62,15 @@ const DetailsWrapper = ({
   return (
     <div className="tp-product-details-wrapper">
       <div className="tp-product-details-category">
-        <span>{category.name}</span>
+        <span>{category?.name}</span>
       </div>
       <h3 className="tp-product-details-title">{title}</h3>
 
       {/* inventory details */}
       <div className="tp-product-details-inventory d-flex align-items-center mb-10">
-        <div className="tp-product-details-stock mb-10">
+        {/* <div className="tp-product-details-stock mb-10">
           <span>{status}</span>
-        </div>
+        </div> */}
         <div className="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
           <div className="tp-product-details-rating">
             <Rating
@@ -90,10 +88,21 @@ const DetailsWrapper = ({
         </div>
       </div>
       <p>
-        {textMore ? description : `${description.substring(0, 100)}...`}
-        <span onClick={() => setTextMore(!textMore)}>
-          {textMore ? "See less" : "See more"}
-        </span>
+        {textMore
+          ? description
+          : description
+          ? `${description.slice(0, 100)}${
+              description.length > 100 ? "..." : ""
+            }`
+          : "No description available"}
+        {description?.length > 100 && (
+          <span
+            style={{ cursor: "pointer" }}
+            onClick={() => setTextMore(!textMore)}
+          >
+            {textMore ? " See less" : " See more"}
+          </span>
+        )}
       </p>
 
       {/* price */}
@@ -103,50 +112,38 @@ const DetailsWrapper = ({
             <span className="tp-product-details-price old-price">${price}</span>
             <span className="tp-product-details-price new-price">
               {" "}
-              $
-              {(
-                Number(price) -
-                (Number(price) * Number(discount)) / 100
-              ).toFixed(2)}
+              ${Number(discount).toFixed(2)}
             </span>
           </>
         ) : (
           <span className="tp-product-details-price new-price">
-            ${price.toFixed(2)}
+            ${price?.toFixed(2)}
           </span>
         )}
       </div>
 
       {/* variations */}
-      {imageURLs.some((item) => item?.color && item?.color?.name) && (
-        <div className="tp-product-details-variation">
-          <div className="tp-product-details-variation-item">
-            <h4 className="tp-product-details-variation-title">Color :</h4>
-            <div className="tp-product-details-variation-list">
-              {imageURLs.map((item, i) => (
-                <button
-                  onClick={() => handleImageActive(item)}
-                  key={i}
-                  type="button"
-                  className={`color tp-color-variation-btn ${
-                    item.img === activeImg ? "active" : ""
-                  }`}
-                >
-                  <span
-                    data-bg-color={`${item.color.clrCode}`}
-                    style={{ backgroundColor: `${item.color.clrCode}` }}
-                  ></span>
-                  {item.color && item.color.name && (
-                    <span className="tp-color-variation-tootltip">
-                      {item.color.name}
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
+      {/* {imageURLs.some((item) => item?.color && item?.color?.name) && ( */}
+      <div className="tp-product-details-variation">
+        <div className="tp-product-details-variation-item">
+          <h4 className="tp-product-details-variation-title">
+            Color : {color?.name}
+          </h4>
+          <div className="tp-product-details-variation-list">
+            {additionalImages?.map((item, i) => (
+              <button
+                onClick={() => handleImageActive(item)}
+                key={i}
+                type="button"
+                className={`color tp-color-variation-btn ${
+                  item === activeImg ? "active" : ""
+                }`}
+              ></button>
+            ))}
           </div>
         </div>
-      )}
+      </div>
+      {/* )} */}
 
       {/* if ProductDetailsCountdown true start */}
       {/* {offerDate?.endDate && (
@@ -155,12 +152,10 @@ const DetailsWrapper = ({
       {/* if ProductDetailsCountdown true end */}
 
       {/* actions */}
-      <div className="tp-product-details-action-wrapper">
+      {/* <div className="tp-product-details-action-wrapper">
         <h3 className="tp-product-details-action-title">Quantity</h3>
         <div className="tp-product-details-action-item-wrapper d-sm-flex align-items-center">
-          {/* product quantity */}
           <ProductQuantity />
-          {/* product quantity */}
           <div className="tp-product-details-add-to-cart mb-15 w-100">
             <button
               onClick={() => handleAddProduct(productItem)}
@@ -171,33 +166,33 @@ const DetailsWrapper = ({
             </button>
           </div>
         </div>
-        {/* <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
+        <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
           <button className="tp-product-details-buy-now-btn w-100">
             Buy Now
           </button>
-        </Link> */}
-      </div>
+        </Link>
+      </div> */}
       {/* product-details-action-sm start */}
       <div className="tp-product-details-action-sm">
         {/* <button
           disabled={status === "out-of-stock"}
-          onClick={() => handleCompareProduct(productItem)}
+          onClick={() => handleCompareProduct(productItem.data)}
           type="button"
           className="tp-product-details-action-sm-btn"
         >
           <CompareTwo />
           Compare
-        </button>
-        <button
+        </button> */}
+        {/* <button
           disabled={status === "out-of-stock"}
-          onClick={() => handleWishlistProduct(productItem)}
+          onClick={() => handleWishlistProduct(productItem.data)}
           type="button"
           className="tp-product-details-action-sm-btn"
         >
           <WishlistTwo />
           Add Wishlist
-        </button>
-        <button type="button" className="tp-product-details-action-sm-btn">
+        </button> */}
+        {/* <button type="button" className="tp-product-details-action-sm-btn">
           <AskQuestion />
           Ask a question
         </button> */}

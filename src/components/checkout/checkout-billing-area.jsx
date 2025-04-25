@@ -1,11 +1,7 @@
-'use client';
-import React from "react";
+"use client";
 import ErrorMsg from "../common/error-msg";
-import { useSelector } from "react-redux";
 
 const CheckoutBillingArea = ({ register, errors }) => {
-  const { user } = useSelector((state) => state.auth);
-
   return (
     <div className="tp-checkout-bill-area">
       <h3 className="tp-checkout-bill-title">Billing Details</h3>
@@ -26,7 +22,6 @@ const CheckoutBillingArea = ({ register, errors }) => {
                   id="firstName"
                   type="text"
                   placeholder="First Name"
-                  defaultValue={user?.firstName}
                 />
                 <ErrorMsg msg={errors?.firstName?.message} />
               </div>
@@ -63,6 +58,19 @@ const CheckoutBillingArea = ({ register, errors }) => {
                 <ErrorMsg msg={errors?.lastName?.message} />
               </div>
             </div>
+            <div className="col-md-6">
+              <div className="tp-checkout-input">
+                <label>Town / City</label>
+                <input
+                  {...register("city", { required: `City is required!` })}
+                  name="city"
+                  id="city"
+                  type="text"
+                  placeholder="City"
+                />
+                <ErrorMsg msg={errors?.city?.message} />
+              </div>
+            </div>
             <div className="col-md-12">
               <div className="tp-checkout-input">
                 <label>Street address</label>
@@ -76,20 +84,8 @@ const CheckoutBillingArea = ({ register, errors }) => {
                 <ErrorMsg msg={errors?.address?.message} />
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="tp-checkout-input">
-                <label>Town / City</label>
-                <input
-                  {...register("city", { required: `City is required!` })}
-                  name="city"
-                  id="city"
-                  type="text"
-                  placeholder="City"
-                />
-                 <ErrorMsg msg={errors?.city?.message} />
-              </div>
-            </div>
-            <div className="col-md-6">
+
+            {/* <div className="col-md-6">
               <div className="tp-checkout-input">
                 <label>Postcode ZIP</label>
                 <input
@@ -101,7 +97,7 @@ const CheckoutBillingArea = ({ register, errors }) => {
                 />
                 <ErrorMsg msg={errors?.zipCode?.message} />
               </div>
-            </div>
+            </div> */}
             <div className="col-md-12">
               <div className="tp-checkout-input">
                 <label>
@@ -119,7 +115,7 @@ const CheckoutBillingArea = ({ register, errors }) => {
                 <ErrorMsg msg={errors?.contactNo?.message} />
               </div>
             </div>
-            <div className="col-md-12">
+            {/* <div className="col-md-12">
               <div className="tp-checkout-input">
                 <label>
                   Email address <span>*</span>
@@ -130,11 +126,10 @@ const CheckoutBillingArea = ({ register, errors }) => {
                   id="email"
                   type="email"
                   placeholder="Email"
-                  defaultValue={user?.email}
                 />
                 <ErrorMsg msg={errors?.email?.message} />
               </div>
-            </div>
+            </div> */}
             <div className="col-md-12">
               <div className="tp-checkout-input">
                 <label>Order notes (optional)</label>

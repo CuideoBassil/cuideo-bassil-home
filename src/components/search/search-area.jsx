@@ -1,7 +1,7 @@
 "use client";
 import ErrorMsg from "@/components/common/error-msg";
 import SearchPrdLoader from "@/components/loader/search-prd-loader";
-import ProductItem from "@/components/products/fashion/product-item";
+import ProductItem from "@/components/products/electronics/product-item";
 import { useGetAllProductsQuery } from "@/redux/features/productApi";
 import NiceSelect from "@/ui/nice-select";
 import { useSearchParams } from "next/navigation";
@@ -144,7 +144,7 @@ export default function SearchArea() {
                         {product_items.slice(0, next)?.map((item) => (
                           <div
                             key={item._id}
-                            className="col-xl-3 col-lg-4 col-md-6 col-sm-6"
+                            className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mt-4"
                           >
                             <ProductItem product={item} />
                           </div>

@@ -4,14 +4,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // internal
 import ErrorMsg from "@/components/common/error-msg";
 import HomeNewArrivalPrdLoader from "@/components/loader/home/home-newArrival-prd-loader";
-import { useGetProductWithTypeQuery } from "@/redux/features/productApi";
+import { useGetAllProductTypesQuery } from "@/redux/features/productTypeApi";
 import { NextArr, PrevArr, ShapeLine } from "@/svg";
-import ProductItem from "./product-item";
+import { useEffect } from "react";
+import CategoryCard from "./category-card";
 
 // slider setting
 const slider_setting = {
-  slidesPerView: 4,
-  spaceBetween: 30,
+  slidesPerView: 5,
+  spaceBetween: 10,
+  loop: true,
   pagination: {
     el: ".tp-arrival-slider-dot",
     clickable: true,
@@ -39,18 +41,13 @@ const slider_setting = {
   },
 };
 
-const NewArrivals = () => {
+const CategoriesList = () => {
   const {
-    data: products,
+    data: productTypes,
     isError,
     isLoading,
-    refetch,
-  } = useGetProductWithTypeQuery({
-    type: ["All"],
-    skip: 0,
-    take: 8,
-  });
-  // decide what to render
+  } = useGetAllProductTypesQuery();
+
   let content = null;
 
   if (isLoading) {
@@ -59,22 +56,21 @@ const NewArrivals = () => {
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && !isError && products?.data?.length === 0) {
-    content = <ErrorMsg msg="No Products found!" />;
+  if (!isLoading && !isError && productTypes?.result?.length === 0) {
+    content = <ErrorMsg msg="No Category found!" />;
   }
-  if (!isLoading && !isError && products?.data?.length > 0) {
-    const product_items = products.data.filter(
-      (prd) => prd.status !== "out-of-stock"
-    );
+  if (!isLoading && !isError && productTypes?.result?.length > 0) {
+    const product_items = productTypes.result;
+
     content = (
       <Swiper
         {...slider_setting}
         modules={[Navigation, Pagination]}
         className="tp-product-arrival-active swiper-container"
       >
-        {product_items.map((item) => (
+        {productTypes?.result?.map((item) => (
           <SwiperSlide key={item._id}>
-            <ProductItem product={item} />
+            <CategoryCard category={item} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -86,16 +82,16 @@ const NewArrivals = () => {
         <div className="container">
           <div className="row align-items-end">
             <div className="col-xl-5 col-sm-6">
-              <div className="tp-section-title-wrapper mb-40">
+              <div className="tp-section-title-wrapper ">
                 <h3 className="tp-section-title">
-                  New Arrivals
+                  Categories
                   <ShapeLine />
                 </h3>
               </div>
             </div>
             <div className="col-xl-7 col-sm-6">
               <div className="tp-product-arrival-more-wrapper d-flex justify-content-end">
-                <div className="tp-product-arrival-arrow tp-swiper-arrow mb-40 text-end tp-product-arrival-border">
+                <div className="tp-product-arrival-arrow tp-swiper-arrow  text-end tp-product-arrival-border">
                   <button
                     type="button"
                     className="tp-arrival-slider-button-prev"
@@ -123,4 +119,4 @@ const NewArrivals = () => {
   );
 };
 
-export default NewArrivals;
+export default CategoriesList;

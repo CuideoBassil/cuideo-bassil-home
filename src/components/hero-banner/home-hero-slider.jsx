@@ -1,7 +1,7 @@
 "use client";
 // external
 import Image from "next/image";
-import { EffectFade, Navigation, Pagination } from "swiper/modules";
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 // internal
 import ErrorMsg from "@/components/common/error-msg";
@@ -12,6 +12,7 @@ import shape_1 from "@assets/img/slider/shape/slider-shape-1.png";
 import shape_2 from "@assets/img/slider/shape/slider-shape-2.png";
 import shape_3 from "@assets/img/slider/shape/slider-shape-3.png";
 import shape_4 from "@assets/img/slider/shape/slider-shape-4.png";
+import { useRouter } from "next/navigation";
 import { HomeTwoPrdLoader } from "../loader";
 // slider data
 
@@ -27,6 +28,8 @@ function Shape({ img, num }) {
 }
 
 const HomeHeroSlider = () => {
+  const router = useRouter();
+
   const {
     data: featured,
     isError,
@@ -53,23 +56,25 @@ const HomeHeroSlider = () => {
             spaceBetween={30}
             loop={true}
             effect="fade"
+            autoplay={{
+              delay: 7000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
             navigation={{
               nextEl: ".tp-slider-button-next",
               prevEl: ".tp-slider-button-prev",
             }}
-            // onSlideChange={(swiper) => handleActiveIndex(swiper.activeIndex)}
             pagination={{ el: ".tp-slider-dot", clickable: true }}
-            modules={[Navigation, Pagination, EffectFade]}
-            className={`tp-slider-active tp-slider-variation swiper-container`}
+            modules={[Navigation, Pagination, EffectFade, Autoplay]}
+            className="tp-slider-active tp-slider-variation swiper-container"
           >
             {featured_items.map((item, i) => (
               <SwiperSlide
                 key={i}
-                className={`tp-slider-item tp-slider-height d-flex align-items-center `}
+                className="tp-slider-item tp-slider-height d-flex align-items-center"
                 style={{
-                  backgroundColor: item.background
-                    ? `${item.background}`
-                    : "lightcoral",
+                  backgroundColor: item.background || "lightcoral",
                 }}
               >
                 <div className="tp-slider-shape">
@@ -80,39 +85,65 @@ const HomeHeroSlider = () => {
                 </div>
                 <div className="container">
                   <div className="row align-items-center">
-                    <div className="col-xl-5 col-lg-6 col-md-6">
+                    <div className="col-xl-7 col-lg-6 col-md-6">
                       <div className="tp-slider-content p-relative z-index-1">
-                        {/* <span>
-                          {item.pre_title.text} <b>${item.pre_title.text}</b>
-                        </span> */}
-                        <h3 className="tp-slider-title">{item.title}</h3>
-                        <p>
-                          {item.description}
-                          {/* <span>
-                            -{item.subtitle.percent}%
-                            <TextShape />
-                          </span>{" "} */}
-                          {/* {item.subtitle.text_2} */}
-                        </p>
+                        <h2
+                          style={{ cursor: "pointer", fontSize: "4.5rem" }}
+                          onClick={() => {
+                            router.push(
+                              item.productId
+                                ? `/product-details/${item.productId}`
+                                : "/shop"
+                            );
+                          }}
+                          className="tp-slider-title"
+                        >
+                          {item.title}
+                        </h2>
 
-                        {/* <div className="tp-slider-btn">
-                          <Link
-                            href="/shop"
-                            className="tp-btn tp-btn-2 tp-btn-white"
-                          >
-                            Shop Now <ArrowRightLong />
-                          </Link>
-                        </div> */}
+                        <p style={{ fontSize: "2.5rem" }}>{item.description}</p>
+                        <div className="tp-product-banner-price">
+                          {item.price && (
+                            <p
+                              style={{
+                                fontSize: "1.5rem",
+                              }}
+                              className="old-price"
+                            >
+                              ${item.price}
+                            </p>
+                          )}
+                          {item.discounted && (
+                            <p
+                              style={{ fontSize: "4.5rem" }}
+                              className="new-price"
+                            >
+                              ${item.discounted}
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </div>
-                    <div className="col-xl-7 col-lg-6 col-md-6">
+                    <div className="col-xl-5 col-lg-6 col-md-6">
                       <div className="tp-slider-thumb text-end">
                         <Image
-                          width={320}
-                          height={320}
-                          src={item.img}
+                          style={{
+                            cursor: "pointer",
+                            objectFit: "contain",
+                            width: "500px",
+                            height: "100%",
+                          }}
+                          onClick={() => {
+                            router.push(
+                              item.productId
+                                ? `/product-details/${item.productId}`
+                                : "/shop"
+                            );
+                          }}
+                          width={880}
+                          height={800}
+                          src={item?.img}
                           alt="slider-img"
-                          className="object-contain"
                         />
                       </div>
                     </div>

@@ -1,8 +1,7 @@
-'use client';
-import React from "react";
-import ErrorMsg from "../common/error-msg";
+"use client";
 import { useGetShowCategoryQuery } from "@/redux/features/categoryApi";
 import { useRouter } from "next/navigation";
+import ErrorMsg from "../common/error-msg";
 import ShopCategoryLoader from "../loader/shop/shop-category-loader";
 
 const ShopCategoryArea = () => {
@@ -10,13 +9,7 @@ const ShopCategoryArea = () => {
   const router = useRouter();
   // handle category route
   const handleCategoryRoute = (title) => {
-    router.push(
-      `/shop?category=${title
-        .toLowerCase()
-        .replace("&", "")
-        .split(" ")
-        .join("-")}`
-    );
+    router.push(`/shop?search=${title.toLowerCase()}`);
   };
 
   // decide what to render

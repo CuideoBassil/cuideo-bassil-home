@@ -101,7 +101,7 @@ const HeaderTwo = ({ style_2 = false }) => {
                             onChange={(e) => setSearchText(e.target.value)}
                             value={searchText}
                             type="text"
-                            placeholder="Search for Products..."
+                            placeholder="Search..."
                           />
                           <button type="submit">
                             <Search />

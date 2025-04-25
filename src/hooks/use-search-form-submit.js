@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -11,12 +11,12 @@ const useSearchFormSubmit = () => {
     e.preventDefault();
 
     if (searchText) {
-      let route = `/search?searchText=${searchText}`;
+      let route = `/shop?search=${searchText}`;
 
-      if (category && category !== "Select Category") {
-        route += `&productType=${category}`;
-        setCategory("");
-      }
+      // if (category && category !== "Select Category") {
+      //   route += `&productType=${category}`;
+      //   setCategory("");
+      // }
 
       router.push(route);
       setSearchText("");

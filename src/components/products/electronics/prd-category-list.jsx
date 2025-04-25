@@ -1,9 +1,8 @@
-import React from "react";
 import { useRouter } from "next/navigation";
 // internal
 import ErrorMsg from "@/components/common/error-msg";
-import { useGetProductTypeCategoryQuery } from "@/redux/features/categoryApi";
 import CategoryListLoader from "@/components/loader/home/category-list-loader";
+import { useGetProductTypeCategoryQuery } from "@/redux/features/categoryApi";
 
 const PrdCategoryList = () => {
   const {
@@ -11,23 +10,17 @@ const PrdCategoryList = () => {
     isError,
     isLoading,
   } = useGetProductTypeCategoryQuery("electronics");
-  const router = useRouter()
+  const router = useRouter();
 
   // handle category route
   const handleCategoryRoute = (title) => {
-    router.push(
-      `/shop?category=${title
-        .toLowerCase()
-        .replace("&", "")
-        .split(" ")
-        .join("-")}`
-    )
-  }
+    router.push(`/shop?search=${title.toLowerCase()}`);
+  };
   // decide what to render
   let content = null;
 
   if (isLoading) {
-    content = <CategoryListLoader loading={isLoading}/>;
+    content = <CategoryListLoader loading={isLoading} />;
   }
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
@@ -39,7 +32,12 @@ const PrdCategoryList = () => {
     const category_items = categories.result;
     content = category_items.map((item) => (
       <li key={item._id}>
-        <a onClick={()=>handleCategoryRoute(item.parent)} className="cursor-pointer">{item.parent}</a>
+        <a
+          onClick={() => handleCategoryRoute(item.parent)}
+          className="cursor-pointer"
+        >
+          {item.parent}
+        </a>
       </li>
     ));
   }

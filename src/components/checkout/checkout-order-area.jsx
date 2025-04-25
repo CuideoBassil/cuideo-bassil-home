@@ -1,6 +1,4 @@
-'use client';
-import { useState } from "react";
-import { CardElement } from "@stripe/react-stripe-js";
+"use client";
 import { useSelector } from "react-redux";
 // internal
 import useCartInfo from "@/hooks/use-cart-info";
@@ -18,7 +16,7 @@ const CheckoutOrderArea = ({ checkoutData }) => {
     showCard,
     setShowCard,
     shippingCost,
-    discountAmount
+    discountAmount,
   } = checkoutData;
   const { cart_products } = useSelector((state) => state.cart);
   const { total } = useCartInfo();
@@ -45,7 +43,7 @@ const CheckoutOrderArea = ({ checkoutData }) => {
           ))}
 
           {/*  shipping */}
-          <li className="tp-order-info-list-shipping">
+          {/* <li className="tp-order-info-list-shipping">
             <span>Shipping</span>
             <div className="tp-order-info-list-shipping-item d-flex flex-column align-items-end">
               <span>
@@ -68,7 +66,7 @@ const CheckoutOrderArea = ({ checkoutData }) => {
               <span>
                 <input
                   {...register(`shippingOption`, {
-                    required: `Shipping Option is required!`,
+                    // required: `Shipping Option is required!`,
                   })}
                   id="flat_rate"
                   type="radio"
@@ -83,25 +81,25 @@ const CheckoutOrderArea = ({ checkoutData }) => {
                 <ErrorMsg msg={errors?.shippingOption?.message} />
               </span>
             </div>
-          </li>
+          </li> */}
 
-           {/*  subtotal */}
-           <li className="tp-order-info-list-subtotal">
-            <span>Subtotal</span>
+          {/*  subtotal */}
+          {/* <li className="tp-order-info-list-subtotal">
+            <span>Subtotall</span>
             <span>${total.toFixed(2)}</span>
-          </li>
+          </li> */}
 
-           {/*  shipping cost */}
-           <li className="tp-order-info-list-subtotal">
+          {/*  shipping cost */}
+          {/* <li className="tp-order-info-list-subtotal">
             <span>Shipping Cost</span>
             <span>${shippingCost.toFixed(2)}</span>
-          </li>
+          </li> */}
 
-           {/* discount */}
-           <li className="tp-order-info-list-subtotal">
+          {/* discount */}
+          {/* <li className="tp-order-info-list-subtotal">
             <span>Discount</span>
             <span>${discountAmount.toFixed(2)}</span>
-          </li>
+          </li> */}
 
           {/* total */}
           <li className="tp-order-info-list-total">
@@ -110,7 +108,7 @@ const CheckoutOrderArea = ({ checkoutData }) => {
           </li>
         </ul>
       </div>
-      <div className="tp-checkout-payment">
+      {/* <div className="tp-checkout-payment">
         <div className="tp-checkout-payment-item">
           <input
             {...register(`payment`, {
@@ -121,7 +119,11 @@ const CheckoutOrderArea = ({ checkoutData }) => {
             name="payment"
             value="Card"
           />
-          <label onClick={() => setShowCard(true)} htmlFor="back_transfer" data-bs-toggle="direct-bank-transfer">
+          <label
+            onClick={() => setShowCard(true)}
+            htmlFor="back_transfer"
+            data-bs-toggle="direct-bank-transfer"
+          >
             Credit Card
           </label>
           {showCard && (
@@ -150,9 +152,10 @@ const CheckoutOrderArea = ({ checkoutData }) => {
         </div>
         <div className="tp-checkout-payment-item">
           <input
-            {...register(`payment`, {
-              required: `Payment Option is required!`,
-            })}
+            // {...register(`payment`, {
+            //   required: `Payment Option is required!`,
+            // })}
+            defaultValue="COD"
             onClick={() => setShowCard(false)}
             type="radio"
             id="cod"
@@ -162,7 +165,7 @@ const CheckoutOrderArea = ({ checkoutData }) => {
           <label htmlFor="cod">Cash on Delivery</label>
           <ErrorMsg msg={errors?.payment?.message} />
         </div>
-      </div>
+      </div> */}
 
       <div className="tp-checkout-btn-wrapper">
         <button
