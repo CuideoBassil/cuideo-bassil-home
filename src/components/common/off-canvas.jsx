@@ -1,12 +1,10 @@
-import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 // internal
+import MobileCategory from "@/layout/headers/header-com/mobile-category";
 import { CloseTwo } from "@/svg";
 import logo from "@assets/img/logo/logo.png";
-import contact_img from "@assets/img/icon/contact.png";
-import language_img from "@assets/img/icon/language-flag.png";
-import MobileCategory from "@/layout/headers/header-com/mobile-category";
 import MobileMenus from "./mobile-menus";
 
 const OffCanvas = ({
@@ -80,15 +78,17 @@ const OffCanvas = ({
                   <MobileCategory
                     categoryType={categoryType}
                     isCategoryActive={isCategoryActive}
+                    setIsCategoryActive={setIsCategoryActive}
+                    setIsCanvasOpen={setIsCanvasOpen}
                   />
                 </nav>
               </div>
             </div>
             <div className="tp-main-menu-mobile fix d-lg-none mb-40">
-              <MobileMenus />
+              <MobileMenus setIsCanvasOpen={setIsCanvasOpen} />
             </div>
 
-            <div className="offcanvas__contact align-items-center d-none">
+            {/* <div className="offcanvas__contact align-items-center d-none">
               <div className="offcanvas__contact-icon mr-20">
                 <span>
                   <Image src={contact_img} alt="contact_img" />
@@ -99,14 +99,14 @@ const OffCanvas = ({
                   <a href="tel:098-852-987">004524865</a>
                 </h3>
               </div>
-            </div>
-            <div className="offcanvas__btn">
+            </div> */}
+            {/* <div className="offcanvas__btn">
               <Link href="/contact" className="tp-btn-2 tp-btn-border-2">
                 Contact Us
               </Link>
-            </div>
+            </div> */}
           </div>
-          <div className="offcanvas__bottom">
+          {/* <div className="offcanvas__bottom">
             <div className="offcanvas__footer d-flex align-items-center justify-content-between">
               <div className="offcanvas__currency-wrapper currency">
                 <span
@@ -154,7 +154,7 @@ const OffCanvas = ({
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* body overlay start */}

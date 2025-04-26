@@ -65,11 +65,11 @@ const ProductItem = ({ product, offer_style = false }) => {
               alt="product"
             />
 
-            <div className="tp-product-badge">
+            {/* <div className="tp-product-badge">
               {status === "out-of-stock" && (
                 <span className="product-hot">out-stock</span>
               )}
-            </div>
+            </div> */}
           </Link>
 
           {/*  product action */}

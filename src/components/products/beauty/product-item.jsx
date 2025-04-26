@@ -8,7 +8,7 @@ import { add_to_wishlist } from "@/redux/features/wishlist-slice";
 import { QuickView } from "@/svg";
 
 const ProductItem = ({ product, prdCenter = false, primary_style = false }) => {
-  const { _id, image, title, price, tags, status } = product || {};
+  const { _id, image, title, price, tags, status, discount } = product || {};
   const { cart_products } = useSelector((state) => state.cart);
   const { wishlist } = useSelector((state) => state.wishlist);
   const isAddedToCart = cart_products.some((prd) => prd._id === _id);
@@ -26,20 +26,29 @@ const ProductItem = ({ product, prdCenter = false, primary_style = false }) => {
 
   return (
     <div
+      style={{
+        borderRadius: "10px",
+      }}
       className={`tp-product-item-3 mb-50 ${
         primary_style ? "tp-product-style-primary" : ""
       } ${prdCenter ? "text-center" : ""}`}
     >
       <div className="tp-product-thumb-3 mb-15 fix p-relative z-index-1">
         <Link href={`/product-details/${_id}`}>
-          <Image src={image} alt="product image" width={282} height={320} />
+          <Image
+            src={image}
+            alt="product image"
+            width={282}
+            height={320}
+            style={{ height: "300px" }}
+          />
         </Link>
 
-        <div className="tp-product-badge">
+        {/* <div className="tp-product-badge">
           {status === "out-of-stock" && (
             <span className="product-hot">out-stock</span>
           )}
-        </div>
+        </div> */}
 
         {/* product action */}
         <div className="tp-product-action-3 tp-product-action-blackStyle">
@@ -109,15 +118,26 @@ const ProductItem = ({ product, prdCenter = false, primary_style = false }) => {
           )}
         </div> */}
       </div>
-      <div className="tp-product-content-3">
+      <div className="tp-product-content-3" style={{ padding: "10px" }}>
         <div className="tp-product-tag-3">
           <span>{tags[1]}</span>
         </div>
         <h3 className="tp-product-title-3">
           <Link href={`/product-details/${_id}`}>{title}</Link>
         </h3>
-        <div className="tp-product-price-wrapper-3">
-          <span className="tp-product-price-3">${price.toFixed(2)}</span>
+
+        <div className="tp-product-price-wrapper-2">
+          {discount > 0 ? (
+            <>
+              <span className="tp-product-price-2 old-price">${price} </span>
+              <span className="tp-product-price-2 new-price">
+                {" "}
+                ${Number(discount)}
+              </span>
+            </>
+          ) : (
+            <span className="tp-product-price-2 new-price">${price}</span>
+          )}
         </div>
       </div>
     </div>

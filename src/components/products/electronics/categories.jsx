@@ -85,7 +85,7 @@ const CategoriesList = () => {
               <div className="tp-section-title-wrapper ">
                 <h3 className="tp-section-title">
                   Categories
-                  <ShapeLine />
+                  {/* <ShapeLine /> */}
                 </h3>
               </div>
             </div>

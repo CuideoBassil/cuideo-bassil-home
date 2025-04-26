@@ -76,6 +76,7 @@ const Header = () => {
                   }}
                 >
                   <a
+                    href="tel:96181342284"
                     style={{
                       display: "flex",
                       justifyContent: "flex-end",

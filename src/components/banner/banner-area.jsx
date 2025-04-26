@@ -15,6 +15,8 @@ const BannerArea = () => {
       <div
         className="tp-banner-item h-full flex flex-col justify-between p-relative mb-25 z-index-1 fix"
         style={{
+          height: "100%",
+          alignItems: "center",
           backgroundColor: bg,
           borderRadius: "10px",
           cursor: "pointer",
@@ -93,7 +95,11 @@ const BannerArea = () => {
         <div className="container">
           <div className="row">
             {featured.data.map((item, i) => (
-              <div key={i} className="col-lg-6 col-md-12 ">
+              <div
+                key={i}
+                style={{ padding: "10px" }}
+                className="col-lg-6 col-md-12  "
+              >
                 <BannerItem
                   bg={item.background}
                   title={item.title}
