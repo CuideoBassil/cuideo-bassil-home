@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -38,7 +38,11 @@ const sliderSetting = {
 };
 
 const OfferProducts = () => {
-  const {data: products,isError,isLoading} = useGetOfferProductsQuery("electronics");
+  const {
+    data: products,
+    isError,
+    isLoading,
+  } = useGetOfferProductsQuery("electronics");
   // decide what to render
   let content = null;
 
@@ -79,7 +83,7 @@ const OfferProducts = () => {
               <div className="tp-section-title-wrapper mb-40">
                 <h3 className="tp-section-title">
                   Deal of The Day
-                  <ShapeLine />
+                  {/* <ShapeLine /> */}
                 </h3>
               </div>
             </div>

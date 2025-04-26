@@ -89,7 +89,7 @@ const NewArrivals = () => {
               <div className="tp-section-title-wrapper mb-40">
                 <h3 className="tp-section-title">
                   New Arrivals
-                  <ShapeLine />
+                  {/* <ShapeLine /> */}
                 </h3>
               </div>
             </div>

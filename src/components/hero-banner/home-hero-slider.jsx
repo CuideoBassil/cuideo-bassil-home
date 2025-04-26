@@ -101,7 +101,16 @@ const HomeHeroSlider = () => {
                           {item.title}
                         </h2>
 
-                        <p style={{ fontSize: "2.5rem" }}>{item.description}</p>
+                        <div
+                          style={{
+                            fontSize: "2.5rem",
+                            marginBottom: "24px",
+                            lineHeight: "1.2",
+                            color: "white",
+                          }}
+                        >
+                          {item.description}
+                        </div>
                         <div className="tp-product-banner-price">
                           {item.price && (
                             <p
@@ -130,7 +139,7 @@ const HomeHeroSlider = () => {
                           style={{
                             cursor: "pointer",
                             objectFit: "contain",
-                            width: "500px",
+                            width: "100%",
                             height: "100%",
                           }}
                           onClick={() => {

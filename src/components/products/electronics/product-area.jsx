@@ -62,7 +62,7 @@ const ProductArea = () => {
             <div className="tp-section-title-wrapper ">
               <h3 className="tp-section-title">
                 Products
-                <ShapeLine />
+                {/* <ShapeLine /> */}
               </h3>
             </div>
           </div>

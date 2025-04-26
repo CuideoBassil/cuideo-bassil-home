@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const MobileMenus = () => {
+const MobileMenus = (setIsCanvasOpen) => {
   const [isActiveMenu, setIsActiveMenu] = useState("");
 
   // handleOpenSubMenu
@@ -97,7 +97,14 @@ const MobileMenus = () => {
               </li>
             ) : (
               <li key={menu.id}>
-                <Link href={menu.link}>{menu.title}</Link>
+                <Link
+                  href={menu.link}
+                  onClick={() => {
+                    setIsCanvasOpen(false);
+                  }}
+                >
+                  {menu.title}
+                </Link>
               </li>
             )}
           </ul>

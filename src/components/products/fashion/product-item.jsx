@@ -51,11 +51,11 @@ const ProductItem = ({ product, style_2 = false }) => {
         <Link href={`/product-details/${_id}`}>
           <Image src={img} alt="product img" width={284} height={302} />
         </Link>
-        <div className="tp-product-badge">
+        {/* <div className="tp-product-badge">
           {status === "out-of-stock" && (
             <span className="product-hot">out-stock</span>
           )}
-        </div>
+        </div> */}
         {/* product action */}
         <div className="tp-product-action-2 tp-product-action-blackStyle">
           <div className="tp-product-action-item-2 d-flex flex-column">

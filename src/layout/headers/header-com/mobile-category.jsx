@@ -6,7 +6,12 @@ import ErrorMsg from "@/components/common/error-msg";
 import Loader from "@/components/loader/loader";
 import { useGetAllProductTypesQuery } from "@/redux/features/productTypeApi";
 
-const MobileCategory = ({ isCategoryActive, categoryType }) => {
+const MobileCategory = ({
+  isCategoryActive,
+  setIsCategoryActive,
+  categoryType,
+  setIsCanvasOpen,
+}) => {
   const {
     data: productTypes,
     isError,
@@ -28,8 +33,12 @@ const MobileCategory = ({ isCategoryActive, categoryType }) => {
   const handleCategoryRoute = (title, route) => {
     if (route === "parent") {
       router.push(`/shop?search=${title.toLowerCase()}`);
+      setIsCategoryActive(!isCategoryActive);
+      setIsCanvasOpen(false);
     } else {
-      router.push(`/shop?subCategory=${title.toLowerCase()}`);
+      router.push(`/shop?search=${title.toLowerCase()}`);
+      setIsCategoryActive(!isCategoryActive);
+      setIsCanvasOpen(false);
     }
   };
   // decide what to render
