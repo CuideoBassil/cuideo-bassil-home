@@ -150,6 +150,10 @@ const ProductBanner = () => {
                               height={400}
                               src={item?.img}
                               alt="banner-slider img"
+                              style={{
+                                width: "100%",
+                                height: "300px",
+                              }}
                             />
                           </div>
                         </div>
