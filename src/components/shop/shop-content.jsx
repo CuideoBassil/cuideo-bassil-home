@@ -1,12 +1,11 @@
 "use client";
 import ServerPagination from "@/ui/ServerPagination";
+import { useEffect, useState } from "react";
 import ProductItem from "../products/electronics/product-item";
 import CategoryFilter from "./shop-filter/category-filter";
 import ColorFilter from "./shop-filter/color-filter";
-import PriceFilter from "./shop-filter/price-filter";
 import ProductBrand from "./shop-filter/product-brand";
 import ResetButton from "./shop-filter/reset-button";
-import StatusFilter from "./shop-filter/status-filter";
 import ShopTopLeft from "./shop-top-left";
 import ShopTopRight from "./shop-top-right";
 
@@ -21,6 +20,19 @@ const ShopContent = ({
   const { priceFilterValues, selectHandleFilter, currPage, setCurrPage } =
     otherProps;
   const { setPriceValue } = priceFilterValues || {};
+  const [isMobile, setIsMobile] = useState(false);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const maxPrice = all_products.reduce((max, product) => {
     return product.price > max ? product.price : max;
@@ -30,7 +42,7 @@ const ShopContent = ({
     <section className="tp-shop-area pb-120">
       <div className="container">
         <div className="row">
-          {!shop_right && !hidden_sidebar && (
+          {!shop_right && !hidden_sidebar && !isMobile && (
             <div className="col-xl-3 col-lg-4">
               <div className="tp-shop-sidebar mr-10">
                 {/* <PriceFilter
@@ -68,7 +80,7 @@ const ShopContent = ({
                   </div>
                 </div>
               </div>
-              {products.length === 0 && <h2>No products found</h2>}
+
               {products.length > 0 && (
                 <div className="tp-shop-items-wrapper tp-shop-item-primary">
                   <div className="tab-content" id="productTabContent">
@@ -80,10 +92,11 @@ const ShopContent = ({
                       tabIndex="0"
                     >
                       <div className="row">
+                        {products.length === 0 && <h2>No products found</h2>}
                         {products.map((item, i) => (
                           <div
                             key={i}
-                            className="col-xl-4 col-md-6 col-sm-6 mt-20"
+                            className="col-6 col-lg-4 col-xl-3 mt-20"
                           >
                             <ProductItem product={item} />
                           </div>
@@ -101,6 +114,7 @@ const ShopContent = ({
                       countOfPage={12}
                       currPage={currPage}
                       setCurrPage={setCurrPage}
+                      isMobile={isMobile}
                     />
                   </div>
                 </div>

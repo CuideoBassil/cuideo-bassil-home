@@ -152,7 +152,7 @@ const ProductBanner = () => {
                               alt="banner-slider img"
                               style={{
                                 width: "100%",
-                                height: "300px",
+                                height: "280px",
                               }}
                             />
                           </div>

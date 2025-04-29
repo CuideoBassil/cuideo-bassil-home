@@ -7,9 +7,10 @@ const ServerPagination = ({
   countOfPage = 12,
   currPage,
   setCurrPage,
+  isMobile,
 }) => {
   const totalPage = Math.ceil(items.length / countOfPage);
-  const [visiblePages] = useState(5);
+  const [visiblePages] = useState(isMobile ? 3 : 5);
 
   function setPage(idx) {
     if (idx <= 0 || idx > totalPage) return;

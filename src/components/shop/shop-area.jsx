@@ -139,10 +139,10 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
       </div>
     );
   }
-  if (!isLoading && !isError && productsData?.products?.length === 0) {
-    content = <ErrorMsg msg="No Products found with the current filters!" />;
-  }
-  if (!isLoading && !isError && productsData?.products?.length > 0) {
+  // if (!isLoading && !isError && productsData?.products?.length === 0) {
+  //   content = <ErrorMsg msg="No Products found with the current filters!" />;
+  // }
+  if (!isLoading && !isError) {
     content = (
       <>
         <ShopContent

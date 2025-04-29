@@ -27,6 +27,20 @@ const ProductItem = ({ product, offer_style = false }) => {
   const isAddedToWishlist = wishlist.some((prd) => prd._id === _id);
   const dispatch = useDispatch();
   const [ratingVal, setRatingVal] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   useEffect(() => {
     if (reviews && reviews.length > 0) {
       const rating =
@@ -143,11 +157,13 @@ const ProductItem = ({ product, offer_style = false }) => {
                 readonly={true}
               />
             </div>
-            <div className="tp-product-rating-text">
-              <span>
-                ({reviews && reviews.length > 0 ? reviews.length : 0} Review)
-              </span>
-            </div>
+            {!isMobile && (
+              <div className="tp-product-rating-text">
+                <span>
+                  ({reviews && reviews.length > 0 ? reviews.length : 0} Review)
+                </span>
+              </div>
+            )}
           </div>
           <div className="tp-product-price-wrapper">
             {isDiscountValid ? (
