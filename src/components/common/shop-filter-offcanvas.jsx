@@ -1,14 +1,9 @@
-import {
-  handleFilterSidebarClose,
-  handleFilterSidebarOpen,
-} from "@/redux/features/shop-filter-slice";
+import { handleFilterSidebarClose } from "@/redux/features/shop-filter-slice";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryFilter from "../shop/shop-filter/category-filter";
 import ColorFilter from "../shop/shop-filter/color-filter";
-import PriceFilter from "../shop/shop-filter/price-filter";
 import ProductBrand from "../shop/shop-filter/product-brand";
 import ResetButton from "../shop/shop-filter/reset-button";
-import StatusFilter from "../shop/shop-filter/status-filter";
 
 const ShopFilterOffCanvas = ({
   all_products,
@@ -46,7 +41,7 @@ const ShopFilterOffCanvas = ({
           <div className="tp-filter-offcanvas-close">
             <button
               type="button"
-              onClick={() => dispatch(handleFilterSidebarOpen())}
+              onClick={() => dispatch(handleFilterSidebarClose())}
               className="tp-filter-offcanvas-close-btn filter-close-btn"
             >
               <i className="fa-solid fa-xmark"></i> Close
@@ -57,12 +52,12 @@ const ShopFilterOffCanvas = ({
               priceFilterValues={priceFilterValues}
               maxPrice={maxPrice}
             /> */}
-            <StatusFilter
+            {/* <StatusFilter
               setCurrPage={setCurrPage}
               handleStatusChange={handleStatusChange}
               activeStatus={activeFilters?.status}
               shop_right={right_side}
-            />
+            /> */}
             <CategoryFilter
               setCurrPage={setCurrPage}
               handleCategoryChange={handleCategoryChange}

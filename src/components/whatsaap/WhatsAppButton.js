@@ -11,12 +11,12 @@ const WhatsAppButton = () => {
       style={{
         backgroundColor: "transparent",
         position: "fixed",
-        top: "6rem",
+        bottom: "7rem",
         right: "1rem",
         zIndex: "1000",
       }}
     >
-      <FaWhatsapp size={50} color="green" />
+      <FaWhatsapp size={60} color="green" />
     </a>
   );
 };
