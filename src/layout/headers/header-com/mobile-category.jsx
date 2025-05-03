@@ -87,20 +87,29 @@ const MobileCategory = ({
     const category_items = groupedCategories;
     content = category_items.map((item) => (
       <li className="has-dropdown" key={item._id}>
-        <a
-          className="cursor-pointer"
-          onClick={() => handleCategoryRoute(item.parent, true)}
-        >
-          {item.parent}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <a
+            style={{ width: "100%" }}
+            className="cursor-pointer"
+            onClick={() => handleCategoryRoute(item.parent, true)}
+          >
+            {item.parent}
+          </a>
           {item.children && (
             <button
               onClick={() => handleOpenSubMenu(item.parent)}
               className="dropdown-toggle-btn"
             >
-              <i className="fa-regular fa-angle-right"></i>
+              <i
+                className={`fa-regular ${
+                  isActiveSubMenu === item.parent
+                    ? "fa-angle-down"
+                    : "fa-angle-right"
+                }`}
+              ></i>{" "}
             </button>
           )}
-        </a>
+        </div>
 
         {item.children && (
           <ul
