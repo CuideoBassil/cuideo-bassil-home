@@ -1,25 +1,52 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // internal
 import ErrorMsg from "@/components/common/error-msg";
 import Loader from "@/components/loader/loader";
-import { useGetAllProductTypesQuery } from "@/redux/features/productTypeApi";
+import { useGetAllCategoriesQuery } from "@/redux/features/categoryApi";
 
 const MobileCategory = ({
   isCategoryActive,
-  setIsCategoryActive,
   categoryType,
   setIsCanvasOpen,
 }) => {
   const {
-    data: productTypes,
+    data: categories,
     isError,
     isLoading,
-  } = useGetAllProductTypesQuery();
+  } = useGetAllCategoriesQuery(categoryType);
   const [isActiveSubMenu, setIsActiveSubMenu] = useState("");
   const router = useRouter();
+  const [groupedCategories, setGroupedCategories] = useState([]);
 
+  function groupCategoriesByProductType(categories) {
+    const grouped = {};
+
+    for (const item of categories) {
+      const { productType, parent, products } = item;
+
+      if (!products || products.length === 0) {
+        continue;
+      }
+
+      if (!grouped[productType]) {
+        grouped[productType] = [];
+      }
+      grouped[productType].push(parent);
+    }
+
+    return Object.entries(grouped).map(([productType, children]) => ({
+      parent: productType,
+      children,
+    }));
+  }
+
+  useEffect(() => {
+    if (categories?.result) {
+      setGroupedCategories(groupCategoriesByProductType(categories.result));
+    }
+  }, [categories]);
   // handleOpenSubMenu
   const handleOpenSubMenu = (title) => {
     if (title === isActiveSubMenu) {
@@ -30,14 +57,13 @@ const MobileCategory = ({
   };
 
   // handle category route
-  const handleCategoryRoute = (title, route) => {
-    if (route === "parent") {
+  const handleCategoryRoute = (title, isParent = false) => {
+    if (isParent) {
       router.push(`/shop?search=${title.toLowerCase()}`);
-      setIsCategoryActive(!isCategoryActive);
       setIsCanvasOpen(false);
+      return;
     } else {
-      router.push(`/shop?search=${title.toLowerCase()}`);
-      setIsCategoryActive(!isCategoryActive);
+      router.push(`/shop?subCategory=${title.toLowerCase()}`);
       setIsCanvasOpen(false);
     }
   };
@@ -54,19 +80,41 @@ const MobileCategory = ({
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && !isError && productTypes?.result?.length === 0) {
+  if (!isLoading && !isError && categories?.result?.length === 0) {
     content = <ErrorMsg msg="No Category found!" />;
   }
-  if (!isLoading && !isError && productTypes?.result?.length > 0) {
-    const category_items = productTypes.result;
+  if (!isLoading && !isError && categories?.result?.length > 0) {
+    const category_items = groupedCategories;
     content = category_items.map((item) => (
       <li className="has-dropdown" key={item._id}>
         <a
           className="cursor-pointer"
-          onClick={() => handleCategoryRoute(item.name)}
+          onClick={() => handleCategoryRoute(item.parent, true)}
         >
-          {item.name}
+          {item.parent}
+          {item.children && (
+            <button
+              onClick={() => handleOpenSubMenu(item.parent)}
+              className="dropdown-toggle-btn"
+            >
+              <i className="fa-regular fa-angle-right"></i>
+            </button>
+          )}
         </a>
+
+        {item.children && (
+          <ul
+            className={`tp-submenu ${
+              isActiveSubMenu === item.parent ? "active" : ""
+            }`}
+          >
+            {item.children.map((child, i) => (
+              <li key={i} onClick={() => handleCategoryRoute(child, true)}>
+                <a className="cursor-pointer">{child}</a>
+              </li>
+            ))}
+          </ul>
+        )}
       </li>
     ));
   }
