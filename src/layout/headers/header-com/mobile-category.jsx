@@ -11,11 +11,7 @@ const MobileCategory = ({
   categoryType,
   setIsCanvasOpen,
 }) => {
-  const {
-    data: categories,
-    isError,
-    isLoading,
-  } = useGetAllCategoriesQuery(categoryType);
+  const { data: categories, isError, isLoading } = useGetAllCategoriesQuery();
   const [isActiveSubMenu, setIsActiveSubMenu] = useState("");
   const router = useRouter();
   const [groupedCategories, setGroupedCategories] = useState([]);
@@ -86,7 +82,7 @@ const MobileCategory = ({
   if (!isLoading && !isError && categories?.result?.length > 0) {
     const category_items = groupedCategories;
     content = category_items.map((item) => (
-      <li className="has-dropdown" key={item._id}>
+      <li className="has-dropdown" key={item.parent}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <a
             style={{ width: "100%" }}
@@ -106,7 +102,7 @@ const MobileCategory = ({
                     ? "fa-angle-down"
                     : "fa-angle-right"
                 }`}
-              ></i>{" "}
+              ></i>
             </button>
           )}
         </div>
@@ -117,8 +113,11 @@ const MobileCategory = ({
               isActiveSubMenu === item.parent ? "active" : ""
             }`}
           >
-            {item.children.map((child, i) => (
-              <li key={i} onClick={() => handleCategoryRoute(child, true)}>
+            {item.children.map((child) => (
+              <li
+                key={`${item.parent}-${child}`}
+                onClick={() => handleCategoryRoute(child, true)}
+              >
                 <a className="cursor-pointer">{child}</a>
               </li>
             ))}
