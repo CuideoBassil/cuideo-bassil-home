@@ -1,7 +1,7 @@
 import { apiSlice } from "../api/apiSlice";
 
 export const categoryApi = apiSlice.injectEndpoints({
-  overrideExisting:true,
+  overrideExisting: true,
   endpoints: (builder) => ({
     addCategory: builder.mutation({
       query: (data) => ({
@@ -11,16 +11,22 @@ export const categoryApi = apiSlice.injectEndpoints({
       }),
     }),
     getShowCategory: builder.query({
-      query: () => `/api/category/show`
+      query: () => `/api/category/show`,
     }),
     getProductTypeCategory: builder.query({
-      query: (type) => `/api/category/show/${type}`
+      query: (type) => `/api/category/show/${type}`,
+    }),
+    getAllCategories: builder.query({
+      query: () => `/api/category/all`,
+      providesTags: ["AllCategory"],
+      keepUnusedDataFor: 600,
     }),
   }),
 });
 
 export const {
- useAddCategoryMutation,
- useGetProductTypeCategoryQuery,
- useGetShowCategoryQuery,
+  useAddCategoryMutation,
+  useGetProductTypeCategoryQuery,
+  useGetShowCategoryQuery,
+  useGetAllCategoriesQuery,
 } = categoryApi;

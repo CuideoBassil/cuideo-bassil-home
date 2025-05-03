@@ -1,23 +1,54 @@
 "use client";
 import ErrorMsg from "@/components/common/error-msg";
 import Loader from "@/components/loader/loader";
+import { useGetAllCategoriesQuery } from "@/redux/features/categoryApi";
 import { useGetAllProductTypesQuery } from "@/redux/features/productTypeApi";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const HeaderCategory = ({ isCategoryActive, setIsCategoryActive }) => {
   const {
     data: productTypes,
-    isError,
-    isLoading,
+    isLoading: isLoadingProductTypes,
+    isError: isErrorProductTypes,
   } = useGetAllProductTypesQuery();
+  const {
+    data: categoriesData,
+    isError: isErrorCategories,
+    isLoading: isLoadingCategories,
+  } = useGetAllCategoriesQuery();
+  const [groupedCategories, setGroupedCategories] = useState({});
   const router = useRouter();
-  const dropdownRef = useRef(null); // Create a ref for the dropdown
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    if (categoriesData?.result) {
+      const grouped = categoriesData.result.reduce((acc, curr) => {
+        const { productType, parent, products } = curr;
+        const quantity = products.length;
+
+        if (quantity > 0) {
+          const categoryDetail = { categoryName: parent, quantity: quantity };
+          if (!acc[productType]) {
+            acc[productType] = [];
+          }
+          acc[productType].push(categoryDetail);
+        }
+        return acc;
+      }, {});
+      setGroupedCategories(grouped);
+    }
+  }, [categoriesData]);
 
   // handle category route
-  const handleCategoryRoute = (title) => {
-    setIsCategoryActive(false); // Close the dropdown when a category is selected
-    router.push(`/shop?search=${title.toLowerCase()}`);
+  const handleCategoryRoute = (title, isParent = false) => {
+    setIsCategoryActive(false);
+    if (isParent) {
+      router.push(`/shop?search=${title.toLowerCase()}`);
+      return;
+    } else {
+      router.push(`/shop?subCategory=${title.toLowerCase()}`);
+    }
   };
 
   // Close dropdown on outside click
@@ -37,35 +68,48 @@ const HeaderCategory = ({ isCategoryActive, setIsCategoryActive }) => {
   // decide what to render
   let content = null;
 
+  const isLoading = isLoadingProductTypes || isLoadingCategories;
+  const isError = isErrorProductTypes || isErrorCategories;
+
   if (isLoading) {
     content = (
       <div className="py-5">
         <Loader loading={isLoading} />
       </div>
     );
-  }
-  if (!isLoading && isError) {
-    content = <ErrorMsg msg="There was an error" />;
-  }
-  if (!isLoading && !isError && productTypes?.result?.length === 0) {
-    content = <ErrorMsg msg="No Category found!" />;
-  }
-  if (!isLoading && !isError && productTypes?.result?.length > 0) {
-    const category_items = productTypes.result;
-    content = category_items.map((item) => (
-      <li className="has-dropdown" key={item._id}>
+  } else if (isError) {
+    content = <ErrorMsg msg="There was an error loading categories!" />;
+  } else if (!productTypes?.result || productTypes.result.length === 0) {
+    content = <ErrorMsg msg="No product types found!" />;
+  } else {
+    content = productTypes.result.map((productTypeItem, index) => (
+      <li className="has-dropdown" key={index}>
         <a
           className="cursor-pointer"
-          onClick={() => handleCategoryRoute(item.name)}
+          onClick={() => handleCategoryRoute(productTypeItem.name, true)}
         >
-          {item.name}
+          {productTypeItem.name}
         </a>
+        {groupedCategories[productTypeItem.name] &&
+          groupedCategories[productTypeItem.name].length > 0 && (
+            <ul className="tp-submenu">
+              {groupedCategories[productTypeItem.name].map((category, i) => (
+                <li
+                  key={i}
+                  onClick={() => handleCategoryRoute(category.categoryName)}
+                >
+                  <a className="cursor-pointer">{category.categoryName}</a>
+                </li>
+              ))}
+            </ul>
+          )}
       </li>
     ));
   }
+
   return (
     <ul
-      ref={dropdownRef} // Attach the ref to the ul element
+      ref={dropdownRef}
       className={`tp-category-menu-content ${isCategoryActive ? "active" : ""}`}
     >
       {content}
