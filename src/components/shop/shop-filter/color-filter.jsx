@@ -92,9 +92,9 @@ const ColorFilter = ({ setCurrPage, shop_right = false }) => {
             className="tp-shop-widget-checkbox-circle-self"
           ></span>
         </div>
-        <span className="tp-shop-widget-checkbox-circle-number">
+        {/* <span className="tp-shop-widget-checkbox-circle-number">
           {colorCounts[item.name] || 0}
-        </span>
+        </span> */}
       </li>
     ));
   }

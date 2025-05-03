@@ -35,5 +35,6 @@ export const apiSlice = createApi({
     "FeaturedBySection",
     "AllProductTypes",
     "FilteredPaginatedProducts",
+    "AllCategory",
   ],
 });

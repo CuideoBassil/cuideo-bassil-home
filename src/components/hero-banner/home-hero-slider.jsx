@@ -57,7 +57,7 @@ const HomeHeroSlider = () => {
             loop={true}
             effect="fade"
             autoplay={{
-              delay: 7000,
+              delay: 97000,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}

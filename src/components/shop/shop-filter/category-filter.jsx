@@ -14,6 +14,34 @@ const CategoryFilter = ({ setCurrPage, shop_right = false }) => {
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
 
+  // Grouping logic
+  function groupCategoriesByProductType(categories) {
+    const grouped = {};
+
+    for (const item of categories) {
+      const { productType, parent, products } = item;
+
+      if (!products || products.length === 0) continue;
+
+      if (!grouped[productType]) {
+        grouped[productType] = [];
+      }
+
+      grouped[productType].push({ parent, count: products.length });
+    }
+
+    return (
+      Object.entries(grouped)
+        // Sort product types alphabetically
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([productType, children]) => ({
+          productType,
+          // Sort children alphabetically by `parent` name
+          children: children.sort((a, b) => a.parent.localeCompare(b.parent)),
+        }))
+    );
+  }
+
   // handle category route
   const handleCategoryRoute = (title) => {
     setCurrPage(1);
@@ -30,47 +58,52 @@ const CategoryFilter = ({ setCurrPage, shop_right = false }) => {
 
   if (isLoading) {
     content = <ShopCategoryLoader loading={isLoading} />;
-  }
-  if (!isLoading && isError) {
+  } else if (isError) {
     content = <ErrorMsg msg="There was an error" />;
-  }
-  if (!isLoading && !isError && categories?.result?.length === 0) {
+  } else if (categories?.result?.length === 0) {
     content = <ErrorMsg msg="No Category found!" />;
-  }
-  if (!isLoading && !isError && categories?.result?.length > 0) {
-    const category_items = [...categories.result]
-      .filter((item) => item.products.length > 0)
-      .sort((a, b) => a.parent.localeCompare(b.parent));
+  } else if (categories?.result?.length > 0) {
+    const groupedCategories = groupCategoriesByProductType(categories.result);
 
-    content = category_items.map((item) => (
-      <li key={item._id}>
-        <a
-          onClick={() => handleCategoryRoute(item.parent)}
-          style={{ cursor: "pointer" }}
-          className={
-            category ===
-            item.parent.toLowerCase().replace("&", "").split(" ").join("-")
-              ? "active"
-              : ""
-          }
-        >
-          {item.parent} <span>{item.products.length}</span>
-        </a>
+    content = groupedCategories.map((group) => (
+      <li key={group.productType}>
+        <strong>{group.productType}</strong>
+        <ul>
+          {group.children.map((child, index) => (
+            <li key={index}>
+              <a
+                onClick={() => handleCategoryRoute(child.parent)}
+                style={{ cursor: "pointer" }}
+                className={
+                  category ===
+                  child.parent
+                    .toLowerCase()
+                    .replace("&", "")
+                    .split(" ")
+                    .join("-")
+                    ? "active"
+                    : ""
+                }
+              >
+                {child.parent}
+                {/* <span>{child.count}</span> */}
+              </a>
+            </li>
+          ))}
+        </ul>
       </li>
     ));
   }
 
   return (
-    <>
-      <div className="tp-shop-widget mb-10">
-        <h3 className="tp-shop-widget-title">Categories</h3>
-        <div className="tp-shop-widget-content">
-          <div className="tp-shop-widget-categories">
-            <ul>{content}</ul>
-          </div>
+    <div className="tp-shop-widget mb-10">
+      <h3 className="tp-shop-widget-title">Categories</h3>
+      <div className="tp-shop-widget-content">
+        <div className="tp-shop-widget-categories">
+          <ul>{content}</ul>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
