@@ -2,43 +2,46 @@
 import ErrorMsg from "@/components/common/error-msg";
 import Loader from "@/components/loader/loader";
 import { useGetAllCategoriesQuery } from "@/redux/features/categoryApi";
-import { useGetAllProductTypesQuery } from "@/redux/features/productTypeApi";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const HeaderCategory = ({ isCategoryActive, setIsCategoryActive }) => {
-  const {
-    data: productTypes,
-    isLoading: isLoadingProductTypes,
-    isError: isErrorProductTypes,
-  } = useGetAllProductTypesQuery();
-  const {
-    data: categoriesData,
-    isError: isErrorCategories,
-    isLoading: isLoadingCategories,
-  } = useGetAllCategoriesQuery();
+  const { data: categories, isError, isLoading } = useGetAllCategoriesQuery();
+
   const [groupedCategories, setGroupedCategories] = useState({});
   const router = useRouter();
   const dropdownRef = useRef(null);
 
-  useEffect(() => {
-    if (categoriesData?.result) {
-      const grouped = categoriesData.result.reduce((acc, curr) => {
-        const { productType, parent, products } = curr;
-        const quantity = products.length;
+  function groupCategoriesByProductType(categories) {
+    const grouped = {};
 
-        if (quantity > 0) {
-          const categoryDetail = { categoryName: parent, quantity: quantity };
-          if (!acc[productType]) {
-            acc[productType] = [];
-          }
-          acc[productType].push(categoryDetail);
-        }
-        return acc;
-      }, {});
-      setGroupedCategories(grouped);
+    for (const item of categories) {
+      const { productType, parent, products } = item;
+
+      if (!products || products.length === 0) {
+        continue;
+      }
+
+      if (!grouped[productType]) {
+        grouped[productType] = [];
+      }
+
+      grouped[productType].push(parent);
     }
-  }, [categoriesData]);
+
+    return Object.entries(grouped)
+      .sort(([a], [b]) => a.localeCompare(b)) // Sort productType keys alphabetically
+      .map(([productType, children]) => ({
+        parent: productType,
+        children: children.sort((a, b) => a.localeCompare(b)), // Sort children alphabetically
+      }));
+  }
+
+  useEffect(() => {
+    if (categories?.result) {
+      setGroupedCategories(groupCategoriesByProductType(categories.result));
+    }
+  }, [categories]);
 
   // handle category route
   const handleCategoryRoute = (title, isParent = false) => {
@@ -68,9 +71,6 @@ const HeaderCategory = ({ isCategoryActive, setIsCategoryActive }) => {
   // decide what to render
   let content = null;
 
-  const isLoading = isLoadingProductTypes || isLoadingCategories;
-  const isError = isErrorProductTypes || isErrorCategories;
-
   if (isLoading) {
     content = (
       <div className="py-5">
@@ -79,30 +79,26 @@ const HeaderCategory = ({ isCategoryActive, setIsCategoryActive }) => {
     );
   } else if (isError) {
     content = <ErrorMsg msg="There was an error loading categories!" />;
-  } else if (!productTypes?.result || productTypes.result.length === 0) {
+  } else if (!categories?.result || categories.result.length === 0) {
     content = <ErrorMsg msg="No product types found!" />;
   } else {
-    content = productTypes.result.map((productTypeItem, index) => (
+    content = groupedCategories.map((item, index) => (
       <li className="has-dropdown" key={index}>
         <a
           className="cursor-pointer"
-          onClick={() => handleCategoryRoute(productTypeItem.name, true)}
+          onClick={() => handleCategoryRoute(item.name, true)}
         >
-          {productTypeItem.name}
+          {item.parent}
         </a>
-        {groupedCategories[productTypeItem.name] &&
-          groupedCategories[productTypeItem.name].length > 0 && (
-            <ul className="tp-submenu">
-              {groupedCategories[productTypeItem.name].map((category, i) => (
-                <li
-                  key={i}
-                  onClick={() => handleCategoryRoute(category.categoryName)}
-                >
-                  <a className="cursor-pointer">{category.categoryName}</a>
-                </li>
-              ))}
-            </ul>
-          )}
+        {item.children.length > 0 && (
+          <ul className="tp-submenu">
+            {item.children.map((category, i) => (
+              <li key={i} onClick={() => handleCategoryRoute(category, false)}>
+                <a className="cursor-pointer">{category}</a>
+              </li>
+            ))}
+          </ul>
+        )}
       </li>
     ));
   }

@@ -29,13 +29,16 @@ const MobileCategory = ({
       if (!grouped[productType]) {
         grouped[productType] = [];
       }
+
       grouped[productType].push(parent);
     }
 
-    return Object.entries(grouped).map(([productType, children]) => ({
-      parent: productType,
-      children,
-    }));
+    return Object.entries(grouped)
+      .sort(([a], [b]) => a.localeCompare(b)) // Sort productType keys alphabetically
+      .map(([productType, children]) => ({
+        parent: productType,
+        children: children.sort((a, b) => a.localeCompare(b)), // Sort children alphabetically
+      }));
   }
 
   useEffect(() => {
@@ -113,11 +116,8 @@ const MobileCategory = ({
               isActiveSubMenu === item.parent ? "active" : ""
             }`}
           >
-            {item.children.map((child) => (
-              <li
-                key={`${item.parent}-${child}`}
-                onClick={() => handleCategoryRoute(child, false)}
-              >
+            {item.children.map((child, i) => (
+              <li key={i} onClick={() => handleCategoryRoute(child, false)}>
                 <a className="cursor-pointer">{child}</a>
               </li>
             ))}
