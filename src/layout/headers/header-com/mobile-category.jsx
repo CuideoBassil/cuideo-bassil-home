@@ -116,7 +116,7 @@ const MobileCategory = ({
             {item.children.map((child) => (
               <li
                 key={`${item.parent}-${child}`}
-                onClick={() => handleCategoryRoute(child, true)}
+                onClick={() => handleCategoryRoute(child, false)}
               >
                 <a className="cursor-pointer">{child}</a>
               </li>
