@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 const HeaderCategory = ({ isCategoryActive, setIsCategoryActive }) => {
   const { data: categories, isError, isLoading } = useGetAllCategoriesQuery();
 
-  const [groupedCategories, setGroupedCategories] = useState({});
+  const [groupedCategories, setGroupedCategories] = useState([]);
   const router = useRouter();
   const dropdownRef = useRef(null);
 
@@ -45,13 +45,13 @@ const HeaderCategory = ({ isCategoryActive, setIsCategoryActive }) => {
 
   // handle category route
   const handleCategoryRoute = (title, isParent = false) => {
-    setIsCategoryActive(false);
     if (isParent) {
-      router.push(`/shop?search=${title.toLowerCase()}`);
+      router.push(`/shop?productType=${title.toLowerCase()}`);
       return;
     } else {
       router.push(`/shop?subCategory=${title.toLowerCase()}`);
     }
+    setIsCategoryActive(false);
   };
 
   // Close dropdown on outside click
@@ -86,7 +86,7 @@ const HeaderCategory = ({ isCategoryActive, setIsCategoryActive }) => {
       <li className="has-dropdown" key={index}>
         <a
           className="cursor-pointer"
-          onClick={() => handleCategoryRoute(item.name, true)}
+          onClick={() => handleCategoryRoute(item.parent, true)}
         >
           {item.parent}
         </a>

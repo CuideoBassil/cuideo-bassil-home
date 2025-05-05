@@ -15,7 +15,7 @@ const ProductDetailsBreadcrumb = ({ category, title, pt }) => {
                   <a href="#">Home</a>
                 </span>
                 <span>
-                  <a href={`/shop?search=${pt.toLowerCase()}`}>{pt}</a>
+                  <a href={`/shop?productType=${pt.toLowerCase()}`}>{pt}</a>
                 </span>
                 <span>
                   <a href={`/shop?subCategory=${category.toLowerCase()}`}>
