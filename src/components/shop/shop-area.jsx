@@ -13,6 +13,7 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   const searchFilter = searchParams.getAll("search");
   const brands = searchParams.getAll("brand");
   const subCategories = searchParams.getAll("subCategory");
+  const productTypes = searchParams.getAll("productType");
   const filterColors = searchParams.getAll("color");
   const sortBy = searchParams.get("sortBy");
   const [currPage, setCurrPage] = useState(1);
@@ -31,6 +32,8 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
       filters.search = searchFilter;
     } else if (subCategories.length > 0) {
       filters.category = subCategories;
+    } else if (productTypes.length > 0) {
+      filters.productType = productTypes;
     }
     if (filterColors.length > 0) filters.color = filterColors;
     if (brands.length > 0) filters.brand = brands;

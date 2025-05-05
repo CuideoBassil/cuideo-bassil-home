@@ -58,7 +58,7 @@ const MobileCategory = ({
   // handle category route
   const handleCategoryRoute = (title, isParent = false) => {
     if (isParent) {
-      router.push(`/shop?search=${title.toLowerCase()}`);
+      router.push(`/shop?productType=${title.toLowerCase()}`);
       setIsCanvasOpen(false);
       return;
     } else {

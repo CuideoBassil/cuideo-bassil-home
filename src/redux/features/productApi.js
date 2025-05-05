@@ -51,18 +51,19 @@ export const productApi = apiSlice.injectEndpoints({
         color,
         category,
         brand,
-        subCategory,
+        productType,
         sortBy,
       }) => {
         const params = new URLSearchParams();
         params.append("skip", skip);
         params.append("take", take);
         params.append("status", "in-stock");
+        if (productType) params.append("productType", productType);
         if (search) params.append("search", search);
         if (color) params.append("color", color);
         if (category) params.append("category", category);
         if (brand) params.append("brand", brand);
-        if (subCategory) params.append("subCategory", subCategory);
+        // if (subCategory) params.append("subCategory", subCategory);
         if (sortBy && sortBy !== "default") params.append("sortBy", sortBy);
 
         return `/api/product/filtered/paginated?${params.toString()}`;

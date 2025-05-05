@@ -43,13 +43,21 @@ const CategoryFilter = ({ setCurrPage, shop_right = false }) => {
   }
 
   // handle category route
-  const handleCategoryRoute = (title) => {
+  const handleCategoryRoute = (title, isChild = true) => {
     setCurrPage(1);
-    router.push(
-      `/${
-        shop_right ? "shop-right-sidebar" : "shop"
-      }?subCategory=${title.toLowerCase()}`
-    );
+    if (!isChild) {
+      router.push(
+        `/${
+          shop_right ? "shop-right-sidebar" : "shop"
+        }?productType=${title.toLowerCase()}`
+      );
+    } else {
+      router.push(
+        `/${
+          shop_right ? "shop-right-sidebar" : "shop"
+        }?subCategory=${title.toLowerCase()}`
+      );
+    }
     dispatch(handleFilterSidebarClose());
   };
 
@@ -67,12 +75,17 @@ const CategoryFilter = ({ setCurrPage, shop_right = false }) => {
 
     content = groupedCategories.map((group) => (
       <li key={group.productType}>
-        <strong>{group.productType}</strong>
+        <a
+          onClick={() => handleCategoryRoute(group.productType, false)}
+          style={{ cursor: "pointer" }}
+        >
+          <strong>{group.productType}</strong>{" "}
+        </a>
         <ul>
           {group.children.map((child, index) => (
             <li key={index}>
               <a
-                onClick={() => handleCategoryRoute(child.parent)}
+                onClick={() => handleCategoryRoute(child.parent, true)}
                 style={{ cursor: "pointer" }}
                 className={
                   category ===

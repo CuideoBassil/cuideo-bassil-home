@@ -15,7 +15,7 @@ const BeautyCategory = () => {
 
   // handle category route
   const handleCategoryRoute = (title) => {
-    router.push(`/shop?search=${title.toLowerCase()}`);
+    router.push(`/shop?productType=${title.toLowerCase()}`);
   };
   // decide what to render
   let content = null;
