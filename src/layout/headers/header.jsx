@@ -44,19 +44,19 @@ const Header = () => {
           <div className="tp-header-main tp-header-sticky">
             <div className="container">
               <div className="row align-items-center">
-                <div className="col-xl-4 col-lg-4 col-md-6 col-6">
+                <div className="col-xl-3 col-lg-3 col-md-3 col-6">
                   <div className="logo">
                     <Link href="/">
                       <Image
-                        src={logo}
-                        alt="logo"
-                        width={200} // Set an appropriate width
-                        height={100} // Set an appropriate height
                         style={{
                           objectFit: "contain",
                           maxWidth: "100%",
                           height: "auto",
                         }}
+                        src={logo}
+                        alt="logo"
+                        width={700}
+                        height={200}
                       />
                     </Link>
                   </div>

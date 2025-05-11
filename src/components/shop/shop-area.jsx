@@ -17,7 +17,7 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   const filterColors = searchParams.getAll("color");
   const sortBy = searchParams.get("sortBy");
   const [currPage, setCurrPage] = useState(1);
-  const itemsPerPage = 12;
+  const itemsPerPage = 16;
 
   // Build filter parameters object
   const buildFilters = () => {

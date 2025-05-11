@@ -16,6 +16,7 @@ const ShopContent = ({
   shop_right,
   hidden_sidebar,
   totalProducts,
+  itemsPerPage,
 }) => {
   const { priceFilterValues, selectHandleFilter, currPage, setCurrPage } =
     otherProps;
@@ -111,10 +112,9 @@ const ShopContent = ({
                   <div className="tp-pagination">
                     <ServerPagination
                       items={Array(totalProducts).fill(0)}
-                      countOfPage={12}
+                      countOfPage={itemsPerPage}
                       currPage={currPage}
                       setCurrPage={setCurrPage}
-                      isMobile={isMobile}
                     />
                   </div>
                 </div>

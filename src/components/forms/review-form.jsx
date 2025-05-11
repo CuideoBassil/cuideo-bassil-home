@@ -1,13 +1,14 @@
 "use client";
+
+import { useAddReviewMutation } from "@/redux/features/reviewApi";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Rating } from "react-simple-star-rating";
 import * as Yup from "yup";
-// internal
-import { useAddReviewMutation } from "@/redux/features/reviewApi";
-import { notifyError, notifySuccess } from "@/utils/toast";
 import ErrorMsg from "../common/error-msg";
+// internal
+
 // schema
 const schema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -44,13 +45,14 @@ const ReviewForm = ({ product_id }) => {
       phoneNumber: data.phoneNumber,
       name: data.name,
       email: data.email,
-    }).then((result) => {
-      if (result?.error) {
-        notifyError(result?.error?.data?.message);
-      } else {
-        notifySuccess(result?.data?.message);
-      }
     });
+    // .then((result) => {
+    //   if (result?.error) {
+    //     notifyError(result?.error?.data?.message);
+    //   } else {
+    //     notifySuccess(result?.data?.message);
+    //   }
+    // });
 
     reset();
   };
@@ -110,7 +112,6 @@ const ReviewForm = ({ product_id }) => {
         <div className="tp-product-details-review-input-title">
           <label htmlFor="email">Your Email</label>
         </div>
-        <ErrorMsg msg={errors?.email?.message} />
       </div>
       <div className="tp-product-details-review-input-box">
         <div className="tp-product-details-review-input">
@@ -127,7 +128,6 @@ const ReviewForm = ({ product_id }) => {
         <div className="tp-product-details-review-input-title">
           <label htmlFor="phoneNumber">Your Phone Number</label>
         </div>
-        <ErrorMsg msg={errors?.phoneNumber?.message} />
       </div>
 
       <div className="tp-product-details-review-btn-wrapper">

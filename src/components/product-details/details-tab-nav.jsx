@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import ReviewForm from "../forms/review-form";
+import ReviewItem from "./review-item";
 
 const DetailsTabNav = ({ product }) => {
   const { _id, description, additionalInformation, reviews } = product || {};
@@ -55,7 +56,7 @@ const DetailsTabNav = ({ product }) => {
               id="desc"
               title="Description"
             />
-            {/* <NavItem id="review" title={`Reviews (${reviews?.length})`} /> */}
+            <NavItem id="review" title={`Reviews (${reviews?.length})`} />
 
             <span
               ref={marker}
@@ -102,10 +103,9 @@ const DetailsTabNav = ({ product }) => {
               <div className="row">
                 <div className="col-lg-6">
                   <div className="tp-product-details-review-statics">
-                    {/* reviews */}
                     <div className="tp-product-details-review-list pr-110">
                       <h3 className="tp-product-details-review-title">
-                        Rating & Review
+                        Rating & Latest Reviews
                       </h3>
                       {reviews?.length === 0 && (
                         <h3 className="tp-product-details-review-title">
@@ -113,12 +113,12 @@ const DetailsTabNav = ({ product }) => {
                         </h3>
                       )}
                       {reviews?.length > 0 &&
-                        reviews.map((item, index) => (
-                          <p key={index}>
-                            {item?.name}: {item?.comment}
-                          </p>
-                          // <ReviewItem key={item._id} review={item} />
-                        ))}
+                        [...reviews]
+                          .reverse()
+                          .slice(0, 6)
+                          .map((item, index) => (
+                            <ReviewItem key={index} review={item} />
+                          ))}
                     </div>
                   </div>
                 </div>
