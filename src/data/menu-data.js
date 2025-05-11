@@ -177,7 +177,7 @@ export const mobile_menu = [
   {
     id: 3,
     single_link: true,
-    title: "Contact",
+    title: "Contact Us",
     link: "/contact",
   },
 ];

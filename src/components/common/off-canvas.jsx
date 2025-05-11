@@ -5,6 +5,7 @@ import { useState } from "react";
 import MobileCategory from "@/layout/headers/header-com/mobile-category";
 import { CloseTwo } from "@/svg";
 import logo from "@assets/img/logo/logo.png";
+import HeaderSearchForm from "../forms/header-search-form";
 import MobileMenus from "./mobile-menus";
 
 const OffCanvas = ({
@@ -26,6 +27,7 @@ const OffCanvas = ({
     setIsCurrencyActive(!isCurrencyActive);
     setIsLanguageActive(false);
   };
+
   return (
     <>
       <div
@@ -59,6 +61,9 @@ const OffCanvas = ({
                   />
                 </Link>
               </div>
+            </div>
+            <div className="mb-3 ">
+              <HeaderSearchForm setIsCanvasOpen={setIsCanvasOpen} />
             </div>
             <div className="offcanvas__category pb-40">
               <button

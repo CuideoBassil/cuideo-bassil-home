@@ -1,12 +1,11 @@
 "use client";
-import React from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 // internal
-import user from "@assets/img/users/user-11.jpg";
-import signature from "@assets/img/blog/signature/signature.png";
-import { Search } from "@/svg";
 import blogData from "@/data/blog-data";
+import { Search } from "@/svg";
+import signature from "@assets/img/blog/signature/signature.png";
+import user from "@assets/img/users/user-11.jpg";
 
 // latest post
 const latest_post = blogData.slice(0, 3);

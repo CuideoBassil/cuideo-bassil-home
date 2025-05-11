@@ -1,16 +1,14 @@
 "use client";
 import { PaginationNext, PaginationPrev } from "@/svg";
-import { useState } from "react";
 
 const ServerPagination = ({
   items = [],
-  countOfPage = 12,
+  countOfPage = 16,
   currPage,
   setCurrPage,
-  isMobile,
 }) => {
   const totalPage = Math.ceil(items.length / countOfPage);
-  const [visiblePages] = useState(isMobile ? 3 : 5);
+  const visiblePages = 3;
 
   function setPage(idx) {
     if (idx <= 0 || idx > totalPage) return;

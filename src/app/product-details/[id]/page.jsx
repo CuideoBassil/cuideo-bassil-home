@@ -6,9 +6,6 @@ export const metadata = {
 };
 
 export default function ProductDetailsPage({ params }) {
-  return (
-    <Wrapper>
-      {params ?? id ? <ProductDetailsArea id={params?.id} /> : <></>}
-    </Wrapper>
-  );
+  const id = params?.id;
+  return <Wrapper>{id ? <ProductDetailsArea id={id} /> : <></>}</Wrapper>;
 }
