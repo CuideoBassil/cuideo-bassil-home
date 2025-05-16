@@ -33,7 +33,11 @@ const BannerArea = () => {
             >
               {title}
             </h3>
-            <p style={{ fontSize: "22px", color: "black" }}>{description}</p>
+
+            <div
+              style={{ fontSize: "22px", color: "black" }}
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
             <div className="tp-product-banner-price mb-3">
               {price && (
                 <span

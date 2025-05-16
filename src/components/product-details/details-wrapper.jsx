@@ -87,7 +87,7 @@ const DetailsWrapper = ({
           </div>
         </div>
       </div>
-      <p>
+      {/* <p>
         {textMore
           ? description
           : description
@@ -103,7 +103,7 @@ const DetailsWrapper = ({
             {textMore ? " See less" : " See more"}
           </span>
         )}
-      </p>
+      </p> */}
 
       {/* price */}
       <div className="tp-product-details-price-wrapper mb-20">

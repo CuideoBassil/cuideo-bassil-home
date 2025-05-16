@@ -1,46 +1,12 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { EffectFade, Navigation, Pagination } from "swiper/modules";
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 // internal
 import ErrorMsg from "@/components/common/error-msg";
 import { HomeTwoPrdLoader } from "@/components/loader";
 import { useGetFeaturedBySectionQuery } from "@/redux/features/featuredApi";
-import banner_img_1 from "@assets/img/banner/banner-slider-1.png";
-import banner_img_2 from "@assets/img/banner/banner-slider-2.png";
-import banner_img_3 from "@assets/img/banner/banner-slider-3.png";
-
-// banner products
-const bannerProducts = [
-  {
-    id: 1,
-    banner_bg_txt: "tablet",
-    subtitle: "Tablet Collection 2023",
-    title: "Galaxy Tab S6 Lite Android Tablet",
-    oldPrice: 320,
-    newPrice: 288,
-    img: banner_img_1,
-  },
-  {
-    id: 2,
-    banner_bg_txt: "tablet",
-    subtitle: "Tablet Collection 2023",
-    title: "Galaxy Tab S6 Lite Android Tablet",
-    oldPrice: 320,
-    newPrice: 288,
-    img: banner_img_2,
-  },
-  {
-    id: 3,
-    banner_bg_txt: "tablet",
-    subtitle: "Tablet Collection 2023",
-    title: "Galaxy Tab S6 Lite Android Tablet",
-    oldPrice: 320,
-    newPrice: 288,
-    img: banner_img_3,
-  },
-];
 
 // slider setting
 const slider_setting = {
@@ -48,7 +14,6 @@ const slider_setting = {
   spaceBetween: 0,
   effect: "fade",
   pagination: {
-    el: ".tp-product-banner-slider-dot",
     clickable: true,
   },
 };
@@ -79,14 +44,13 @@ const ProductBanner = () => {
             <div className="tp-product-banner-slider fix">
               <Swiper
                 {...slider_setting}
-                modules={[Navigation, Pagination, EffectFade]}
+                modules={[Navigation, Pagination, EffectFade, Autoplay]}
                 loop={true}
                 effect="fade"
-                // autoplay={{
-                //   delay: 7000,
-                //   disableOnInteraction: false,
-                //   pauseOnMouseEnter: true,
-                // }}
+                autoplay={{
+                  delay: 7000,
+                  disableOnInteraction: false,
+                }}
                 className="tp-product-banner-slider-active swiper-container"
               >
                 {featured_items.map((item, i) => (
@@ -108,9 +72,14 @@ const ProductBanner = () => {
                           <span className="tp-product-banner-title">
                             {item.title}
                           </span>
-                          <h3 className="tp-product-banner-subtitle">
-                            {item.description}
-                          </h3>
+
+                          <div
+                            className="tp-product-banner-subtitle"
+                            dangerouslySetInnerHTML={{
+                              __html: item.description,
+                            }}
+                          />
+
                           <div className="tp-product-banner-price mb-6">
                             {item.price && (
                               <span
