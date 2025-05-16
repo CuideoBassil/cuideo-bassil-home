@@ -81,7 +81,9 @@ const DetailsTabNav = ({ product }) => {
                     <div className="row align-items-center">
                       <div className="col-lg-12">
                         <div className="tp-product-details-desc-content">
-                          <p>{description}</p>
+                          <div
+                            dangerouslySetInnerHTML={{ __html: description }}
+                          />
                         </div>
                       </div>
                     </div>

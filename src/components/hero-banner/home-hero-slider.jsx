@@ -57,7 +57,7 @@ const HomeHeroSlider = () => {
             loop={true}
             effect="fade"
             autoplay={{
-              delay: 97000,
+              delay: 7000,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
@@ -108,9 +108,8 @@ const HomeHeroSlider = () => {
                             lineHeight: "1.2",
                             color: "white",
                           }}
-                        >
-                          {item.description}
-                        </div>
+                          dangerouslySetInnerHTML={{ __html: item.description }}
+                        />
                         <div className="tp-product-banner-price">
                           {item.price && (
                             <p
