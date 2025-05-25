@@ -32,7 +32,7 @@ const Wrapper = ({ children }) => {
   return !authChecked ? (
     <div
       className="d-flex align-items-center justify-content-center"
-      style={{ height: "100vh" }}
+      style={{ minHeight: "100vh" }}
     >
       <Loader spinner="fade" loading={!authChecked} />
     </div>

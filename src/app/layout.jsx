@@ -1,8 +1,8 @@
 import Providers from "@/components/provider";
+import Footer from "@/layout/footers/footer";
+import Header from "@/layout/headers/header";
 import { Charm, Jost, Oregano, Roboto } from "next/font/google";
 import "./globals.scss";
-import Header from "@/layout/headers/header";
-import Footer from "@/layout/footers/footer";
 
 export const metadata = {
   title: "Cuideo Bassil Home",

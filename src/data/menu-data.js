@@ -107,7 +107,13 @@ const menu_data = [
   //   ],
   // },
   {
-    id: 6,
+    id: 3,
+    single_link: true,
+    title: "About Us",
+    link: "/about-us",
+  },
+  {
+    id: 4,
     single_link: true,
     title: "Contact Us",
     link: "/contact",
@@ -176,6 +182,12 @@ export const mobile_menu = [
   // },
   {
     id: 3,
+    single_link: true,
+    title: "About Us",
+    link: "/about-us",
+  },
+  {
+    id: 4,
     single_link: true,
     title: "Contact Us",
     link: "/contact",
