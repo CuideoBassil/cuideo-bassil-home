@@ -33,6 +33,7 @@ export const apiSlice = createApi({
     "PopularProducts",
     "TopRatedProducts",
     "FeaturedBySection",
+    "PageByKey",
     "AllProductTypes",
     "FilteredPaginatedProducts",
     "AllCategory",
