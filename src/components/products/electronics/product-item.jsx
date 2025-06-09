@@ -1,30 +1,19 @@
+import { add_cart_product } from "@/redux/features/cartSlice";
+import { handleProductModal } from "@/redux/features/productModalSlice";
+import { Cart } from "@/svg";
+import { QuickView } from "@/svg";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Rating } from "react-simple-star-rating";
 // internal
-import { add_cart_product } from "@/redux/features/cartSlice";
-import { handleProductModal } from "@/redux/features/productModalSlice";
-import { add_to_wishlist } from "@/redux/features/wishlist-slice";
-import { QuickView } from "@/svg";
 
-const ProductItem = ({ product, offer_style = false }) => {
-  const {
-    _id,
-    image,
-    category,
-    title,
-    reviews,
-    price,
-    discount,
-    status,
-    offerDate,
-  } = product || {};
+const ProductItem = ({ product }) => {
+  const { _id, image, category, title, reviews, price, discount, status } =
+    product || {};
   const { cart_products } = useSelector((state) => state.cart);
-  const { wishlist } = useSelector((state) => state.wishlist);
   const isAddedToCart = cart_products.some((prd) => prd._id === _id);
-  const isAddedToWishlist = wishlist.some((prd) => prd._id === _id);
   const dispatch = useDispatch();
   const [ratingVal, setRatingVal] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -56,10 +45,6 @@ const ProductItem = ({ product, offer_style = false }) => {
   const handleAddProduct = (prd) => {
     dispatch(add_cart_product(prd));
   };
-  // handle wishlist product
-  const handleWishlistProduct = (prd) => {
-    dispatch(add_to_wishlist(prd));
-  };
 
   const isDiscountValid = discount > 0;
 
@@ -78,25 +63,20 @@ const ProductItem = ({ product, offer_style = false }) => {
               style={{ width: "100%", height: "100%", objectFit: "contain" }}
               alt="product"
             />
-
-            {/* <div className="tp-product-badge">
-              {status === "out-of-stock" && (
-                <span className="product-hot">out-stock</span>
-              )}
-            </div> */}
           </Link>
 
           {/*  product action */}
           <div className="tp-product-action">
             <div className="tp-product-action-item d-flex flex-column">
-              {/* {isAddedToCart ? (
+              {isAddedToCart ? (
                 <Link
                   href="/cart"
                   className={`tp-product-action-btn ${
                     isAddedToCart ? "active" : ""
                   } tp-product-add-cart-btn`}
                 >
-                  <Cart /> <span className="tp-product-tooltip">View Cart</span>
+                  <Cart className="text-gray-700 w-5 h-5" />{" "}
+                  <span className="tp-product-tooltip">View Cart</span>
                 </Link>
               ) : (
                 <button
@@ -107,11 +87,11 @@ const ProductItem = ({ product, offer_style = false }) => {
                   } tp-product-add-cart-btn`}
                   disabled={status === "out-of-stock"}
                 >
-                  <Cart />
+                  <Cart className="text-gray-700 w-5 h-5" />
 
                   <span className="tp-product-tooltip">Add to Cart</span>
                 </button>
-              )} */}
+              )}
               <button
                 onClick={() => dispatch(handleProductModal(product))}
                 type="button"
@@ -121,17 +101,6 @@ const ProductItem = ({ product, offer_style = false }) => {
 
                 <span className="tp-product-tooltip">Quick View</span>
               </button>
-              {/* <button
-                type="button"
-                className={`tp-product-action-btn ${
-                  isAddedToWishlist ? "active" : ""
-                } tp-product-add-to-wishlist-btn`}
-                onClick={() => handleWishlistProduct(product)}
-                disabled={status === "out-of-stock"}
-              >
-                <Wishlist />
-                <span className="tp-product-tooltip">Add To Wishlist</span>
-              </button> */}
             </div>
           </div>
         </div>
@@ -180,30 +149,6 @@ const ProductItem = ({ product, offer_style = false }) => {
               </span>
             )}
           </div>
-          {/* {offer_style && (
-            <div className="tp-product-countdown">
-              <div className="tp-product-countdown-inner">
-                {dayjs().isAfter(offerDate?.endDate) ? (
-                  <ul>
-                    <li>
-                      <span>{0}</span> Day
-                    </li>
-                    <li>
-                      <span>{0}</span> Hrs
-                    </li>
-                    <li>
-                      <span>{0}</span> Min
-                    </li>
-                    <li>
-                      <span>{0}</span> Sec
-                    </li>
-                  </ul>
-                ) : (
-                  <Timer expiryTimestamp={new Date(offerDate?.endDate)} />
-                )}
-              </div>
-            </div>
-          )} */}
         </div>
       </div>
     </>

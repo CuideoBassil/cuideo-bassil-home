@@ -39,6 +39,11 @@ export default function AboutUsPage() {
             <p>There was an error loading the page.</p>
           ) : (
             <div
+              style={{
+                paddingLeft: 20,
+                paddingRight: 20,
+                boxSizing: "border-box",
+              }}
               dangerouslySetInnerHTML={{
                 __html: JSON.parse(page?.data?.data),
               }}

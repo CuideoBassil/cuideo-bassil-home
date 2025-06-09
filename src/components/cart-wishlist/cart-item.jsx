@@ -11,7 +11,14 @@ import {
 import { Close, Minus, Plus } from "@/svg";
 
 const CartItem = ({ product }) => {
-  const { _id, image, title, price, orderQuantity = 0 } = product || {};
+  const {
+    _id,
+    image,
+    title,
+    price,
+    discount,
+    orderQuantity = 0,
+  } = product || {};
 
   const dispatch = useDispatch();
 
@@ -45,7 +52,12 @@ const CartItem = ({ product }) => {
       </td>
       {/* price */}
       <td className="tp-cart-price">
-        <span>${(price * orderQuantity).toFixed(2)}</span>
+        <span>
+          $
+          {discount > 0
+            ? (discount * orderQuantity).toFixed(2)
+            : (price * orderQuantity).toFixed(2)}
+        </span>
       </td>
       {/* quantity */}
       <td className="tp-cart-quantity">

@@ -9,9 +9,11 @@ import OffCanvas from "@/components/common/off-canvas";
 import HeaderSearchForm from "@/components/forms/header-search-form";
 import useCartInfo from "@/hooks/use-cart-info";
 import useSticky from "@/hooks/use-sticky";
-import { CategoryMenu, Menu, Phone } from "@/svg";
+import { openCartMini } from "@/redux/features/cartSlice";
+import { Cart, CategoryMenu, Menu, Phone } from "@/svg";
 import logo from "@assets/img/logo/logo.png";
 import HeaderCategory from "./header-com/header-category";
+import HeaderMainRight from "./header-com/header-main-right";
 import Menus from "./header-com/menus";
 
 const Header = () => {
@@ -100,7 +102,7 @@ const Header = () => {
                     </div>
                   </a>
 
-                  {/* <HeaderMainRight setIsCanvasOpen={setIsCanvasOpen} /> */}
+                  <HeaderMainRight setIsCanvasOpen={setIsCanvasOpen} />
                 </div>
               </div>
             </div>
@@ -197,7 +199,7 @@ const Header = () => {
                       <div>81-342284</div>
                     </div>
                   </a>
-                  {/* <div
+                  <div
                     className="tp-header-action-item "
                     style={{ marginLeft: "10px" }}
                   >
@@ -209,7 +211,7 @@ const Header = () => {
                       <Cart />
                       <span className="tp-header-action-badge">{quantity}</span>
                     </button>
-                  </div> */}
+                  </div>
                   <div className="tp-header-action-item d-lg-none">
                     <button
                       onClick={() => setIsCanvasOpen(true)}

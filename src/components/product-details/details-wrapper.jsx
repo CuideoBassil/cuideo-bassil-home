@@ -7,6 +7,7 @@ import { add_cart_product } from "@/redux/features/cartSlice";
 import { add_to_compare } from "@/redux/features/compareSlice";
 import { add_to_wishlist } from "@/redux/features/wishlist-slice";
 import DetailsBottomInfo from "./details-bottom-info";
+import ProductQuantity from "./product-quantity";
 
 const DetailsWrapper = ({
   productItem,
@@ -29,6 +30,7 @@ const DetailsWrapper = ({
     tags,
     offerDate,
   } = productItem || {};
+  console.log("productItem", productItem);
   const [ratingVal, setRatingVal] = useState(0);
   const [textMore, setTextMore] = useState(false);
   const dispatch = useDispatch();
@@ -46,7 +48,7 @@ const DetailsWrapper = ({
 
   // handle add product
   const handleAddProduct = (prd) => {
-    dispatch(add_cart_product(prd.data));
+    dispatch(add_cart_product(prd));
   };
 
   // handle wishlist product
@@ -152,7 +154,7 @@ const DetailsWrapper = ({
       {/* if ProductDetailsCountdown true end */}
 
       {/* actions */}
-      {/* <div className="tp-product-details-action-wrapper">
+      <div className="tp-product-details-action-wrapper">
         <h3 className="tp-product-details-action-title">Quantity</h3>
         <div className="tp-product-details-action-item-wrapper d-sm-flex align-items-center">
           <ProductQuantity />
@@ -166,12 +168,12 @@ const DetailsWrapper = ({
             </button>
           </div>
         </div>
-        <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
+        {/* <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
           <button className="tp-product-details-buy-now-btn w-100">
             Buy Now
           </button>
-        </Link>
-      </div> */}
+        </Link> */}
+      </div>
       {/* product-details-action-sm start */}
       <div className="tp-product-details-action-sm">
         {/* <button

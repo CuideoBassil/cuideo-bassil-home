@@ -1,12 +1,10 @@
 "use client";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
 // internal
 import { clearCart } from "@/redux/features/cartSlice";
 import CartCheckout from "./cart-checkout";
 import CartItem from "./cart-item";
-import RenderCartProgress from "../common/render-cart-progress";
 
 const CartArea = () => {
   const { cart_products } = useSelector((state) => state.cart);
