@@ -90,7 +90,6 @@ Building: ${orderInfo.building}
 Floor: ${orderInfo.floor}
 Note: ${orderInfo.orderNote || "None"}
 
-Please check the admin dashboard for more details.
 `;
       const encodedMessage = encodeURIComponent(message.trim());
       const whatsappUrl = `https://wa.me/+96181342284?text=${encodedMessage}`;

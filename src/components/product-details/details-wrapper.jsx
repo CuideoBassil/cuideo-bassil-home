@@ -30,7 +30,6 @@ const DetailsWrapper = ({
     tags,
     offerDate,
   } = productItem || {};
-  console.log("productItem", productItem);
   const [ratingVal, setRatingVal] = useState(0);
   const [textMore, setTextMore] = useState(false);
   const dispatch = useDispatch();
