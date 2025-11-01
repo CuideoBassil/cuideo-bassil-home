@@ -12,7 +12,6 @@ import { openCartMini } from "@/redux/features/cartSlice";
 import { Cart, CategoryMenu, Menu, Phone } from "@/svg";
 import logo from "@assets/img/logo/logo.png";
 import HeaderCategory from "./header-com/header-category";
-import HeaderMainRight from "./header-com/header-main-right";
 import Menus from "./header-com/menus";
 
 // Lazy load heavy components that are not immediately visible
