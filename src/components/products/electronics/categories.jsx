@@ -5,8 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import ErrorMsg from "@/components/common/error-msg";
 import HomeNewArrivalPrdLoader from "@/components/loader/home/home-newArrival-prd-loader";
 import { useGetAllProductTypesQuery } from "@/redux/features/productTypeApi";
-import { NextArr, PrevArr, ShapeLine } from "@/svg";
-import { useEffect } from "react";
+import { NextArr, PrevArr } from "@/svg";
 import CategoryCard from "./category-card";
 
 // slider setting
@@ -78,29 +77,106 @@ const CategoriesList = () => {
   }
   return (
     <>
-      <section className="tp-product-arrival-area pb-55">
+      <section
+        className="tp-product-arrival-area pb-55"
+        style={{ backgroundColor: "#ffffff" }}
+      >
         <div className="container">
-          <div className="row align-items-end">
-            <div className="col-xl-5 col-sm-6">
-              <div className="tp-section-title-wrapper ">
-                <h3 className="tp-section-title">
+          <div className="row align-items-end mb-4">
+            <div className="col-xl-6 col-sm-6">
+              <div className="tp-section-title-wrapper">
+                {/* <span
+                  style={{
+                    color: "#667eea",
+                    fontSize: "0.9rem",
+                    fontWeight: "600",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                    display: "block",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  Browse by
+                </span> */}
+                <h3
+                  className="tp-section-title"
+                  style={{
+                    fontSize: "2.5rem",
+                    fontWeight: "800",
+                    color: "#212529",
+                    marginBottom: "0.5rem",
+                    marginTop: "1.5rem",
+                  }}
+                >
                   Categories
-                  {/* <ShapeLine /> */}
                 </h3>
+                <p style={{ color: "#6c757d", fontSize: "1rem" }}>
+                  Find exactly what you're looking for
+                </p>
               </div>
             </div>
-            <div className="col-xl-7 col-sm-6">
-              <div className="tp-product-arrival-more-wrapper d-flex justify-content-end">
-                <div className="tp-product-arrival-arrow tp-swiper-arrow  text-end tp-product-arrival-border">
+            <div className="col-xl-6 col-sm-6">
+              <div className="tp-product-arrival-more-wrapper d-flex justify-content-end align-items-center">
+                <div
+                  className="tp-product-arrival-arrow tp-swiper-arrow text-end"
+                  style={{
+                    display: "flex",
+                    gap: "0.5rem",
+                  }}
+                >
                   <button
                     type="button"
                     className="tp-arrival-slider-button-prev"
+                    style={{
+                      width: "45px",
+                      height: "45px",
+                      borderRadius: "50%",
+                      border: "2px solid #e0e0e0",
+                      backgroundColor: "white",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                      transition: "all 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = "#667eea";
+                      e.currentTarget.style.backgroundColor = "#667eea";
+                      e.currentTarget.style.transform = "scale(1.1)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = "#e0e0e0";
+                      e.currentTarget.style.backgroundColor = "white";
+                      e.currentTarget.style.transform = "scale(1)";
+                    }}
                   >
                     <PrevArr />
-                  </button>{" "}
+                  </button>
                   <button
                     type="button"
                     className="tp-arrival-slider-button-next"
+                    style={{
+                      width: "45px",
+                      height: "45px",
+                      borderRadius: "50%",
+                      border: "2px solid #e0e0e0",
+                      backgroundColor: "white",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                      transition: "all 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = "#667eea";
+                      e.currentTarget.style.backgroundColor = "#667eea";
+                      e.currentTarget.style.transform = "scale(1.1)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = "#e0e0e0";
+                      e.currentTarget.style.backgroundColor = "white";
+                      e.currentTarget.style.transform = "scale(1)";
+                    }}
                   >
                     <NextArr />
                   </button>

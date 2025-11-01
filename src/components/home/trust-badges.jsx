@@ -1,12 +1,5 @@
 "use client";
-import {
-  FaAward,
-  FaCreditCard,
-  FaHeadset,
-  FaShieldAlt,
-  FaTruck,
-  FaUndo,
-} from "react-icons/fa";
+import { FaAward, FaHeadset, FaTruck, FaUndo } from "react-icons/fa";
 
 const TrustBadges = () => {
   const badges = [
@@ -76,7 +69,7 @@ const TrustBadges = () => {
                   backgroundColor: "white",
                   borderRadius: "15px",
                   transition: "all 0.3s ease",
-                  cursor: "pointer",
+                  cursor: "default",
                   border: "2px solid transparent",
                 }}
                 onMouseEnter={(e) => {
