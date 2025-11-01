@@ -111,7 +111,7 @@ const CategoriesList = () => {
                   Categories
                 </h3>
                 <p style={{ color: "#6c757d", fontSize: "1rem" }}>
-                  Find exactly what you're looking for
+                  Find exactly what you&apos;re looking for
                 </p>
               </div>
             </div>

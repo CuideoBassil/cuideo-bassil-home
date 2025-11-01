@@ -1,5 +1,37 @@
-@import '~bootstrap/scss/bootstrap';
-@import "~slick-carousel/slick/slick.css"; 
+@import "~bootstrap/scss/bootstrap";
+@import "~slick-carousel/slick/slick.css";
 @import "swiper/css/bundle";
-@import 'node_modules/react-modal-video/scss/modal-video.scss';
-@import '../../public/assets/scss/main.scss';
+@import "node_modules/react-modal-video/scss/modal-video.scss";
+@import "../../public/assets/scss/main.scss";
+
+/* Custom animations for hero slider */
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 30px rgba(255, 107, 107, 0.6);
+  }
+}
+
+/* Smooth header transitions */
+.tp-header-sticky {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hero slider smooth entrance */
+.tp-slider-area {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

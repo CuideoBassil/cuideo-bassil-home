@@ -1,14 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 
 const useCartInfo = () => {
-  const [quantity, setQuantity] = useState(0);
-  const [total, setTotal] = useState(0); // Total discounted price
-  const [originalTotal, setOriginalTotal] = useState(0); // Total without discount
   const { cart_products } = useSelector((state) => state.cart);
 
-  useEffect(() => {
+  // Memoize calculations to prevent unnecessary recalculations
+  const cartInfo = useMemo(() => {
     const cart = cart_products.reduce(
       (cartTotal, cartItem) => {
         const { price, discount, orderQuantity } = cartItem;
@@ -27,18 +25,15 @@ const useCartInfo = () => {
       }
     );
 
-    setQuantity(cart.quantity);
-    setTotal(cart.total);
-    setOriginalTotal(cart.originalTotal);
+    return {
+      quantity: cart.quantity,
+      total: cart.total,
+      originalTotal: cart.originalTotal,
+      totalSavings: cart.originalTotal - cart.total,
+    };
   }, [cart_products]);
 
-  return {
-    quantity,
-    total, // Discounted total
-    originalTotal, // Total without discount
-    totalSavings: originalTotal - total,
-    setTotal,
-  };
+  return cartInfo;
 };
 
 export default useCartInfo;

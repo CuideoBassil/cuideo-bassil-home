@@ -30,13 +30,16 @@ const CartMiniSidebar = () => {
         style={{
           background: "linear-gradient(180deg, #667eea 0%, #764ba2 100%)",
           boxShadow: "-4px 0 20px rgba(0, 0, 0, 0.15)",
+          maxWidth: "min(420px, 90vw)",
         }}
       >
         <div className="cartmini__wrapper d-flex justify-content-between flex-column">
           <div className="cartmini__top-wrapper">
             <div
               className="cartmini__top p-relative"
-              style={{ padding: "2rem 1rem 1rem" }}
+              style={{
+                padding: "clamp(1rem, 4vw, 2rem) 1rem 1rem",
+              }}
             >
               <div
                 className="cartmini__top-title"
@@ -47,7 +50,7 @@ const CartMiniSidebar = () => {
                 <h4
                   style={{
                     color: "white",
-                    fontSize: "1.5rem",
+                    fontSize: "clamp(1.25rem, 4vw, 1.5rem)",
                     fontWeight: "700",
                     marginBottom: 0,
                   }}

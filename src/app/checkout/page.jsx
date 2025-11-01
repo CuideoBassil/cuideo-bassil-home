@@ -1,8 +1,14 @@
-import Wrapper from "@/layout/wrapper";
-import HeaderTwo from "@/layout/headers/header-2";
-import Footer from "@/layout/footers/footer";
 import CommonBreadcrumb from "@/components/breadcrumb/common-breadcrumb";
-import CheckoutArea from "@/components/checkout/checkout-area";
+import Wrapper from "@/layout/wrapper";
+import dynamic from "next/dynamic";
+
+// Lazy load checkout area
+const CheckoutArea = dynamic(
+  () => import("@/components/checkout/checkout-area"),
+  {
+    loading: () => <div style={{ minHeight: "500px" }} />,
+  }
+);
 
 export const metadata = {
   title: "Cuideo Bassil Home - Checkout Page",

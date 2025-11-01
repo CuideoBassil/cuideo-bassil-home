@@ -1,7 +1,11 @@
-import Wrapper from "@/layout/wrapper";
-
 import CommonBreadcrumb from "@/components/breadcrumb/common-breadcrumb";
-import CartArea from "@/components/cart-wishlist/cart-area";
+import Wrapper from "@/layout/wrapper";
+import dynamic from "next/dynamic";
+
+// Lazy load cart area
+const CartArea = dynamic(() => import("@/components/cart-wishlist/cart-area"), {
+  loading: () => <div style={{ minHeight: "400px" }} />,
+});
 
 export const metadata = {
   title: "Cuideo Bassil Home - Cart Page",

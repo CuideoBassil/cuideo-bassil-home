@@ -69,7 +69,7 @@ const Footer = ({
                       className="tp-footer-logo"
                       style={{
                         backgroundColor: "white",
-                        padding: "1rem",
+                        padding: "0.5rem",
                         borderRadius: "12px",
                         marginBottom: "1.5rem",
                         display: "inline-block",

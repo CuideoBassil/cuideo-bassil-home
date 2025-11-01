@@ -208,7 +208,7 @@ const BannerArea = () => {
                 Featured Deals
               </h3>
               <p style={{ color: "#6c757d", fontSize: "1rem" }}>
-                Don't miss out on these amazing offers!
+                Don&apos;t miss out on these amazing offers!
               </p>
             </div>
           </div>

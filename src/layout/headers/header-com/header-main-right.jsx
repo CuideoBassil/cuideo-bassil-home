@@ -66,9 +66,49 @@ const HeaderMainRight = ({ setIsCanvasOpen }) => {
             onClick={() => dispatch(openCartMini())}
             type="button"
             className="tp-header-action-btn cartmini-open-btn"
+            style={{
+              position: "relative",
+              backgroundColor: "#667eea",
+              color: "white",
+              borderRadius: "8px",
+              padding: "0.75rem",
+              border: "none",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "#764ba2";
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow =
+                "0 4px 12px rgba(102, 126, 234, 0.4)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "#667eea";
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
           >
             <Cart />
-            <span className="tp-header-action-badge">{quantity}</span>
+            <span
+              className="tp-header-action-badge"
+              style={{
+                position: "absolute",
+                top: "-5px",
+                right: "-5px",
+                backgroundColor: "#ff6b6b",
+                color: "white",
+                borderRadius: "50%",
+                width: "22px",
+                height: "22px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "0.75rem",
+                fontWeight: "700",
+                border: "2px solid white",
+              }}
+            >
+              {quantity}
+            </span>
           </button>
         </div>
         <div className="tp-header-action-item d-lg-none">
@@ -76,6 +116,21 @@ const HeaderMainRight = ({ setIsCanvasOpen }) => {
             onClick={() => setIsCanvasOpen(true)}
             type="button"
             className="tp-header-action-btn tp-offcanvas-open-btn"
+            style={{
+              backgroundColor: "#667eea",
+              color: "white",
+              borderRadius: "8px",
+              padding: "0.75rem",
+              border: "none",
+              marginLeft: "0.5rem",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "#764ba2";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "#667eea";
+            }}
           >
             <Menu />
           </button>

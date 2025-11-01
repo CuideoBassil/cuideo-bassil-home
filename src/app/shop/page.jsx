@@ -1,7 +1,14 @@
 import ShopBreadcrumb from "@/components/breadcrumb/shop-breadcrumb";
-import ShopArea from "@/components/shop/shop-area";
-import WhatsAppButton from "@/components/whatsaap/WhatsAppButton";
 import Wrapper from "@/layout/wrapper";
+import dynamic from "next/dynamic";
+
+// Lazy load shop area and WhatsApp button
+const ShopArea = dynamic(() => import("@/components/shop/shop-area"), {
+  loading: () => <div style={{ minHeight: "600px" }} />,
+});
+const WhatsAppButton = dynamic(() =>
+  import("@/components/whatsaap/WhatsAppButton")
+);
 
 export const metadata = {
   title: "Cuideo Bassil Home - Shop Page",
@@ -11,10 +18,8 @@ export default function ShopPage() {
   return (
     <>
       <Wrapper>
-        {/* <HeaderTwo style_2={true} /> */}
         <ShopBreadcrumb title="Explore Best Products" subtitle="Explore" />
         <ShopArea />
-        {/* <Footer primary_style={true} /> */}
       </Wrapper>
       <WhatsAppButton />
     </>

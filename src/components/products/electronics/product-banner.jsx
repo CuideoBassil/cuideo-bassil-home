@@ -71,7 +71,7 @@ const ProductBanner = () => {
                   Special Offers
                 </h3>
                 <p style={{ color: "#6c757d", fontSize: "1rem" }}>
-                  Limited time deals you won't want to miss
+                  Limited time deals you won&apos;t want to miss
                 </p>
               </div>
             </div>

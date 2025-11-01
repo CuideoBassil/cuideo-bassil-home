@@ -1,10 +1,10 @@
+import useResponsive from "@/hooks/use-responsive";
 import { add_cart_product } from "@/redux/features/cartSlice";
 import { handleProductModal } from "@/redux/features/productModalSlice";
-import { Cart } from "@/svg";
-import { QuickView } from "@/svg";
+import { Cart, QuickView } from "@/svg";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Rating } from "react-simple-star-rating";
 // internal
@@ -15,36 +15,26 @@ const ProductItem = ({ product }) => {
   const { cart_products } = useSelector((state) => state.cart);
   const isAddedToCart = cart_products.some((prd) => prd._id === _id);
   const dispatch = useDispatch();
-  const [ratingVal, setRatingVal] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const { isMobile } = useResponsive();
 
-  const handleResize = () => {
-    setIsMobile(window.innerWidth < 768);
-  };
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
+  // Memoize rating calculation
+  const ratingVal = useMemo(() => {
     if (reviews && reviews.length > 0) {
-      const rating =
-        reviews.reduce((acc, review) => acc + review.rating, 0) /
-        reviews.length;
-      setRatingVal(rating);
-    } else {
-      setRatingVal(0);
+      return (
+        reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
+      );
     }
+    return 0;
   }, [reviews]);
 
-  // handle add product
-  const handleAddProduct = (prd) => {
-    dispatch(add_cart_product(prd));
-  };
+  // Memoize handlers
+  const handleAddProduct = useCallback(() => {
+    dispatch(add_cart_product(product));
+  }, [dispatch, product]);
+
+  const handleQuickView = useCallback(() => {
+    dispatch(handleProductModal(product));
+  }, [dispatch, product]);
 
   const isDiscountValid = discount > 0;
 
@@ -62,6 +52,8 @@ const ProductItem = ({ product }) => {
               height="300"
               style={{ width: "100%", height: "100%", objectFit: "contain" }}
               alt="product"
+              loading="lazy"
+              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
             />
           </Link>
 
@@ -80,7 +72,7 @@ const ProductItem = ({ product }) => {
                 </Link>
               ) : (
                 <button
-                  onClick={() => handleAddProduct(product)}
+                  onClick={handleAddProduct}
                   type="button"
                   className={`tp-product-action-btn ${
                     isAddedToCart ? "active" : ""
@@ -93,7 +85,7 @@ const ProductItem = ({ product }) => {
                 </button>
               )}
               <button
-                onClick={() => dispatch(handleProductModal(product))}
+                onClick={handleQuickView}
                 type="button"
                 className="tp-product-action-btn tp-product-quick-view-btn"
               >

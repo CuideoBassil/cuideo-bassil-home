@@ -1,9 +1,9 @@
 "use client";
 import ErrorMsg from "@/components/common/error-msg";
-import HomePrdLoader from "@/components/loader/home/home-prd-loader";
+import { ProductGridSkeleton } from "@/components/loader/skeletons";
 import { useGetProductWithTypeQuery } from "@/redux/features/productApi";
-import { ShapeLine } from "@/svg";
 import { useRouter } from "next/navigation";
+import { useMemo } from "react";
 import ProductItem from "./product-item";
 
 const ProductArea = () => {
@@ -12,58 +12,57 @@ const ProductArea = () => {
     data: products,
     isError,
     isLoading,
-    refetch,
   } = useGetProductWithTypeQuery({
     type: ["All"],
     skip: 0,
     take: 100,
   });
-  function shuffleArray(array) {
-    const shuffledArray = [...array];
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
+
+  // Memoize the shuffled products to avoid re-shuffling on every render
+  const shuffledProducts = useMemo(() => {
+    if (!products?.data) return [];
+
+    const availableProducts = products.data.filter(
+      (prd) => prd.status !== "out-of-stock"
+    );
+
+    // Fisher-Yates shuffle algorithm
+    const shuffled = [...availableProducts];
+    for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [
-        shuffledArray[j],
-        shuffledArray[i],
-      ];
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    return shuffledArray;
-  }
+
+    return shuffled.slice(0, 20);
+  }, [products?.data]);
 
   // decide what to render
   let content = null;
 
   if (isLoading) {
-    content = <HomePrdLoader loading={isLoading} />;
+    content = <ProductGridSkeleton count={8} />;
   }
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && !isError && products?.data?.length === 0) {
+  if (!isLoading && !isError && shuffledProducts.length === 0) {
     content = <ErrorMsg msg="No Products found!" />;
   }
-  if (!isLoading && !isError && products?.data?.length > 0) {
-    const product_items = products.data.filter(
-      (prd) => prd.status !== "out-of-stock"
-    );
-    content = shuffleArray(product_items)
-      .slice(0, 20)
-      .map((prd, i) => (
-        <div key={i} className="col-6 col-lg-4 col-xl-3 mt-4">
-          <ProductItem product={prd} />
-        </div>
-      ));
+  if (!isLoading && !isError && shuffledProducts.length > 0) {
+    content = shuffledProducts.map((prd, i) => (
+      <div key={prd._id || i} className="col-6 col-lg-4 col-xl-3 mt-4">
+        <ProductItem product={prd} />
+      </div>
+    ));
   }
+
   return (
     <section className="tp-product-area pb-55">
       <div className="container">
         <div className="row align-items-end">
           <div className="col-xl-5 col-lg-6 col-md-5">
             <div className="tp-section-title-wrapper ">
-              <h3 className="tp-section-title">
-                Products
-                {/* <ShapeLine /> */}
-              </h3>
+              <h3 className="tp-section-title">Products</h3>
             </div>
           </div>
           <div className="col-xl-7 col-sm-6">

@@ -1,4 +1,5 @@
 "use client";
+import dynamic from "next/dynamic";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
@@ -7,7 +8,6 @@ if (typeof window !== "undefined") {
 }
 // internal
 import BackToTopCom from "@/components/common/back-to-top";
-import ProductModal from "@/components/common/product-modal";
 import Loader from "@/components/loader/loader";
 import useAuthCheck from "@/hooks/use-auth-check";
 import {
@@ -16,6 +16,9 @@ import {
 } from "@/redux/features/cartSlice";
 import { get_compare_products } from "@/redux/features/compareSlice";
 import { get_wishlist_products } from "@/redux/features/wishlist-slice";
+
+// Lazy load the product modal - only loads when needed
+const ProductModal = dynamic(() => import("@/components/common/product-modal"));
 
 const Wrapper = ({ children }) => {
   const { productItem } = useSelector((state) => state.productModal);
