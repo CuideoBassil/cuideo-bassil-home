@@ -60,7 +60,9 @@ const Header = () => {
             <div className="container">
               <div
                 className="row align-items-center"
-                style={{ padding: "0.75rem 0" }}
+                style={{
+                  padding: "0.5rem 0",
+                }}
               >
                 <div className="col-xl-3 col-lg-3 col-md-3 col-6">
                   <div className="logo">
@@ -70,6 +72,7 @@ const Header = () => {
                           objectFit: "contain",
                           maxWidth: "100%",
                           height: "auto",
+                          maxHeight: "50px",
                         }}
                         src={logo}
                         alt="logo"
@@ -84,9 +87,13 @@ const Header = () => {
                     <HeaderSearchForm />
                   </div>
                 </div>
-
                 <div className="col-xl-4 col-lg-4 col-md-9 col-6">
-                  <div className="tp-header-action d-flex align-items-center justify-content-end ml-50">
+                  <div
+                    className="tp-header-action d-flex align-items-center justify-content-end"
+                    style={{
+                      gap: "0.5rem",
+                    }}
+                  >
                     <a
                       href="tel:96181342284"
                       className="tp-header-contact d-none d-lg-flex align-items-center justify-content-end"
@@ -150,7 +157,7 @@ const Header = () => {
                           backgroundColor: "#667eea",
                           color: "white",
                           borderRadius: "8px",
-                          padding: "0.75rem",
+                          padding: "0.55rem",
                           border: "none",
                           transition: "all 0.3s ease",
                         }}
@@ -176,12 +183,12 @@ const Header = () => {
                             backgroundColor: "#ff6b6b",
                             color: "white",
                             borderRadius: "50%",
-                            width: "22px",
-                            height: "22px",
+                            width: "20px",
+                            height: "20px",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            fontSize: "0.75rem",
+                            fontSize: "0.7rem",
                             fontWeight: "700",
                             border: "2px solid white",
                           }}
@@ -199,9 +206,8 @@ const Header = () => {
                           backgroundColor: "#667eea",
                           color: "white",
                           borderRadius: "8px",
-                          padding: "0.75rem",
+                          padding: "0.55rem",
                           border: "none",
-                          marginLeft: "0.5rem",
                           transition: "all 0.3s ease",
                         }}
                         onMouseEnter={(e) => {
@@ -250,6 +256,11 @@ const Header = () => {
                           fontSize: "0.95rem",
                           transition: "all 0.3s ease",
                           boxShadow: "0 2px 8px rgba(102, 126, 234, 0.25)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "flex-start",
+                          gap: "0.75rem",
+                          width: "100%",
                         }}
                         className="tp-category-menu-btn tp-category-menu-toggle"
                         onMouseEnter={(e) => {
@@ -263,7 +274,7 @@ const Header = () => {
                             "0 2px 8px rgba(102, 126, 234, 0.25)";
                         }}
                       >
-                        <span>
+                        <span style={{ display: "flex", alignItems: "center" }}>
                           <CategoryMenu />
                         </span>
                         All Categories
@@ -308,7 +319,7 @@ const Header = () => {
           <div className="tp-mega-menu-wrapper p-relative">
             <div
               className="row align-items-center"
-              style={{ padding: "0.75rem 0" }}
+              style={{ padding: "0.5rem 0" }}
             >
               <div className="col-xl-3 col-lg-3 col-md-3 col-6">
                 <div className="logo">
@@ -318,6 +329,7 @@ const Header = () => {
                         objectFit: "contain",
                         maxWidth: "100%",
                         height: "auto",
+                        maxHeight: "50px",
                       }}
                       src={logo}
                       alt="logo"
@@ -335,10 +347,15 @@ const Header = () => {
                 </div>
               </div>
               <div className="col-xl-3 col-lg-3 col-md-3 col-6">
-                <div className="tp-header-action d-flex align-items-center justify-content-end ml-50">
+                <div
+                  className="tp-header-action d-flex align-items-center justify-content-end"
+                  style={{
+                    gap: "0.5rem",
+                  }}
+                >
                   <a
                     href="tel:96181342284"
-                    className="tp-header-contact d-flex align-items-center justify-content-end"
+                    className="tp-header-contact d-none d-lg-flex align-items-center justify-content-end"
                     style={{
                       textDecoration: "none",
                       transition: "all 0.3s ease",
@@ -399,7 +416,7 @@ const Header = () => {
                         backgroundColor: "#667eea",
                         color: "white",
                         borderRadius: "8px",
-                        padding: "0.75rem",
+                        padding: "0.55rem",
                         border: "none",
                         transition: "all 0.3s ease",
                       }}
@@ -425,12 +442,12 @@ const Header = () => {
                           backgroundColor: "#ff6b6b",
                           color: "white",
                           borderRadius: "50%",
-                          width: "22px",
-                          height: "22px",
+                          width: "20px",
+                          height: "20px",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          fontSize: "0.75rem",
+                          fontSize: "0.7rem",
                           fontWeight: "700",
                           border: "2px solid white",
                         }}
@@ -448,9 +465,8 @@ const Header = () => {
                         backgroundColor: "#667eea",
                         color: "white",
                         borderRadius: "8px",
-                        padding: "0.75rem",
+                        padding: "0.55rem",
                         border: "none",
-                        marginLeft: "0.5rem",
                         transition: "all 0.3s ease",
                       }}
                       onMouseEnter={(e) => {

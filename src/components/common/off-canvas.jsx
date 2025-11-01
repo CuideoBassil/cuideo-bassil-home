@@ -52,10 +52,10 @@ const OffCanvas = ({
               onClick={() => setIsCanvasOpen(false)}
               className="offcanvas__close-btn offcanvas-close-btn"
               style={{
-                backgroundColor: "white",
+                backgroundColor: "rgba(255, 255, 255, 0.95)",
                 color: "#667eea",
-                width: "40px",
-                height: "40px",
+                width: "36px",
+                height: "36px",
                 borderRadius: "50%",
                 border: "none",
                 display: "flex",
@@ -63,13 +63,15 @@ const OffCanvas = ({
                 justifyContent: "center",
                 cursor: "pointer",
                 transition: "all 0.3s ease",
+                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "#f8f9fa";
+                e.currentTarget.style.backgroundColor = "white";
                 e.currentTarget.style.transform = "rotate(90deg)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "white";
+                e.currentTarget.style.backgroundColor =
+                  "rgba(255, 255, 255, 0.95)";
                 e.currentTarget.style.transform = "rotate(0deg)";
               }}
             >
@@ -78,24 +80,29 @@ const OffCanvas = ({
           </div>
           <div
             className="offcanvas__content"
-            style={{ padding: "2rem 1.5rem" }}
+            style={{
+              padding: "1rem",
+              paddingTop: "3.5rem",
+            }}
           >
-            <div className="offcanvas__top mb-70 d-flex justify-content-between align-items-center">
+            {/* Logo */}
+            <div className="offcanvas__top mb-3">
               <div
                 className="offcanvas__logo logo"
                 style={{
                   backgroundColor: "white",
                   padding: "0.75rem 1.5rem",
-                  borderRadius: "12px",
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+                  borderRadius: "10px",
+                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+                  display: "inline-block",
                 }}
               >
                 <Link href="/">
                   <Image
                     src={logo}
                     alt="logo"
-                    width={200}
-                    height={100}
+                    width={300}
+                    height={110}
                     style={{
                       objectFit: "contain",
                       maxWidth: "100%",
@@ -105,78 +112,86 @@ const OffCanvas = ({
                 </Link>
               </div>
             </div>
+
+            {/* Search Bar */}
             <div
               className="mb-3"
               style={{
                 backgroundColor: "white",
-                padding: "0.5rem",
-                borderRadius: "12px",
-                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+                padding: "0",
+                borderRadius: "10px",
               }}
             >
               <HeaderSearchForm setIsCanvasOpen={setIsCanvasOpen} />
             </div>
-            <div className="offcanvas__category pb-40">
+
+            {/* All Categories Button */}
+            <div className="mb-3">
               <button
                 onClick={() => setIsCategoryActive(!isCategoryActive)}
                 style={{
                   backgroundColor: "white",
                   color: "#667eea",
                   border: "none",
-                  borderRadius: "12px",
-                  padding: "1rem 1.5rem",
+                  borderRadius: "10px",
+                  padding: "0.85rem 1rem",
                   width: "100%",
                   fontWeight: "600",
-                  fontSize: "1rem",
+                  fontSize: "0.95rem",
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
-                  gap: "0.5rem",
+                  justifyContent: "space-between",
                   transition: "all 0.3s ease",
                   boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
                 }}
                 className="tp-offcanvas-category-toggle"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 12px rgba(0, 0, 0, 0.2)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow =
-                    "0 2px 8px rgba(0, 0, 0, 0.1)";
-                }}
               >
-                <i className="fa-solid fa-bars"></i>
-                All Categories
-              </button>
-              <div className="tp-category-mobile-menu">
-                <nav
-                  className={`tp-category-menu-content ${
-                    isCategoryActive ? "active" : ""
-                  }`}
+                <div
                   style={{
-                    backgroundColor: "white",
-                    borderRadius: "12px",
-                    marginTop: "1rem",
-                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.6rem",
                   }}
                 >
-                  <MobileCategory
-                    categoryType={categoryType}
-                    isCategoryActive={isCategoryActive}
-                    setIsCategoryActive={setIsCategoryActive}
-                    setIsCanvasOpen={setIsCanvasOpen}
-                  />
-                </nav>
-              </div>
+                  <i
+                    className="fa-solid fa-bars"
+                    style={{ fontSize: "1rem" }}
+                  ></i>
+                  <span>All Categories</span>
+                </div>
+              </button>
+
+              {/* Category Dropdown */}
+              {isCategoryActive && (
+                <div className="tp-category-mobile-menu">
+                  <nav
+                    className="tp-category-menu-content active"
+                    style={{
+                      backgroundColor: "white",
+                      borderRadius: "10px",
+                      marginTop: "0.5rem",
+                      boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <MobileCategory
+                      categoryType={categoryType}
+                      isCategoryActive={isCategoryActive}
+                      setIsCategoryActive={setIsCategoryActive}
+                      setIsCanvasOpen={setIsCanvasOpen}
+                    />
+                  </nav>
+                </div>
+              )}
             </div>
+
+            {/* Main Menu */}
             <div
-              className="tp-main-menu-mobile fix d-lg-none mb-40"
+              className="tp-main-menu-mobile fix d-lg-none"
               style={{
                 backgroundColor: "white",
-                borderRadius: "12px",
-                padding: "1rem",
+                borderRadius: "10px",
+                padding: "0.75rem 0",
                 boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
               }}
             >
