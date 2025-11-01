@@ -4,15 +4,15 @@ import { feature_data } from "./feature-area-2";
 const FeatureArea = () => {
   return (
     <section
-      className="tp-feature-area tp-feature-border-radius pb-70 mt-2"
-      style={{ backgroundColor: "#f8f9fa" }}
+      className="tp-feature-area tp-feature-border-radius pb-40"
+      style={{ backgroundColor: "#ffffff", paddingTop: "2rem" }}
     >
       <div className="container">
         <div className="row gx-3 gy-3 gy-xl-0">
           {feature_data.map((item, i) => (
             <div key={i} className="col-xl-3 col-lg-6 col-md-6 col-sm-6">
               <div
-                className="tp-feature-item d-flex align-items-start"
+                className="tp-feature-item d-flex align-items-center justify-content-center"
                 style={{
                   padding: "1.5rem",
                   backgroundColor: "white",
@@ -21,6 +21,9 @@ const FeatureArea = () => {
                   transition: "all 0.3s ease",
                   cursor: "default",
                   height: "100%",
+                  flexDirection: "column",
+                  textAlign: "center",
+                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-5px)";
@@ -35,9 +38,9 @@ const FeatureArea = () => {
                 }}
               >
                 <div
-                  className="tp-feature-icon mr-15"
+                  className="tp-feature-icon"
                   style={{
-                    minWidth: "50px",
+                    marginBottom: "1rem",
                     transition: "transform 0.3s ease",
                   }}
                   onMouseEnter={(e) => {

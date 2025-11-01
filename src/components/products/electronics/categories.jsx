@@ -78,8 +78,8 @@ const CategoriesList = () => {
   return (
     <>
       <section
-        className="tp-product-arrival-area pb-55"
-        style={{ backgroundColor: "#ffffff" }}
+        className="tp-product-arrival-area pb-40"
+        style={{ backgroundColor: "#ffffff", paddingTop: "1rem" }}
       >
         <div className="container">
           <div className="row align-items-end mb-4">
