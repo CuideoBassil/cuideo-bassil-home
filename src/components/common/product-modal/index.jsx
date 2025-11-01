@@ -48,6 +48,7 @@ const ProductModal = () => {
         onRequestClose={() => dispatch(handleModalClose())}
         style={customStyles}
         contentLabel="Product Modal"
+        ariaHideApp={false}
       >
         <div className="tp-product-modal">
           <div className="tp-product-modal-content d-lg-flex">

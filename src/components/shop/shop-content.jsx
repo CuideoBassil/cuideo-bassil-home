@@ -40,12 +40,25 @@ const ShopContent = ({
   }, 0);
 
   return (
-    <section className="tp-shop-area pb-120">
+    <section
+      className="tp-shop-area pb-120"
+      style={{ backgroundColor: "white" }}
+    >
       <div className="container">
         <div className="row">
           {!shop_right && !hidden_sidebar && !isMobile && (
             <div className="col-xl-3 col-lg-4">
-              <div className="tp-shop-sidebar mr-10">
+              <div
+                className="tp-shop-sidebar mr-10"
+                style={{
+                  backgroundColor: "white",
+                  padding: "1.5rem",
+                  borderRadius: "12px",
+                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
+                  position: "sticky",
+                  top: "20px",
+                }}
+              >
                 {/* <PriceFilter
                   priceFilterValues={priceFilterValues}
                   maxPrice={maxPrice}
@@ -68,7 +81,15 @@ const ShopContent = ({
             }`}
           >
             <div className="tp-shop-main-wrapper">
-              <div className="tp-shop-top mb-45">
+              <div
+                className="tp-shop-top mb-45"
+                style={{
+                  // backgroundColor: "white",
+                  paddingTop: "1.5rem",
+                  // borderRadius: "12px",
+                  // boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
+                }}
+              >
                 <div className="row">
                   <div className="col-xl-6">
                     <ShopTopLeft
@@ -124,7 +145,17 @@ const ShopContent = ({
 
           {shop_right && (
             <div className="col-xl-3 col-lg-4">
-              <div className="tp-shop-sidebar mr-10">
+              <div
+                className="tp-shop-sidebar mr-10"
+                style={{
+                  backgroundColor: "white",
+                  padding: "1.5rem",
+                  borderRadius: "12px",
+                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
+                  position: "sticky",
+                  top: "20px",
+                }}
+              >
                 {/* <PriceFilter
                   priceFilterValues={priceFilterValues}
                   maxPrice={maxPrice}

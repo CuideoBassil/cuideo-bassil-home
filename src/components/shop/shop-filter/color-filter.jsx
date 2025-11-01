@@ -68,7 +68,22 @@ const ColorFilter = ({ setCurrPage, shop_right = false }) => {
 
     // Generate content
     content = uniqueColors.map((item, i) => (
-      <li key={i}>
+      <li
+        key={i}
+        style={{
+          marginBottom: "0.75rem",
+          transition: "all 0.2s ease",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = "#f8f9fa";
+          e.currentTarget.style.borderRadius = "6px";
+          e.currentTarget.style.paddingLeft = "0.5rem";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = "transparent";
+          e.currentTarget.style.paddingLeft = "0";
+        }}
+      >
         <div className="tp-shop-widget-checkbox-circle">
           <input
             type="checkbox"
@@ -81,33 +96,68 @@ const ColorFilter = ({ setCurrPage, shop_right = false }) => {
             }
             readOnly
           />
-          <label onClick={() => handleColor(item.name)} htmlFor={item.name}>
+          <label
+            onClick={() => handleColor(item.name)}
+            htmlFor={item.name}
+            style={{
+              cursor: "pointer",
+              fontSize: "0.95rem",
+              fontWeight: "500",
+              color: "#4a5568",
+              transition: "color 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#667eea";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "#4a5568";
+            }}
+          >
             {item.name}
           </label>
           <span
             style={{
               backgroundColor: `${item.code}`,
-              border: "1px solid grey",
+              border: "1px solid #e2e8f0",
+              borderRadius: "4px",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
             }}
             className="tp-shop-widget-checkbox-circle-self"
           ></span>
         </div>
-        {/* <span className="tp-shop-widget-checkbox-circle-number">
-          {colorCounts[item.name] || 0}
-        </span> */}
       </li>
     ));
   }
 
   return (
     <div className="tp-shop-widget mb-10">
-      <h3 className="tp-shop-widget-title">Filter by Color</h3>
+      <h3
+        className="tp-shop-widget-title"
+        style={{
+          fontSize: "1.25rem",
+          fontWeight: "700",
+          marginBottom: "1.5rem",
+          paddingBottom: "0.75rem",
+          borderBottom: "2px solid #667eea",
+          color: "#2d3748",
+        }}
+      >
+        Filter by Color
+      </h3>
       <div className="tp-shop-widget-content">
         <div
           className="tp-shop-widget-checkbox-circle-list"
           style={{ height: "auto" }}
         >
-          <ul>{content}</ul>
+          <ul
+            style={{
+              listStyle: "none",
+              padding: 0,
+              margin: 0,
+            }}
+          >
+            {content}
+          </ul>
         </div>
       </div>
     </div>

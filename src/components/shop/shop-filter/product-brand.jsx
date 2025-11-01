@@ -43,30 +43,69 @@ const ProductBrand = ({ setCurrPage, shop_right = false }) => {
         style={{
           display: "flex",
           flexDirection: "column",
-          marginBottom: "0px",
           justifyContent: "center",
           alignItems: "center",
-          border: "1px solid #f1f1f1",
-          gap: "0px",
+          gap: "0.5rem",
           cursor: "pointer",
+          padding: "1rem",
+          border: "1px solid #e2e8f0",
+          borderRadius: "8px",
+          backgroundColor: "white",
+          transition: "all 0.3s ease",
+          flex: "0 0 calc(50% - 0.5rem)",
+          marginBottom: "1rem",
         }}
         onClick={() => handleBrandRoute(b.name)}
         className="tp-shop-widget-brand-item"
+        onMouseEnter={(e) => {
+          e.currentTarget.style.borderColor = "#667eea";
+          e.currentTarget.style.transform = "translateY(-4px)";
+          e.currentTarget.style.boxShadow =
+            "0 4px 12px rgba(102, 126, 234, 0.2)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.borderColor = "#e2e8f0";
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "none";
+        }}
       >
-        <div>
+        <div style={{ height: "50px", display: "flex", alignItems: "center" }}>
           <Image src={b?.logo} alt="brand" width={70} height={50} />
         </div>
-
-        {b?.name}
+        <span
+          style={{
+            fontSize: "0.875rem",
+            fontWeight: "600",
+            color: "#4a5568",
+            textAlign: "center",
+          }}
+        >
+          {b?.name}
+        </span>
       </div>
     ));
   }
   return (
     <>
       <div className="tp-shop-widget mb-50">
-        <h3 className="tp-shop-widget-title">Popular Brands</h3>
+        <h3
+          className="tp-shop-widget-title"
+          style={{
+            fontSize: "1.25rem",
+            fontWeight: "700",
+            marginBottom: "1.5rem",
+            paddingBottom: "0.75rem",
+            borderBottom: "2px solid #667eea",
+            color: "#2d3748",
+          }}
+        >
+          Popular Brands
+        </h3>
         <div className="tp-shop-widget-content ">
-          <div className="tp-shop-widget-brand-list d-flex align-items-center justify-content-between flex-wrap">
+          <div
+            className="tp-shop-widget-brand-list d-flex align-items-center justify-content-between flex-wrap"
+            style={{ gap: "1rem" }}
+          >
             {content}
           </div>
         </div>

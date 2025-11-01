@@ -74,19 +74,47 @@ const CategoryFilter = ({ setCurrPage, shop_right = false }) => {
     const groupedCategories = groupCategoriesByProductType(categories.result);
 
     content = groupedCategories.map((group) => (
-      <li key={group.productType}>
+      <li key={group.productType} style={{ marginBottom: "1rem" }}>
         <a
           onClick={() => handleCategoryRoute(group.productType, false)}
-          style={{ cursor: "pointer" }}
+          style={{
+            cursor: "pointer",
+            fontSize: "1rem",
+            fontWeight: "700",
+            color: "#212529",
+            display: "block",
+            padding: "0.5rem 0",
+            transition: "color 0.3s ease",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = "#667eea";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = "#212529";
+          }}
         >
-          <strong>{group.productType}</strong>{" "}
+          {group.productType}
         </a>
-        <ul>
+        <ul
+          style={{
+            listStyle: "none",
+            padding: "0 0 0 1rem",
+            margin: "0.5rem 0 0 0",
+          }}
+        >
           {group.children.map((child, index) => (
-            <li key={index}>
+            <li key={index} style={{ marginBottom: "0.5rem" }}>
               <a
                 onClick={() => handleCategoryRoute(child.parent, true)}
-                style={{ cursor: "pointer" }}
+                style={{
+                  cursor: "pointer",
+                  fontSize: "0.95rem",
+                  color: "#6c757d",
+                  display: "block",
+                  padding: "0.4rem 0.75rem",
+                  borderRadius: "6px",
+                  transition: "all 0.3s ease",
+                }}
                 className={
                   category ===
                   child.parent
@@ -97,9 +125,18 @@ const CategoryFilter = ({ setCurrPage, shop_right = false }) => {
                     ? "active"
                     : ""
                 }
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "#f8f9fa";
+                  e.currentTarget.style.color = "#667eea";
+                  e.currentTarget.style.paddingLeft = "1rem";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.color = "#6c757d";
+                  e.currentTarget.style.paddingLeft = "0.75rem";
+                }}
               >
                 {child.parent}
-                {/* <span>{child.count}</span> */}
               </a>
             </li>
           ))}
@@ -110,10 +147,22 @@ const CategoryFilter = ({ setCurrPage, shop_right = false }) => {
 
   return (
     <div className="tp-shop-widget mb-10">
-      <h3 className="tp-shop-widget-title">Categories</h3>
+      <h3
+        className="tp-shop-widget-title"
+        style={{
+          fontSize: "1.25rem",
+          fontWeight: "700",
+          color: "#212529",
+          marginBottom: "1.25rem",
+          paddingBottom: "0.75rem",
+          borderBottom: "2px solid #667eea",
+        }}
+      >
+        Categories
+      </h3>
       <div className="tp-shop-widget-content">
         <div className="tp-shop-widget-categories">
-          <ul>{content}</ul>
+          <ul style={{ listStyle: "none", padding: 0 }}>{content}</ul>
         </div>
       </div>
     </div>
