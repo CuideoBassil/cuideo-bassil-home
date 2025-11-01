@@ -19,7 +19,7 @@ const schema = Yup.object().shape({
 
 const ReviewForm = ({ product_id }) => {
   // const { user } = useSelector((state) => state.auth);
-  const [rating, setRating] = useState(0.5);
+  const [rating, setRating] = useState(5);
   const [addReview, {}] = useAddReviewMutation();
 
   // Catch Rating value

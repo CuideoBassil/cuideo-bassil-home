@@ -20,10 +20,24 @@ const ProductDetailsContent = ({ productItem }) => {
     setActiveImg(item);
   };
   return (
-    <section className="tp-product-details-area">
-      <div className="tp-product-details-top pb-115">
+    <section
+      className="tp-product-details-area"
+      style={{ backgroundColor: "white" }}
+    >
+      <div
+        className="tp-product-details-top pb-115"
+        style={{ paddingTop: "3rem" }}
+      >
         <div className="container">
-          <div className="row">
+          <div
+            className="row"
+            style={{
+              backgroundColor: "white",
+              borderRadius: "16px",
+              padding: "2rem",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
+            }}
+          >
             <div className="col-xl-7 col-lg-6">
               {/* product-details-thumb-wrapper start */}
               <DetailsThumbWrapper
@@ -54,7 +68,15 @@ const ProductDetailsContent = ({ productItem }) => {
       {/* product details description */}
       <div className="tp-product-details-bottom pb-140">
         <div className="container">
-          <div className="row">
+          <div
+            className="row"
+            style={{
+              backgroundColor: "white",
+              borderRadius: "16px",
+              padding: "2rem",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
+            }}
+          >
             <div className="col-xl-12">
               <DetailsTabNav product={productItem} />
             </div>
@@ -67,9 +89,34 @@ const ProductDetailsContent = ({ productItem }) => {
       <section className="tp-related-product pt-95 pb-50">
         <div className="container">
           <div className="row">
-            <div className="tp-section-title-wrapper-6 text-center mb-40">
-              {/* <span className="tp-section-title-pre-6">Next day Products</span> */}
-              <h3 className="tp-section-title-6">Related Products</h3>
+            <div
+              className="tp-section-title-wrapper-6 text-center mb-40"
+              style={{
+                position: "relative",
+                paddingBottom: "1rem",
+              }}
+            >
+              <h3
+                className="tp-section-title-6"
+                style={{
+                  fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
+                  fontWeight: "700",
+                  color: "#2d3748",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Related Products
+              </h3>
+              <div
+                style={{
+                  width: "80px",
+                  height: "3px",
+                  background:
+                    "linear-gradient(90deg, #667eea 0%, #764ba2 100%)",
+                  margin: "0 auto",
+                  borderRadius: "2px",
+                }}
+              ></div>
             </div>
           </div>
           <div className="row">
