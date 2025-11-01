@@ -11,31 +11,110 @@ const CartArea = () => {
   const dispatch = useDispatch();
   return (
     <>
-      <section className="tp-cart-area pb-120">
+      <section
+        className="tp-cart-area pb-120"
+        style={{ minHeight: "calc(100vh - 500px)", backgroundColor: "white" }}
+      >
         <div className="container">
           {cart_products.length === 0 && (
-            <div className="text-center pt-50">
-              <h3>No Cart Items Found</h3>
-              <Link href="/shop" className="tp-cart-checkout-btn mt-20">
-                Continue Shipping
+            <div
+              className="text-center pt-50"
+              style={{
+                backgroundColor: "white",
+                padding: "4rem 2rem",
+                borderRadius: "16px",
+                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: "clamp(1.5rem, 3vw, 2rem)",
+                  fontWeight: "700",
+                  color: "#2d3748",
+                  marginBottom: "1.5rem",
+                }}
+              >
+                No Cart Items Found
+              </h3>
+              <Link
+                href="/shop"
+                className="tp-cart-checkout-btn mt-20"
+                style={{
+                  backgroundColor: "#667eea",
+                  color: "white",
+                  padding: "1rem 2.5rem",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                  display: "inline-block",
+                  fontWeight: "600",
+                  transition: "all 0.3s ease",
+                  border: "none",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "#764ba2";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 4px 12px rgba(102, 126, 234, 0.4)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "#667eea";
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+              >
+                Continue Shopping
               </Link>
             </div>
           )}
           {cart_products.length > 0 && (
             <div className="row">
               <div className="col-xl-9 col-lg-8">
-                <div className="tp-cart-list mb-25 mr-30">
-                  {/* <div className="cartmini__shipping">
-                    <RenderCartProgress />
-                  </div> */}
+                <div
+                  className="tp-cart-list mb-25 mr-30"
+                  style={{
+                    backgroundColor: "white",
+                    borderRadius: "16px",
+                    padding: "2rem",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
+                  }}
+                >
                   <table className="table">
                     <thead>
-                      <tr>
-                        <th colSpan="2" className="tp-cart-header-product">
+                      <tr style={{ borderBottom: "2px solid #667eea" }}>
+                        <th
+                          colSpan="2"
+                          className="tp-cart-header-product"
+                          style={{
+                            color: "#2d3748",
+                            fontWeight: "700",
+                            fontSize: "1rem",
+                            padding: "1rem 0.5rem",
+                          }}
+                        >
                           Product
                         </th>
-                        <th className="tp-cart-header-price">Price</th>
-                        <th className="tp-cart-header-quantity">Quantity</th>
+                        <th
+                          className="tp-cart-header-price"
+                          style={{
+                            color: "#2d3748",
+                            fontWeight: "700",
+                            fontSize: "1rem",
+                            padding: "1rem 0.5rem",
+                          }}
+                        >
+                          Price
+                        </th>
+                        <th
+                          className="tp-cart-header-quantity"
+                          style={{
+                            color: "#2d3748",
+                            fontWeight: "700",
+                            fontSize: "1rem",
+                            padding: "1rem 0.5rem",
+                          }}
+                        >
+                          Quantity
+                        </th>
                         <th></th>
                       </tr>
                     </thead>
@@ -67,6 +146,28 @@ const CartArea = () => {
                           onClick={() => dispatch(clearCart())}
                           type="button"
                           className="tp-cart-update-btn"
+                          style={{
+                            backgroundColor: "#ff6b6b",
+                            color: "white",
+                            border: "none",
+                            padding: "0.875rem 2rem",
+                            borderRadius: "8px",
+                            fontWeight: "600",
+                            cursor: "pointer",
+                            transition: "all 0.3s ease",
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = "#ff5252";
+                            e.currentTarget.style.transform =
+                              "translateY(-2px)";
+                            e.currentTarget.style.boxShadow =
+                              "0 4px 12px rgba(255, 107, 107, 0.4)";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = "#ff6b6b";
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "none";
+                          }}
                         >
                           Clear Cart
                         </button>
