@@ -34,19 +34,62 @@ const OffCanvas = ({
         className={`offcanvas__area offcanvas__radius ${
           isOffCanvasOpen ? "offcanvas-opened" : ""
         }`}
+        style={{
+          background: "linear-gradient(180deg, #667eea 0%, #764ba2 100%)",
+        }}
       >
         <div className="offcanvas__wrapper">
-          <div className="offcanvas__close">
+          <div
+            className="offcanvas__close"
+            style={{
+              position: "absolute",
+              top: "1rem",
+              right: "1rem",
+              zIndex: 10,
+            }}
+          >
             <button
               onClick={() => setIsCanvasOpen(false)}
               className="offcanvas__close-btn offcanvas-close-btn"
+              style={{
+                backgroundColor: "white",
+                color: "#667eea",
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                border: "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "#f8f9fa";
+                e.currentTarget.style.transform = "rotate(90deg)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "white";
+                e.currentTarget.style.transform = "rotate(0deg)";
+              }}
             >
               <CloseTwo />
             </button>
           </div>
-          <div className="offcanvas__content">
+          <div
+            className="offcanvas__content"
+            style={{ padding: "2rem 1.5rem" }}
+          >
             <div className="offcanvas__top mb-70 d-flex justify-content-between align-items-center">
-              <div className="offcanvas__logo logo">
+              <div
+                className="offcanvas__logo logo"
+                style={{
+                  backgroundColor: "white",
+                  padding: "0.75rem 1.5rem",
+                  borderRadius: "12px",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+                }}
+              >
                 <Link href="/">
                   <Image
                     src={logo}
@@ -62,14 +105,47 @@ const OffCanvas = ({
                 </Link>
               </div>
             </div>
-            <div className="mb-3 ">
+            <div
+              className="mb-3"
+              style={{
+                backgroundColor: "white",
+                padding: "0.5rem",
+                borderRadius: "12px",
+                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+              }}
+            >
               <HeaderSearchForm setIsCanvasOpen={setIsCanvasOpen} />
             </div>
             <div className="offcanvas__category pb-40">
               <button
                 onClick={() => setIsCategoryActive(!isCategoryActive)}
-                style={{ backgroundColor: "#0500ff" }}
+                style={{
+                  backgroundColor: "white",
+                  color: "#667eea",
+                  border: "none",
+                  borderRadius: "12px",
+                  padding: "1rem 1.5rem",
+                  width: "100%",
+                  fontWeight: "600",
+                  fontSize: "1rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "0.5rem",
+                  transition: "all 0.3s ease",
+                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+                }}
                 className="tp-offcanvas-category-toggle"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 4px 12px rgba(0, 0, 0, 0.2)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow =
+                    "0 2px 8px rgba(0, 0, 0, 0.1)";
+                }}
               >
                 <i className="fa-solid fa-bars"></i>
                 All Categories
@@ -79,6 +155,12 @@ const OffCanvas = ({
                   className={`tp-category-menu-content ${
                     isCategoryActive ? "active" : ""
                   }`}
+                  style={{
+                    backgroundColor: "white",
+                    borderRadius: "12px",
+                    marginTop: "1rem",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+                  }}
                 >
                   <MobileCategory
                     categoryType={categoryType}
@@ -89,7 +171,15 @@ const OffCanvas = ({
                 </nav>
               </div>
             </div>
-            <div className="tp-main-menu-mobile fix d-lg-none mb-40">
+            <div
+              className="tp-main-menu-mobile fix d-lg-none mb-40"
+              style={{
+                backgroundColor: "white",
+                borderRadius: "12px",
+                padding: "1rem",
+                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+              }}
+            >
               <MobileMenus setIsCanvasOpen={setIsCanvasOpen} />
             </div>
 
