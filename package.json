@@ -5,7 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node .next/standalone/server.js",
+    "start:regular": "next start -p 3000",
+    "pm2:start": "pm2 start ecosystem.config.js",
+    "pm2:stop": "pm2 stop cuideo-bassil-home",
+    "pm2:restart": "pm2 restart cuideo-bassil-home",
+    "pm2:delete": "pm2 delete cuideo-bassil-home",
+    "pm2:logs": "pm2 logs cuideo-bassil-home",
     "lint": "next lint"
   },
   "dependencies": {

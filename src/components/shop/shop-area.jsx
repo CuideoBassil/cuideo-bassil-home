@@ -1,7 +1,7 @@
 "use client";
 import { useGetFilteredPaginatedProductsQuery } from "@/redux/features/productApi";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ErrorMsg from "../common/error-msg";
 import ShopFilterOffCanvas from "../common/shop-filter-offcanvas";
 import ShopLoader from "../loader/shop/shop-loader";
@@ -19,15 +19,13 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
   const [currPage, setCurrPage] = useState(1);
   const itemsPerPage = 16;
 
-  // Build filter parameters object
-  const buildFilters = () => {
+  // Memoize filter parameters to prevent unnecessary API calls
+  const filterParams = useMemo(() => {
     const filters = {
       skip: (currPage - 1) * itemsPerPage,
       take: itemsPerPage,
     };
 
-    // if (searchFilter.length > 0) filters.search = searchFilter;
-    // if (subCategories.length > 0) filters.category = subCategories;
     if (searchFilter.length > 0) {
       filters.search = searchFilter;
     } else if (subCategories.length > 0) {
@@ -40,14 +38,23 @@ const ShopArea = ({ shop_right = false, hidden_sidebar = false }) => {
     if (sortBy) filters.sortBy = sortBy;
 
     return filters;
-  };
+  }, [
+    currPage,
+    searchFilter,
+    subCategories,
+    productTypes,
+    filterColors,
+    brands,
+    sortBy,
+    itemsPerPage,
+  ]);
 
   const {
     data: productsData,
     isError,
     isLoading,
     refetch,
-  } = useGetFilteredPaginatedProductsQuery(buildFilters());
+  } = useGetFilteredPaginatedProductsQuery(filterParams);
 
   // Update URL when filters change
   const updateUrl = (newParams) => {
