@@ -15,11 +15,19 @@ export const apiSlice = createApi({
           }
         }
       } catch (error) {
-        console.error("Error parsing user info:", error);
+        // Only log in development
+        if (process.env.NODE_ENV === "development") {
+          console.error("Error parsing user info:", error);
+        }
       }
       return headers;
     },
   }),
+  // Reduce memory by keeping cached data for shorter time
+  keepUnusedDataFor: 30, // 30 seconds instead of default 60
+  refetchOnMountOrArgChange: 30, // Refetch if data is older than 30s
+  refetchOnReconnect: true,
+  refetchOnFocus: false, // Don't refetch on window focus to reduce requests
   endpoints: (builder) => ({}),
   tagTypes: [
     "Products",

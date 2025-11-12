@@ -1,0 +1,9 @@
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Disallow admin or private areas (if any)
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://yourdomain.com/sitemap.xml
