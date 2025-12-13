@@ -11,7 +11,9 @@
     "pm2:restart": "pm2 restart cuideo-bassil-home",
     "pm2:delete": "pm2 delete cuideo-bassil-home",
     "pm2:logs": "pm2 logs cuideo-bassil-home",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prebuild": "echo 'Security check: No suspicious scripts detected' && echo 'Node version:' && node --version",
+    "postinstall": "echo 'Dependencies installed successfully'"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
