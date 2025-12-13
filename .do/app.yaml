@@ -1,0 +1,54 @@
+name: cuideo-bassil-home
+region: nyc
+
+services:
+  - name: web
+    github:
+      repo: your-username/Cuideo
+      branch: main
+      deploy_on_push: true
+
+    source_dir: /cuideo-bassil-home
+
+    build_command: yarn build
+    run_command: yarn start
+
+    environment_slug: node-js
+    instance_count: 1
+    instance_size_slug: basic-xxs
+
+    http_port: 3000
+
+    envs:
+      - key: NODE_ENV
+        scope: RUN_AND_BUILD_TIME
+        value: production
+
+      # SECURITY: Prevent malicious scripts during npm install
+      - key: NPM_CONFIG_IGNORE_SCRIPTS
+        scope: BUILD_TIME
+        value: "true"
+
+      - key: NPM_CONFIG_AUDIT
+        scope: BUILD_TIME
+        value: "true"
+
+      - key: NEXT_TELEMETRY_DISABLED
+        scope: RUN_AND_BUILD_TIME
+        value: "1"
+
+      # Add your API URL
+      - key: NEXT_PUBLIC_API_URL
+        scope: RUN_AND_BUILD_TIME
+        value: ${APP_URL} # or your actual API URL
+
+    health_check:
+      http_path: /api/health
+      initial_delay_seconds: 30
+      period_seconds: 10
+      timeout_seconds: 5
+      success_threshold: 1
+      failure_threshold: 3
+
+    routes:
+      - path: /

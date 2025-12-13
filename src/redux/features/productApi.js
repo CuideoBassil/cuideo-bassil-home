@@ -6,27 +6,41 @@ export const productApi = apiSlice.injectEndpoints({
     getAllProducts: builder.query({
       query: () => `/api/product/all`,
       providesTags: ["Products"],
+      keepUnusedDataFor: 300, // 5 minutes cache
     }),
     getProductType: builder.query({
       query: ({ type, query }) => `/api/product/${type}?${query}`,
-      providesTags: ["ProductType"],
+      providesTags: (result, error, arg) => [
+        { type: "ProductType", id: arg.type },
+      ],
+      keepUnusedDataFor: 300,
     }),
     getProductWithType: builder.query({
       query: ({ type, skip = -1, take = -1 }) =>
         `/api/product/with/${type}?skip=${skip}&take=${take}`,
-      providesTags: ["ProductWithType"],
+      providesTags: (result, error, arg) => [
+        { type: "ProductWithType", id: `${arg.type}-${arg.skip}-${arg.take}` },
+      ],
+      keepUnusedDataFor: 300,
     }),
     getOfferProducts: builder.query({
       query: (type) => `/api/product/offer?type=${type}`,
-      providesTags: ["OfferProducts"],
+      providesTags: (result, error, arg) => [
+        { type: "OfferProducts", id: arg },
+      ],
+      keepUnusedDataFor: 600, // 10 minutes cache
     }),
     getPopularProductByType: builder.query({
       query: (type) => `/api/product/popular/${type}`,
-      providesTags: ["PopularProducts"],
+      providesTags: (result, error, arg) => [
+        { type: "PopularProducts", id: arg },
+      ],
+      keepUnusedDataFor: 300,
     }),
     getTopRatedProducts: builder.query({
       query: () => `/api/product/top-rated`,
       providesTags: ["TopRatedProducts"],
+      keepUnusedDataFor: 1800, // 30 minutes cache
     }),
     // get single product
     getProduct: builder.query({
@@ -35,6 +49,7 @@ export const productApi = apiSlice.injectEndpoints({
       invalidatesTags: (result, error, arg) => [
         { type: "RelatedProducts", id: arg },
       ],
+      keepUnusedDataFor: 300,
     }),
     // get related products
     getRelatedProducts: builder.query({
@@ -42,6 +57,7 @@ export const productApi = apiSlice.injectEndpoints({
       providesTags: (result, error, arg) => [
         { type: "RelatedProducts", id: arg },
       ],
+      keepUnusedDataFor: 300,
     }),
     getFilteredPaginatedProducts: builder.query({
       query: ({
@@ -63,12 +79,14 @@ export const productApi = apiSlice.injectEndpoints({
         if (color) params.append("color", color);
         if (category) params.append("category", category);
         if (brand) params.append("brand", brand);
-        // if (subCategory) params.append("subCategory", subCategory);
         if (sortBy && sortBy !== "default") params.append("sortBy", sortBy);
 
         return `/api/product/filtered/paginated?${params.toString()}`;
       },
-      providesTags: ["FilteredPaginatedProducts"],
+      providesTags: (result, error, arg) => [
+        { type: "FilteredPaginatedProducts", id: JSON.stringify(arg) },
+      ],
+      keepUnusedDataFor: 120, // 2 minutes cache
     }),
   }),
 });

@@ -30,7 +30,7 @@ const HeaderSearchForm = ({ setIsCanvasOpen }) => {
     <form
       onSubmit={(e) => {
         handleSubmit(e);
-        setIsCanvasOpen(false);
+        setIsCanvasOpen?.(false);
       }}
     >
       <div
