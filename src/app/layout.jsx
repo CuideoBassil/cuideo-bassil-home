@@ -37,32 +37,14 @@ export const viewport = {
   maximumScale: 5,
 };
 
-const body = Jost({
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+const jost = Jost({
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
   variable: "--tp-ff-body",
-  display: "swap", // Optimize font loading
-});
-const heading = Jost({
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  subsets: ["latin"],
-  variable: "--tp-ff-heading",
-  display: "swap",
-});
-const p = Jost({
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  subsets: ["latin"],
-  variable: "--tp-ff-p",
-  display: "swap",
-});
-const jost = Jost({
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  subsets: ["latin"],
-  variable: "--tp-ff-jost",
   display: "swap",
 });
 const roboto = Roboto({
-  weight: ["300", "400", "500", "700", "900"],
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
   variable: "--tp-ff-roboto",
   display: "swap",
@@ -84,7 +66,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${body.variable} ${heading.variable} ${p.variable} ${jost.variable} ${roboto.variable} ${oregano.variable} ${charm.variable}`}
+        className={`${jost.variable} ${roboto.variable} ${oregano.variable} ${charm.variable}`}
       >
         <Providers>
           <Header />

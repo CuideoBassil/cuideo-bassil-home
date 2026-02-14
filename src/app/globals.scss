@@ -1,5 +1,11 @@
 @import '~bootstrap/scss/bootstrap';
-@import "~slick-carousel/slick/slick.css"; 
+@import "~slick-carousel/slick/slick.css";
 @import "swiper/css/bundle";
 @import 'node_modules/react-modal-video/scss/modal-video.scss';
 @import '../../public/assets/scss/main.scss';
+
+:root {
+  --tp-ff-heading: var(--tp-ff-body);
+  --tp-ff-p: var(--tp-ff-body);
+  --tp-ff-jost: var(--tp-ff-body);
+}
