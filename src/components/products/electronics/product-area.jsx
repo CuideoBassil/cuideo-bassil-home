@@ -16,7 +16,7 @@ const ProductArea = () => {
   } = useGetProductWithTypeQuery({
     type: ["All"],
     skip: 0,
-    take: 100,
+    take: 24,
   });
 
   // Memoize shuffle function to prevent re-shuffling on every render

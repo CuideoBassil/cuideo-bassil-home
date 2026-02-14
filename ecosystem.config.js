@@ -4,17 +4,16 @@ module.exports = {
       name: "cuideo-bassil-home",
       script: "node_modules/next/dist/bin/next",
       args: "start",
-      instances: 1, // Single instance for 1GB RAM
-      exec_mode: "cluster",
+      instances: 1,
+      exec_mode: "fork",
       autorestart: true,
       watch: false,
-      max_memory_restart: "700M", // Restart if memory exceeds 700MB
+      max_memory_restart: "450M",
       env: {
         NODE_ENV: "production",
         PORT: 3000,
       },
-      // Memory optimization
-      node_args: "--max-old-space-size=768",
+      node_args: "--max-old-space-size=512",
       // Logging
       error_file: "./logs/err.log",
       out_file: "./logs/out.log",

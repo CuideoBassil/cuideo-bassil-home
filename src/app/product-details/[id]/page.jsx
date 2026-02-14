@@ -5,7 +5,7 @@ export const metadata = {
   title: "Cuideo Bassil Home - Product Details Page",
 };
 
-export default function ProductDetailsPage({ params }) {
-  const id = params?.id;
+export default async function ProductDetailsPage({ params }) {
+  const { id } = await params;
   return <Wrapper>{id ? <ProductDetailsArea id={id} /> : <></>}</Wrapper>;
 }
