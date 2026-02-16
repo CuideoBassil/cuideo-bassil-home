@@ -46,13 +46,13 @@ const Header = () => {
           <div className="tp-header-main tp-header-sticky">
             <div className="container">
               <div className="row align-items-center">
-                <div className="col-xl-2 col-lg-2 col-md-3 col-6">
+                <div className="col-xl-3 col-lg-3 col-md-3 col-6">
                   <div className="logo">
                     <Link href="/">
                       <Image
                         style={{
                           objectFit: "contain",
-                          maxWidth: "180px",
+                          maxWidth: "240px",
                           height: "auto",
                         }}
                         src={logo}
@@ -63,7 +63,7 @@ const Header = () => {
                     </Link>
                   </div>
                 </div>
-                <div className="col-xl-6 col-lg-6 d-none d-lg-block">
+                <div className="col-xl-5 col-lg-5 d-none d-lg-block">
                   <div className="tp-header-search pl-70">
                     <HeaderSearchForm />
                   </div>
@@ -161,7 +161,7 @@ const Header = () => {
                     <Image
                       style={{
                         objectFit: "contain",
-                        maxWidth: "150px",
+                        maxWidth: "200px",
                         height: "auto",
                       }}
                       src={logo}
