@@ -26,19 +26,19 @@ const Footer = ({
         }`}
         data-bg-color={`${style_2 ? "footer-bg-white" : "footer-bg-grey"}`}
       >
-        <div className="tp-footer-top pt-25 ">
+        <div className="tp-footer-top pt-50 pb-20">
           <div className="container">
             <div className="row">
-              <div className="col-xl-4 col-lg-3 col-md-4 col-sm-6">
-                <div className="tp-footer-widget footer-col-1 mb-20">
+              <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <div className="tp-footer-widget footer-col-1 mb-30">
                   <div className="tp-footer-widget-content">
-                    <div className="tp-footer-logo">
+                    <div className="tp-footer-logo" style={{ marginBottom: "16px" }}>
                       <Link href="/">
                         <Image
                           style={{
                             objectFit: "contain",
-                            width: "100%",
-                            height: "100%",
+                            maxWidth: "180px",
+                            height: "auto",
                           }}
                           src={logo}
                           alt="logo"
@@ -47,7 +47,7 @@ const Footer = ({
                         />
                       </Link>
                     </div>
-                    <p className="tp-footer-desc">
+                    <p className="tp-footer-desc" style={{ fontSize: "14px", lineHeight: "1.7", marginBottom: "20px" }}>
                       A home where international brands took hold, delighted by
                       the best quality service in the area.
                     </p>
@@ -61,63 +61,30 @@ const Footer = ({
                   </div>
                 </div>
               </div>
-              <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                {/* <div className="tp-footer-widget footer-col-2 mb-50">
-                  <h4 className="tp-footer-widget-title">My Account</h4>
+              <div className="col-xl-2 col-lg-2 col-md-6 col-sm-6">
+                <div className="tp-footer-widget footer-col-2 mb-30">
+                  <h4 className="tp-footer-widget-title">Quick Links</h4>
                   <div className="tp-footer-widget-content">
                     <ul>
                       <li>
-                        <a href="#">Track Orders</a>
+                        <Link href="/shop">Shop</Link>
                       </li>
                       <li>
-                        <a href="#">Shipping</a>
+                        <Link href="/about-us">About Us</Link>
                       </li>
                       <li>
-                        <a href="#">Wishlist</a>
+                        <Link href="/contact">Contact Us</Link>
                       </li>
                       <li>
-                        <a href="#">My Account</a>
-                      </li>
-                      <li>
-                        <a href="#">Order History</a>
-                      </li>
-                      <li>
-                        <a href="#">Returns</a>
+                        <Link href="/cart">Shopping Cart</Link>
                       </li>
                     </ul>
                   </div>
-                </div> */}
+                </div>
               </div>
-              <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                {/* <div className="tp-footer-widget footer-col-3 mb-50">
-                  <h4 className="tp-footer-widget-title">Information</h4>
-                  <div className="tp-footer-widget-content">
-                    <ul>
-                      <li>
-                        <a href="#">Our Story</a>
-                      </li>
-                      <li>
-                        <a href="#">Careers</a>
-                      </li>
-                      <li>
-                        <a href="#">Privacy Policy</a>
-                      </li>
-                      <li>
-                        <a href="#">Terms & Conditions</a>
-                      </li>
-                      <li>
-                        <a href="#">Latest News</a>
-                      </li>
-                      <li>
-                        <a href="#">Contact Us</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div> */}
-              </div>
-              <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                <div className="tp-footer-widget footer-col-4 mb-20">
-                  <h4 className="tp-footer-widget-title">Talk To Us</h4>
+              <div className="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                <div className="tp-footer-widget footer-col-3 mb-30">
+                  <h4 className="tp-footer-widget-title">Contact Info</h4>
                   <div className="tp-footer-widget-content">
                     <div className="tp-footer-talk mb-20">
                       <span>Got Questions? Call us</span>
@@ -126,20 +93,6 @@ const Footer = ({
                       </h4>
                     </div>
                     <div className="tp-footer-contact">
-                      {/* <div className="tp-footer-contact-item d-flex align-items-start">
-                        <div className="tp-footer-contact-icon">
-                          <span>
-                            <Email />
-                          </span>
-                        </div>
-                        <div className="tp-footer-contact-content">
-                          <p>
-                            <a href="mailto:shofy@support.com">
-                              shofy@support.com
-                            </a>
-                          </p>
-                        </div>
-                      </div> */}
                       <div className="tp-footer-contact-item d-flex align-items-start">
                         <div className="tp-footer-contact-icon">
                           <span>
@@ -161,31 +114,47 @@ const Footer = ({
                   </div>
                 </div>
               </div>
+              <div className="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                <div className="tp-footer-widget footer-col-4 mb-30">
+                  <h4 className="tp-footer-widget-title">Visit Our Store</h4>
+                  <div className="tp-footer-widget-content">
+                    <p style={{ fontSize: "14px", lineHeight: "1.7", marginBottom: "16px" }}>
+                      Come visit us at our physical store for a hands-on
+                      experience with our products.
+                    </p>
+                    <Link
+                      href="/contact"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        color: "var(--tp-theme-primary)",
+                        fontWeight: 600,
+                        fontSize: "14px",
+                        textDecoration: "none",
+                        transition: "all 0.2s",
+                      }}
+                    >
+                      Get Directions
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div className="tp-footer-bottom">
           <div className="container">
-            <div
-              className="tp-footer-bottom-wrapper"
-              style={{ paddingBottom: "10px" }}
-            >
+            <div className="tp-footer-bottom-wrapper" style={{ paddingTop: "16px", paddingBottom: "16px" }}>
               <div className="row align-items-center">
-                {/* <div className="col-md-12"> */}
                 <div className="tp-footer-copyright">
-                  <p style={{ width: "100%", textAlign: "center" }}>
-                    © {new Date().getFullYear()} All Rights Reserved | Cuideo
-                    Bassil Home.
+                  <p style={{ width: "100%", textAlign: "center", fontSize: "13px" }}>
+                    &copy; {new Date().getFullYear()} Cuideo Bassil Home. All Rights Reserved.
                   </p>
                 </div>
-                {/* </div> */}
-                {/* <div className="col-md-6">
-                  <div className="tp-footer-payment text-md-end">
-                    <p>
-                      <Image src={pay} alt="pay" />
-                    </p>
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 // internal
 import MobileCategory from "@/layout/headers/header-com/mobile-category";
+import social_data from "@/data/social-data";
 import { CloseTwo } from "@/svg";
 import logo from "@assets/img/logo/logo.png";
 import HeaderSearchForm from "../forms/header-search-form";
@@ -14,19 +15,6 @@ const OffCanvas = ({
   categoryType = "all",
 }) => {
   const [isCategoryActive, setIsCategoryActive] = useState(false);
-  const [isCurrencyActive, setIsCurrencyActive] = useState(false);
-  const [isLanguageActive, setIsLanguageActive] = useState(false);
-
-  // handle language active
-  const handleLanguageActive = () => {
-    setIsLanguageActive(!isLanguageActive);
-    setIsCurrencyActive(false);
-  };
-  // handle Currency active
-  const handleCurrencyActive = () => {
-    setIsCurrencyActive(!isCurrencyActive);
-    setIsLanguageActive(false);
-  };
 
   return (
     <>
@@ -35,7 +23,7 @@ const OffCanvas = ({
           isOffCanvasOpen ? "offcanvas-opened" : ""
         }`}
       >
-        <div className="offcanvas__wrapper">
+        <div className="offcanvas__wrapper" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
           <div className="offcanvas__close">
             <button
               onClick={() => setIsCanvasOpen(false)}
@@ -44,10 +32,10 @@ const OffCanvas = ({
               <CloseTwo />
             </button>
           </div>
-          <div className="offcanvas__content">
-            <div className="offcanvas__top mb-70 d-flex justify-content-between align-items-center">
+          <div className="offcanvas__content" style={{ flex: 1 }}>
+            <div className="offcanvas__top mb-40 d-flex justify-content-between align-items-center">
               <div className="offcanvas__logo logo">
-                <Link href="/">
+                <Link href="/" onClick={() => setIsCanvasOpen(false)}>
                   <Image
                     src={logo}
                     alt="logo"
@@ -55,20 +43,19 @@ const OffCanvas = ({
                     height={100}
                     style={{
                       objectFit: "contain",
-                      maxWidth: "100%",
+                      maxWidth: "160px",
                       height: "auto",
                     }}
                   />
                 </Link>
               </div>
             </div>
-            <div className="mb-3 ">
+            <div className="mb-20">
               <HeaderSearchForm setIsCanvasOpen={setIsCanvasOpen} />
             </div>
-            <div className="offcanvas__category pb-40">
+            <div className="offcanvas__category pb-20">
               <button
                 onClick={() => setIsCategoryActive(!isCategoryActive)}
-                style={{ backgroundColor: "#0500ff" }}
                 className="tp-offcanvas-category-toggle"
               >
                 <i className="fa-solid fa-bars"></i>
@@ -89,85 +76,57 @@ const OffCanvas = ({
                 </nav>
               </div>
             </div>
-            <div className="tp-main-menu-mobile fix d-lg-none mb-40">
+            <div className="tp-main-menu-mobile fix d-lg-none mb-30">
               <MobileMenus setIsCanvasOpen={setIsCanvasOpen} />
             </div>
-
-            {/* <div className="offcanvas__contact align-items-center d-none">
-              <div className="offcanvas__contact-icon mr-20">
-                <span>
-                  <Image src={contact_img} alt="contact_img" />
-                </span>
-              </div>
-              <div className="offcanvas__contact-content">
-                <h3 className="offcanvas__contact-title">
-                  <a href="tel:098-852-987">004524865</a>
-                </h3>
-              </div>
-            </div> */}
-            {/* <div className="offcanvas__btn">
-              <Link href="/contact" className="tp-btn-2 tp-btn-border-2">
-                Contact Us
-              </Link>
-            </div> */}
           </div>
-          {/* <div className="offcanvas__bottom">
-            <div className="offcanvas__footer d-flex align-items-center justify-content-between">
-              <div className="offcanvas__currency-wrapper currency">
-                <span
-                  onClick={handleCurrencyActive}
-                  className="offcanvas__currency-selected-currency tp-currency-toggle"
-                  id="tp-offcanvas-currency-toggle"
+          <div className="offcanvas__bottom-contact" style={{ padding: "20px 24px", borderTop: "1px solid #ECEEF0" }}>
+            <a
+              href="tel:96181342284"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                color: "#1A1D21",
+                fontWeight: 600,
+                fontSize: "15px",
+                textDecoration: "none",
+                marginBottom: "16px",
+              }}
+            >
+              <i className="fa-solid fa-phone" style={{ color: "var(--tp-theme-primary)" }}></i>
+              81-342284
+            </a>
+            <div style={{ display: "flex", gap: "12px" }}>
+              {social_data.map((s) => (
+                <a
+                  href={s.link}
+                  key={s.id}
+                  target="_blank"
+                  style={{
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "8px",
+                    background: "#F5F6F8",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#4A4F56",
+                    fontSize: "14px",
+                    transition: "all 0.2s",
+                  }}
                 >
-                  Currency : USD
-                </span>
-                <ul
-                  className={`offcanvas__currency-list tp-currency-list ${
-                    isCurrencyActive ? "tp-currency-list-open" : ""
-                  }`}
-                >
-                  <li>USD</li>
-                  <li>ERU</li>
-                  <li>BDT </li>
-                  <li>INR</li>
-                </ul>
-              </div>
-              <div className="offcanvas__select language">
-                <div className="offcanvas__lang d-flex align-items-center justify-content-md-end">
-                  <div className="offcanvas__lang-img mr-15">
-                    <Image src={language_img} alt="language-flag" />
-                  </div>
-                  <div className="offcanvas__lang-wrapper">
-                    <span
-                      onClick={handleLanguageActive}
-                      className="offcanvas__lang-selected-lang tp-lang-toggle"
-                      id="tp-offcanvas-lang-toggle"
-                    >
-                      English
-                    </span>
-                    <ul
-                      className={`offcanvas__lang-list tp-lang-list ${
-                        isLanguageActive ? "tp-lang-list-open" : ""
-                      }`}
-                    >
-                      <li>Spanish</li>
-                      <li>Portugese</li>
-                      <li>American</li>
-                      <li>Canada</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+                  <i className={s.icon}></i>
+                </a>
+              ))}
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
-      {/* body overlay start */}
       <div
         onClick={() => setIsCanvasOpen(false)}
         className={`body-overlay ${isOffCanvasOpen ? "opened" : ""}`}
       ></div>
-      {/* body overlay end */}
     </>
   );
 };

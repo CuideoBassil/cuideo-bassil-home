@@ -2,12 +2,41 @@ import Link from "next/link";
 
 const ContactBreadcrumb = () => {
   return (
-    <section className="breadcrumb__area include-bg text-center pt-25 pb-20">
+    <section
+      className="breadcrumb__area include-bg text-center"
+      style={{
+        paddingTop: "40px",
+        paddingBottom: "40px",
+        background: "linear-gradient(135deg, #F8F9FA 0%, #EEF0F3 100%)",
+      }}
+    >
       <div className="container">
         <div className="row">
           <div className="col-xxl-12">
             <div className="breadcrumb__content p-relative z-index-1">
-              <h3 className="breadcrumb__title">Keep In Touch with Us</h3>
+              <h3
+                className="breadcrumb__title"
+                style={{
+                  fontSize: "32px",
+                  fontWeight: 700,
+                  letterSpacing: "-0.02em",
+                  marginBottom: "8px",
+                }}
+              >
+                Contact Us
+              </h3>
+              <p
+                style={{
+                  fontSize: "15px",
+                  color: "#6B7280",
+                  marginBottom: "12px",
+                  maxWidth: "480px",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}
+              >
+                Have a question or need help? We&apos;d love to hear from you.
+              </p>
               <div className="breadcrumb__list">
                 <span>
                   <Link href="/">Home</Link>

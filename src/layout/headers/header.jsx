@@ -46,13 +46,13 @@ const Header = () => {
           <div className="tp-header-main tp-header-sticky">
             <div className="container">
               <div className="row align-items-center">
-                <div className="col-xl-3 col-lg-3 col-md-3 col-6">
+                <div className="col-xl-2 col-lg-2 col-md-3 col-6">
                   <div className="logo">
                     <Link href="/">
                       <Image
                         style={{
                           objectFit: "contain",
-                          maxWidth: "100%",
+                          maxWidth: "180px",
                           height: "auto",
                         }}
                         src={logo}
@@ -63,27 +63,30 @@ const Header = () => {
                     </Link>
                   </div>
                 </div>
-                <div className="col-xl-5 col-lg-5 d-none d-lg-block">
+                <div className="col-xl-6 col-lg-6 d-none d-lg-block">
                   <div className="tp-header-search pl-70">
                     <HeaderSearchForm />
                   </div>
                 </div>
 
                 <div
-                  className="col-xl-3 col-lg-3 col-md-6 col-6"
+                  className="col-xl-4 col-lg-4 col-md-6 col-6"
                   style={{
                     display: "flex",
                     justifyContent: "flex-end",
                     alignItems: "center",
+                    gap: "8px",
                   }}
                 >
                   <a
                     href="tel:96181342284"
+                    className="tp-header-contact-link"
                     style={{
                       display: "flex",
-                      justifyContent: "flex-end",
                       alignItems: "center",
+                      gap: "8px",
                       cursor: "pointer",
+                      textDecoration: "none",
                     }}
                   >
                     <div className="tp-header-contact-icon">
@@ -95,7 +98,9 @@ const Header = () => {
                       className="tp-header-contact-content"
                       style={{
                         display: isMobile ? "none" : "flex",
-                        color: "black",
+                        color: "#1A1D21",
+                        fontWeight: 600,
+                        fontSize: "14px",
                       }}
                     >
                       <div>81-342284</div>
@@ -115,7 +120,6 @@ const Header = () => {
                     <div className="tp-header-category tp-category-menu tp-header-category-toggle">
                       <button
                         onClick={() => setIsCategoryActive(!isCategoryActive)}
-                        style={{ backgroundColor: "#0500ff" }}
                         className="tp-category-menu-btn tp-category-menu-toggle"
                       >
                         <span>
@@ -127,8 +131,7 @@ const Header = () => {
                         <HeaderCategory
                           isCategoryActive={isCategoryActive}
                           setIsCategoryActive={setIsCategoryActive}
-                        />{" "}
-                        {/* Pass setIsCategoryActive */}
+                        />
                       </nav>
                     </div>
                   </div>
@@ -152,13 +155,13 @@ const Header = () => {
         <div className="container">
           <div className="tp-mega-menu-wrapper p-relative">
             <div className="row align-items-center">
-              <div className="col-xl-3 col-lg-3 col-md-3 col-6">
+              <div className="col-xl-2 col-lg-2 col-md-3 col-6">
                 <div className="logo">
                   <Link href="/">
                     <Image
                       style={{
                         objectFit: "contain",
-                        maxWidth: "100%",
+                        maxWidth: "150px",
                         height: "auto",
                       }}
                       src={logo}
@@ -169,7 +172,7 @@ const Header = () => {
                   </Link>
                 </div>
               </div>
-              <div className="col-xl-6 col-lg-6 col-md-6 d-none d-md-block">
+              <div className="col-xl-7 col-lg-7 col-md-6 d-none d-md-block">
                 <div className="tp-header-sticky-menu main-menu menu-style-1 d-none d-lg-block">
                   <nav id="mobile-menu">
                     <Menus />
@@ -177,32 +180,30 @@ const Header = () => {
                 </div>
               </div>
               <div className="col-xl-3 col-lg-3 col-md-3 col-6">
-                <div className="tp-header-action d-flex align-items-center justify-content-end ml-50">
+                <div className="tp-header-action d-flex align-items-center justify-content-end" style={{ gap: "8px" }}>
                   <a
                     href="tel:96181342284"
-                    // style={{ marginRight: "30px" }}
-                    className="tp-header-contact d-flex align-items-center justify-content-end"
+                    className="tp-header-contact-link d-flex align-items-center"
+                    style={{ gap: "6px", textDecoration: "none" }}
                   >
                     <div className="tp-header-contact-icon">
                       <span>
                         <Phone />
                       </span>
                     </div>
-
                     <div
                       style={{
                         display: isMobile ? "none" : "flex",
-                        color: "black",
+                        color: "#1A1D21",
+                        fontWeight: 600,
+                        fontSize: "14px",
                       }}
                       className="tp-header-contact-content"
                     >
                       <div>81-342284</div>
                     </div>
                   </a>
-                  <div
-                    className="tp-header-action-item "
-                    style={{ marginLeft: "10px" }}
-                  >
+                  <div className="tp-header-action-item">
                     <button
                       onClick={() => dispatch(openCartMini())}
                       type="button"
