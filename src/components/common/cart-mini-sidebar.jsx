@@ -60,6 +60,7 @@ const CartMiniSidebar = () => {
                             width={70}
                             height={60}
                             alt="product img"
+                            unoptimized
                           />
                         )}
                       </Link>

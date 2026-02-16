@@ -33,7 +33,7 @@ const WishlistItem = ({ product }) => {
     <tr>
       <td className="tp-cart-img">
         <Link href={`/product-details/${_id}`}>
-          {img && (
+          {image && (
             <Image src={image} alt="product img" width={70} height={100} />
           )}
         </Link>

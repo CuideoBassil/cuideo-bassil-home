@@ -79,7 +79,7 @@ const CheckoutArea = () => {
 
                           {/*  subtotal */}
                           <li className="tp-order-info-list-subtotal">
-                            <span>Subtotall</span>
+                            <span>Subtotal</span>
                             <span>${total.toFixed(2)}</span>
                           </li>
                           {/*  shipping */}
