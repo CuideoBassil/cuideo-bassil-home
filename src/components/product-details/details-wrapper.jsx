@@ -60,6 +60,12 @@ const DetailsWrapper = ({
     dispatch(add_to_compare(prd));
   };
 
+  const isDiscountValid = discount > 0;
+  const discountPercent =
+    isDiscountValid && price > 0
+      ? Math.round(((price - discount) / price) * 100)
+      : 0;
+
   return (
     <div className="tp-product-details-wrapper">
       <div className="tp-product-details-category">
@@ -69,9 +75,6 @@ const DetailsWrapper = ({
 
       {/* inventory details */}
       <div className="tp-product-details-inventory d-flex align-items-center mb-10">
-        {/* <div className="tp-product-details-stock mb-10">
-          <span>{status}</span>
-        </div> */}
         <div className="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
           <div className="tp-product-details-rating">
             <Rating
@@ -87,34 +90,67 @@ const DetailsWrapper = ({
             </span>
           </div>
         </div>
-      </div>
-      {/* <p>
-        {textMore
-          ? description
-          : description
-          ? `${description.slice(0, 100)}${
-              description.length > 100 ? "..." : ""
-            }`
-          : "No description available"}
-        {description?.length > 100 && (
+        {status === "out-of-stock" && (
           <span
-            style={{ cursor: "pointer" }}
-            onClick={() => setTextMore(!textMore)}
+            style={{
+              marginLeft: 12,
+              display: "inline-block",
+              fontSize: 12,
+              fontWeight: 700,
+              padding: "4px 12px",
+              borderRadius: 6,
+              background: "#FEF2F2",
+              color: "#DC2626",
+              marginBottom: 10,
+            }}
           >
-            {textMore ? " See less" : " See more"}
+            Out of Stock
           </span>
         )}
-      </p> */}
+        {status !== "out-of-stock" && (
+          <span
+            style={{
+              marginLeft: 12,
+              display: "inline-block",
+              fontSize: 12,
+              fontWeight: 700,
+              padding: "4px 12px",
+              borderRadius: 6,
+              background: "#F0FDF4",
+              color: "#16A34A",
+              marginBottom: 10,
+            }}
+          >
+            In Stock
+          </span>
+        )}
+      </div>
 
       {/* price */}
       <div className="tp-product-details-price-wrapper mb-20">
-        {discount > 0 ? (
+        {isDiscountValid ? (
           <>
             <span className="tp-product-details-price old-price">${price}</span>
             <span className="tp-product-details-price new-price">
               {" "}
               ${Number(discount).toFixed(2)}
             </span>
+            {discountPercent > 0 && (
+              <span
+                style={{
+                  display: "inline-block",
+                  marginLeft: 12,
+                  fontSize: 13,
+                  fontWeight: 700,
+                  padding: "4px 10px",
+                  borderRadius: 6,
+                  background: "#FFF1F2",
+                  color: "#FF4757",
+                }}
+              >
+                Save {discountPercent}%
+              </span>
+            )}
           </>
         ) : (
           <span className="tp-product-details-price new-price">
@@ -124,33 +160,27 @@ const DetailsWrapper = ({
       </div>
 
       {/* variations */}
-      {/* {imageURLs.some((item) => item?.color && item?.color?.name) && ( */}
-      <div className="tp-product-details-variation">
-        <div className="tp-product-details-variation-item">
-          <h4 className="tp-product-details-variation-title">
-            Color : {color?.name}
-          </h4>
-          <div className="tp-product-details-variation-list">
-            {additionalImages?.map((item, i) => (
-              <button
-                onClick={() => handleImageActive(item)}
-                key={i}
-                type="button"
-                className={`color tp-color-variation-btn ${
-                  item === activeImg ? "active" : ""
-                }`}
-              ></button>
-            ))}
+      {additionalImages && additionalImages.length > 0 && (
+        <div className="tp-product-details-variation">
+          <div className="tp-product-details-variation-item">
+            <h4 className="tp-product-details-variation-title">
+              Color : {color?.name}
+            </h4>
+            <div className="tp-product-details-variation-list">
+              {additionalImages.map((item, i) => (
+                <button
+                  onClick={() => handleImageActive(item)}
+                  key={i}
+                  type="button"
+                  className={`color tp-color-variation-btn ${
+                    item === activeImg ? "active" : ""
+                  }`}
+                ></button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      {/* )} */}
-
-      {/* if ProductDetailsCountdown true start */}
-      {/* {offerDate?.endDate && (
-        <ProductDetailsCountdown offerExpiryTime={offerDate?.endDate} />
-      )} */}
-      {/* if ProductDetailsCountdown true end */}
+      )}
 
       {/* actions */}
       <div className="tp-product-details-action-wrapper">
@@ -167,38 +197,7 @@ const DetailsWrapper = ({
             </button>
           </div>
         </div>
-        {/* <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
-          <button className="tp-product-details-buy-now-btn w-100">
-            Buy Now
-          </button>
-        </Link> */}
       </div>
-      {/* product-details-action-sm start */}
-      <div className="tp-product-details-action-sm">
-        {/* <button
-          disabled={status === "out-of-stock"}
-          onClick={() => handleCompareProduct(productItem.data)}
-          type="button"
-          className="tp-product-details-action-sm-btn"
-        >
-          <CompareTwo />
-          Compare
-        </button> */}
-        {/* <button
-          disabled={status === "out-of-stock"}
-          onClick={() => handleWishlistProduct(productItem.data)}
-          type="button"
-          className="tp-product-details-action-sm-btn"
-        >
-          <WishlistTwo />
-          Add Wishlist
-        </button> */}
-        {/* <button type="button" className="tp-product-details-action-sm-btn">
-          <AskQuestion />
-          Ask a question
-        </button> */}
-      </div>
-      {/* product-details-action-sm end */}
 
       {detailsBottom && (
         <DetailsBottomInfo category={category?.name} sku={sku} tags={tags} />

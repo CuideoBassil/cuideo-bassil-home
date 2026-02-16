@@ -13,12 +13,10 @@ const BannerArea = () => {
   function BannerItem({ id, bg, title, description, img, discounted, price }) {
     return (
       <div
-        className="tp-banner-item h-full flex flex-col justify-between p-relative mb-25 z-index-1 fix"
+        className="tp-banner-item p-relative z-index-1 fix"
         style={{
           height: "100%",
-          alignItems: "center",
           backgroundColor: bg,
-          borderRadius: "10px",
           cursor: "pointer",
         }}
         onClick={() => {
@@ -26,25 +24,34 @@ const BannerArea = () => {
         }}
       >
         <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
-          <div className="text-center text-md-start">
+          <div className="text-center text-md-start" style={{ flex: 1 }}>
             <h3
-              className="tp-slider-title"
-              style={{ fontSize: "28px", color: "black" }}
+              style={{
+                fontSize: "24px",
+                fontWeight: 700,
+                color: "#000000",
+                marginBottom: "8px",
+                letterSpacing: "-0.01em",
+              }}
             >
               {title}
             </h3>
 
             <div
-              style={{ fontSize: "22px", color: "black" }}
+              style={{
+                fontSize: "15px",
+                color: "#000000",
+                lineHeight: "1.5",
+                marginBottom: "12px",
+              }}
               dangerouslySetInnerHTML={{ __html: description }}
             />
             <div className="tp-product-banner-price mb-3">
               {price && (
                 <span
-                  className="old-price"
                   style={{
-                    color: "black",
-                    fontSize: "22px",
+                    color: "#000000",
+                    fontSize: "16px",
                     textDecoration: discounted ? "line-through" : "none",
                   }}
                 >
@@ -53,25 +60,32 @@ const BannerArea = () => {
               )}
               {discounted && (
                 <span
-                  className="new-price ms-2"
-                  style={{ color: "red", fontWeight: "bold" }}
+                  className="ms-2"
+                  style={{
+                    color: "#FF4757",
+                    fontWeight: 700,
+                    fontSize: "22px",
+                  }}
                 >
                   ${discounted}
                 </span>
               )}
             </div>
           </div>
-          <div className="text-center">
+          <div
+            className="text-center"
+            style={{ flex: "0 0 auto", maxWidth: "240px" }}
+          >
             {img && (
               <Image
                 width={480}
                 height={480}
                 src={img}
-                alt="slider-img"
+                alt="banner-img"
                 className="img-fluid"
                 style={{
-                  width: "300px",
-                  height: "100%",
+                  width: "100%",
+                  height: "auto",
                   objectFit: "contain",
                 }}
               />

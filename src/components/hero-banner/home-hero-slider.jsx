@@ -88,7 +88,11 @@ const HomeHeroSlider = () => {
                     <div className="col-xl-7 col-lg-6 col-md-6">
                       <div className="tp-slider-content p-relative z-index-1">
                         <h2
-                          style={{ cursor: "pointer", fontSize: "4.5rem" }}
+                          style={{
+                            cursor: "pointer",
+                            fontSize: "3.5rem",
+                            marginBottom: "16px",
+                          }}
                           onClick={() => {
                             router.push(
                               item.productId
@@ -103,19 +107,17 @@ const HomeHeroSlider = () => {
 
                         <div
                           style={{
-                            fontSize: "2.5rem",
-                            marginBottom: "24px",
-                            lineHeight: "1.2",
-                            color: "white",
+                            fontSize: "1.25rem",
+                            marginBottom: "20px",
+                            lineHeight: "1.5",
+                            color: "rgba(255,255,255,0.85)",
                           }}
                           dangerouslySetInnerHTML={{ __html: item.description }}
                         />
                         <div className="tp-product-banner-price">
                           {item.price && (
                             <p
-                              style={{
-                                fontSize: "1.5rem",
-                              }}
+                              style={{ fontSize: "1.25rem" }}
                               className="old-price"
                             >
                               ${item.price}
@@ -123,13 +125,37 @@ const HomeHeroSlider = () => {
                           )}
                           {item.discounted && (
                             <p
-                              style={{ fontSize: "4.5rem" }}
+                              style={{ fontSize: "3rem", fontWeight: 800 }}
                               className="new-price"
                             >
                               ${item.discounted}
                             </p>
                           )}
                         </div>
+                        <button
+                          onClick={() => {
+                            router.push(
+                              item.productId
+                                ? `/product-details/${item.productId}`
+                                : "/shop"
+                            );
+                          }}
+                          style={{
+                            marginTop: "20px",
+                            padding: "14px 36px",
+                            background: "#fff",
+                            color: "#1A1D21",
+                            border: "none",
+                            borderRadius: "10px",
+                            fontSize: "15px",
+                            fontWeight: 700,
+                            cursor: "pointer",
+                            transition: "all 0.3s",
+                            boxShadow: "0 4px 14px rgba(0,0,0,0.15)",
+                          }}
+                        >
+                          Shop Now
+                        </button>
                       </div>
                     </div>
                     <div className="col-xl-5 col-lg-6 col-md-6">
@@ -139,7 +165,8 @@ const HomeHeroSlider = () => {
                             cursor: "pointer",
                             objectFit: "contain",
                             width: "100%",
-                            height: "100%",
+                            height: "auto",
+                            maxHeight: "450px",
                           }}
                           onClick={() => {
                             router.push(

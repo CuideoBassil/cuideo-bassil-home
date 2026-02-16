@@ -69,12 +69,20 @@ const ProductBanner = () => {
                           className="tp-product-banner-content p-relative z-index-1"
                           style={{ display: "flex", flexDirection: "column" }}
                         >
-                          <span className="tp-product-banner-title">
+                          <span
+                            className="tp-product-banner-title"
+                            style={{ letterSpacing: "-0.01em" }}
+                          >
                             {item.title}
                           </span>
 
                           <div
                             className="tp-product-banner-subtitle"
+                            style={{
+                              fontSize: "15px",
+                              lineHeight: "1.5",
+                              opacity: 0.85,
+                            }}
                             dangerouslySetInnerHTML={{
                               __html: item.description,
                             }}

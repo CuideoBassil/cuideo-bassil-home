@@ -26,29 +26,27 @@ const ProductItem = ({ product, prdCenter = false, primary_style = false }) => {
 
   return (
     <div
-      style={{
-        borderRadius: "10px",
-      }}
       className={`tp-product-item-3 mb-50 ${
         primary_style ? "tp-product-style-primary" : ""
       } ${prdCenter ? "text-center" : ""}`}
+      style={{
+        borderRadius: "12px",
+        overflow: "hidden",
+        background: "#fff",
+        border: "1px solid #ECEEF0",
+        transition: "all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      }}
     >
-      <div className="tp-product-thumb-3 mb-15 fix p-relative z-index-1">
+      <div className="tp-product-thumb-3 mb-0 fix p-relative z-index-1">
         <Link href={`/product-details/${_id}`}>
           <Image
             src={image}
-            alt="product image"
+            alt={title || "product image"}
             width={282}
             height={320}
-            style={{ height: "300px" }}
+            style={{ height: "260px", objectFit: "contain", width: "100%" }}
           />
         </Link>
-
-        {/* <div className="tp-product-badge">
-          {status === "out-of-stock" && (
-            <span className="product-hot">out-stock</span>
-          )}
-        </div> */}
 
         {/* product action */}
         <div className="tp-product-action-3 tp-product-action-blackStyle">
@@ -83,18 +81,6 @@ const ProductItem = ({ product, prdCenter = false, primary_style = false }) => {
               <QuickView />
               <span className="tp-product-tooltip">Quick View</span>
             </button>
-
-            {/* <button
-              disabled={status === "out-of-stock"}
-              onClick={() => handleWishlistProduct(product)}
-              className={`tp-product-action-btn-3 
-            ${
-              isAddedToWishlist ? "active" : ""
-            } tp-product-add-to-wishlist-btn`}
-            >
-              <Wishlist />
-              <span className="tp-product-tooltip">Add To Wishlist</span>
-            </button> */}
           </div>
         </div>
 
@@ -104,7 +90,7 @@ const ProductItem = ({ product, prdCenter = false, primary_style = false }) => {
               href="/cart"
               className="tp-product-add-cart-btn-large text-center"
             >
-              View To Cart
+              View Cart
             </Link>
           ) : (
             <button
@@ -118,15 +104,42 @@ const ProductItem = ({ product, prdCenter = false, primary_style = false }) => {
           )}
         </div>
       </div>
-      <div className="tp-product-content-3" style={{ padding: "10px" }}>
+      <div
+        className="tp-product-content-3"
+        style={{ padding: "16px 20px 20px" }}
+      >
         <div className="tp-product-tag-3">
-          <span>{tags[1]}</span>
+          <span
+            style={{
+              fontSize: "11px",
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              color: "#8B9099",
+              fontWeight: 600,
+            }}
+          >
+            {tags?.[1]}
+          </span>
         </div>
-        <h3 className="tp-product-title-3">
+        <h3
+          className="tp-product-title-3"
+          style={{
+            fontSize: "14px",
+            fontWeight: 600,
+            lineHeight: "1.5",
+            marginBottom: "8px",
+          }}
+        >
           <Link href={`/product-details/${_id}`}>{title}</Link>
         </h3>
 
-        <div className="tp-product-price-wrapper-2">
+        <div
+          className="tp-product-price-wrapper-2"
+          style={{
+            paddingTop: "10px",
+            borderTop: "1px solid #F0F1F3",
+          }}
+        >
           {discount > 0 ? (
             <>
               <span className="tp-product-price-2 old-price">${price} </span>

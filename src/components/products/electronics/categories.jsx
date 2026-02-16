@@ -77,45 +77,60 @@ const CategoriesList = () => {
     );
   }
   return (
-    <>
-      <section className="tp-product-arrival-area pb-55">
-        <div className="container">
-          <div className="row align-items-end">
-            <div className="col-xl-5 col-sm-6">
-              <div className="tp-section-title-wrapper ">
-                <h3 className="tp-section-title">
-                  Categories
-                  {/* <ShapeLine /> */}
-                </h3>
-              </div>
-            </div>
-            <div className="col-xl-7 col-sm-6">
-              <div className="tp-product-arrival-more-wrapper d-flex justify-content-end">
-                <div className="tp-product-arrival-arrow tp-swiper-arrow  text-end tp-product-arrival-border">
-                  <button
-                    type="button"
-                    className="tp-arrival-slider-button-prev"
-                  >
-                    <PrevArr />
-                  </button>{" "}
-                  <button
-                    type="button"
-                    className="tp-arrival-slider-button-next"
-                  >
-                    <NextArr />
-                  </button>
-                </div>
-              </div>
+    <section className="tp-product-arrival-area pb-55">
+      <div className="container">
+        <div className="row align-items-end mb-30">
+          <div className="col-xl-5 col-sm-6">
+            <div className="tp-section-title-wrapper">
+              <h3 className="tp-section-title">Shop by Category</h3>
             </div>
           </div>
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="tp-product-arrival-slider fix">{content}</div>
+          <div className="col-xl-7 col-sm-6">
+            <div className="d-flex justify-content-end align-items-center gap-2">
+              <button
+                type="button"
+                className="tp-arrival-slider-button-prev"
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 10,
+                  border: "2px solid #E0E3E8",
+                  background: "#fff",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <PrevArr />
+              </button>
+              <button
+                type="button"
+                className="tp-arrival-slider-button-next"
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 10,
+                  border: "2px solid #E0E3E8",
+                  background: "#fff",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <NextArr />
+              </button>
             </div>
           </div>
         </div>
-      </section>
-    </>
+        <div className="row">
+          <div className="col-xl-12">
+            <div className="tp-product-arrival-slider fix">{content}</div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

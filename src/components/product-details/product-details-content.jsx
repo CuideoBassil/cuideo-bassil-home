@@ -21,11 +21,13 @@ const ProductDetailsContent = ({ productItem }) => {
   };
   return (
     <section className="tp-product-details-area">
-      <div className="tp-product-details-top pb-115">
+      <div
+        className="tp-product-details-top pb-115"
+        style={{ paddingTop: "40px", background: "#fff" }}
+      >
         <div className="container">
           <div className="row">
             <div className="col-xl-7 col-lg-6">
-              {/* product-details-thumb-wrapper start */}
               <DetailsThumbWrapper
                 activeImg={activeImg}
                 handleImageActive={handleImageActive}
@@ -35,24 +37,21 @@ const ProductDetailsContent = ({ productItem }) => {
                 videoId={videoId}
                 status={status}
               />
-              {/* product-details-thumb-wrapper end */}
             </div>
             <div className="col-xl-5 col-lg-6">
-              {/* product-details-wrapper start */}
               <DetailsWrapper
                 productItem={productItem}
                 handleImageActive={handleImageActive}
                 activeImg={activeImg}
                 detailsBottom={true}
               />
-              {/* product-details-wrapper end */}
             </div>
           </div>
         </div>
       </div>
 
       {/* product details description */}
-      <div className="tp-product-details-bottom pb-140">
+      <div className="tp-product-details-bottom pb-140" style={{ paddingTop: "40px" }}>
         <div className="container">
           <div className="row">
             <div className="col-xl-12">
@@ -61,15 +60,13 @@ const ProductDetailsContent = ({ productItem }) => {
           </div>
         </div>
       </div>
-      {/* product details description */}
 
-      {/* related products start */}
+      {/* related products */}
       <section className="tp-related-product pt-95 pb-50">
         <div className="container">
           <div className="row">
             <div className="tp-section-title-wrapper-6 text-center mb-40">
-              {/* <span className="tp-section-title-pre-6">Next day Products</span> */}
-              <h3 className="tp-section-title-6">Related Products</h3>
+              <h3 className="tp-section-title-6">You May Also Like</h3>
             </div>
           </div>
           <div className="row">
@@ -77,7 +74,6 @@ const ProductDetailsContent = ({ productItem }) => {
           </div>
         </div>
       </section>
-      {/* related products end */}
     </section>
   );
 };

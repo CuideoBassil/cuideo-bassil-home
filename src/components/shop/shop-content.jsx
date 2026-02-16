@@ -82,7 +82,7 @@ const ShopContent = ({
                 </div>
               </div>
 
-              {products.length > 0 && (
+              {products.length > 0 ? (
                 <div className="tp-shop-items-wrapper tp-shop-item-primary">
                   <div className="tab-content" id="productTabContent">
                     <div
@@ -93,7 +93,6 @@ const ShopContent = ({
                       tabIndex="0"
                     >
                       <div className="row">
-                        {products.length === 0 && <h2>No products found</h2>}
                         {products.map((item, i) => (
                           <div
                             key={i}
@@ -105,6 +104,30 @@ const ShopContent = ({
                       </div>
                     </div>
                   </div>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "60px 20px",
+                    background: "#fff",
+                    borderRadius: "14px",
+                    border: "1px solid #ECEEF0",
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: 600,
+                      color: "#1A1D21",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    No products found
+                  </h3>
+                  <p style={{ color: "#6B7280", fontSize: "15px" }}>
+                    Try adjusting your filters or search terms
+                  </p>
                 </div>
               )}
               {products.length > 0 && (
